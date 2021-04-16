@@ -6,7 +6,7 @@ from User.models import MerchantUser, CustomerUser
 
 class Categories(models.Model):
     title=models.CharField(max_length=255)
-    slug=models.SlugField()
+    slug=models.SlugField(blank=True)
     thumbnail = models.ImageField(upload_to="images/products/categories/")
     description=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
