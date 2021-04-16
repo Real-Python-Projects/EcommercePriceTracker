@@ -18,7 +18,7 @@ class Categories(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.title)
-        return super().save(*args, **kwargs)
+        return super(Categories, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -59,6 +59,7 @@ class Shop(models.Model):
 
 class Products(models.Model):
     slug=models.SlugField(blank=True)
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     subcategories_id=models.ForeignKey(SubCategories,on_delete=models.CASCADE)
     product_name=models.CharField(max_length=255)
     brand=models.CharField(max_length=255)
@@ -70,6 +71,9 @@ class Products(models.Model):
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_active = models.BooleanField(default=True)
+    
+    def get_merchant_products(self):
+        return Products.objects.filter(added_by_merchant=MerchantUser)
     
     def save(self, *args, **kwargs):
         if not self.slug:

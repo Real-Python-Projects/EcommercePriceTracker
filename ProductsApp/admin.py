@@ -15,3 +15,4 @@ class CategoryAdmin(admin.ModelAdmin):
     inlines = [SubCategoryInline]
     
 admin.site.register(Categories, CategoryAdmin)
+admin.site.register(Products)
