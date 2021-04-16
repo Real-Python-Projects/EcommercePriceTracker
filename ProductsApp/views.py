@@ -7,7 +7,14 @@ from User.models import AdminUser, MerchantUser
 
 
 def IndexView(request, *args, **kwargs):
-    return render(request, 'index.html', {})
+    featured_products = Products.objects.filter(is_active=True)
+    new_arrivals = Products.objects.filter(is_active=True).order_by('-created_at')
+    
+    content = {
+        "featured":featured_products,
+        "new_arrivals":new_arrivals
+    }
+    return render(request, 'index.html', content)
 
 
 def Shop(request, *args, **kwargs):

@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 
@@ -9,20 +10,20 @@
     <meta name="description" content="meta description">
 
     <!-- Site title -->
-    <title>Galio - Mega Shop Responsive Bootstrap 4 Template</title>
+    <title>Price Tracker {% block title %}{% endblock title %}</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="assets/img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.ico' %}" type="image/x-icon" />
     <!-- Bootstrap CSS -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font-Awesome CSS -->
-    <link href="assets/css/font-awesome.min.css" rel="stylesheet">
+    <link href="{% static 'assets/css/font-awesome.min.css' %}" rel="stylesheet">
     <!-- helper class css -->
-    <link href="assets/css/helper.min.css" rel="stylesheet">
+    <link href="{% static 'assets/css/helper.min.css' %}" rel="stylesheet">
     <!-- Plugins CSS -->
-    <link href="assets/css/plugins.css" rel="stylesheet">
+    <link href="{% static 'assets/css/plugins.css' %}" rel="stylesheet">
     <!-- Main Style CSS -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/skin-default.css" rel="stylesheet" id="galio-skin">
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/css/skin-default.css' %}" rel="stylesheet" id="galio-skin">
 </head>
 
 <body>
@@ -57,24 +58,24 @@
             <div class="switcher-panel-item bg">
                 <h3>Background Pattern</h3>
                 <ul class="nav flex-wrap bgbody-style bg-pattern">
-                    <li><img src="assets/img/bg-panel/bg-pettern/1.png" alt="Pettern"></li>
-                    <li><img src="assets/img/bg-panel/bg-pettern/2.png" alt="Pettern"></li>
-                    <li><img src="assets/img/bg-panel/bg-pettern/3.png" alt="Pettern"></li>
-                    <li><img src="assets/img/bg-panel/bg-pettern/4.png" alt="Pettern"></li>
-                    <li><img src="assets/img/bg-panel/bg-pettern/5.png" alt="Pettern"></li>
-                    <li><img src="assets/img/bg-panel/bg-pettern/6.png" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/1.png' %}" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/2.png' %}" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/3.png' %}" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/4.png' %}" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/5.png' %}" alt="Pettern"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-pettern/6.png' %}" alt="Pettern"></li>
                 </ul>
             </div>
 
             <div class="switcher-panel-item bg">
                 <h3>Background Image</h3>
                 <ul class="nav flex-wrap bgbody-style bg-img">
-                    <li><img src="assets/img/bg-panel/bg-img/01.jpg" alt="Images"></li>
-                    <li><img src="assets/img/bg-panel/bg-img/02.jpg" alt="Images"></li>
-                    <li><img src="assets/img/bg-panel/bg-img/03.jpg" alt="Images"></li>
-                    <li><img src="assets/img/bg-panel/bg-img/04.jpg" alt="Images"></li>
-                    <li><img src="assets/img/bg-panel/bg-img/05.jpg" alt="Images"></li>
-                    <li><img src="assets/img/bg-panel/bg-img/06.jpg" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/01.jpg' %}" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/02.jpg' %}" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/03.jpg' %}" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/04.jpg' %}" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/05.jpg' %}" alt="Images"></li>
+                    <li><img src="{% static 'assets/img/bg-panel/bg-img/06.jpg' %}" alt="Images"></li>
                 </ul>
             </div>
         </div>
@@ -144,7 +145,7 @@
                         <div class="col-lg-3">
                             <div class="brand-logo">
                                 <a href="index.html">
-                                    <img src="assets/img/logo/logo.png" alt="brand logo">
+                                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="brand logo">
                                 </a>
                             </div>
                         </div> <!-- end logo area -->
@@ -196,7 +197,7 @@
                                         <ul class="cart-list">
                                             <li>
                                                 <div class="cart-img">
-                                                    <a href="product-details.html"><img src="assets/img/cart/cart-1.jpg" alt=""></a>
+                                                    <a href="product-details.html"><img src="{% static 'assets/img/cart/cart-1.jpg' %}" alt=""></a>
                                                 </div>
                                                 <div class="cart-info">
                                                     <h4><a href="product-details.html">simple product 09</a></h4>
@@ -208,7 +209,7 @@
                                             </li>
                                             <li>
                                                 <div class="cart-img">
-                                                    <a href="product-details.html"><img src="assets/img/cart/cart-2.jpg" alt=""></a>
+                                                    <a href="product-details.html"><img src="{% static 'assets/img/cart/cart-2.jpg' %}" alt=""></a>
                                                 </div>
                                                 <div class="cart-info">
                                                     <h4><a href="product-details.html">virtual product 10</a></h4>
@@ -455,152 +456,21 @@
         </header>
         <!-- header area end -->
 
-        <!-- breadcrumb area start -->
-        <div class="breadcrumb-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="breadcrumb-wrap">
-                            <nav aria-label="breadcrumb">
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">login-register</li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- breadcrumb area end -->
 
-        <!-- login register wrapper start -->
-        <div class="login-register-wrapper">
-            <div class="container">
-                <div class="member-area-from-wrap">
-                    <div class="row">
-                        <!-- Login Content Start -->
-                        <div class="col-lg-6">
-                            <div class="login-reg-form-wrap  pr-lg-50">
-                                <h2>Sign In</h2>
-                                <form action="#" method="post">
-                                    <div class="single-input-item">
-                                        <input type="email" placeholder="Email or Username" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input type="password" placeholder="Enter your Password" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                                    <label class="custom-control-label" for="rememberMe">Remember Me</label>
-                                                </div>
-                                            </div>
-                                            <a href="#" class="forget-pwd">Forget Password?</a>
-                                        </div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <button class="sqr-btn">Login</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Login Content End -->
 
-                        <!-- Register Content Start -->
-                        <div class="col-lg-6">
-                            <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
-                                <h2>Singup Form</h2>
-                                <form action="#" method="post">
-                                    <div class="single-input-item">
-                                        <input type="text" placeholder="Full Name" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input type="email" placeholder="Enter your Email" required />
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input type="password" placeholder="Enter your Password" required />
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <div class="single-input-item">
-                                                <input type="password" placeholder="Repeat your Password" required />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <div class="login-reg-form-meta">
-                                            <div class="remember-meta">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="subnewsletter">
-                                                    <label class="custom-control-label" for="subnewsletter">Subscribe Our Newsletter</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="single-input-item">
-                                        <button class="sqr-btn">Register</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Register Content End -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- login register wrapper end -->
+        
+        {% block body %}
+            
+        {% endblock body %}
+            
 
-        <!-- brand area start -->
-        <div class="brand-area pt-34 pb-30">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="section-title mb-30">
-                            <div class="title-icon">
-                                <i class="fa fa-crop"></i>
-                            </div>
-                            <h3>Popular Brand</h3>
-                        </div> <!-- section title end -->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
-                        <div class="brand-active slick-padding slick-arrow-style">
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br1.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br2.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br3.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br4.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br5.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br6.png" alt=""></a>
-                            </div>
-                            <div class="brand-item text-center">
-                                <a href="#"><img src="assets/img/brand/br4.png" alt=""></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- brand area end -->
 
-        <!-- footer area start -->
-        <footer>
+
+
+
+
+         <!-- footer area start -->
+         <footer>
             <!-- footer top start -->
             <div class="footer-top bg-black pt-14 pb-14">
                 <div class="container">
@@ -721,7 +591,7 @@
                             <p><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></p>
                         </div>
                         <div class="payment-method-img">
-                            <img src="assets/img/payment.png" alt="">
+                            <img src="{% static 'assets/img/payment.png' %}" alt="">
                         </div>
                     </div>
                 </div>
@@ -741,21 +611,21 @@
 
 
     <!--All jQuery, Third Party Plugins & Activation (main.js) Files-->
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
+    <script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <!-- Jquery Min Js -->
-    <script src="assets/js/vendor/jquery-3.3.1.min.js"></script>
+    <script src="{% static 'assets/js/vendor/jquery-3.3.1.min.js' %}"></script>
     <!-- Popper Min Js -->
-    <script src="assets/js/vendor/popper.min.js"></script>
+    <script src="{% static 'assets/js/vendor/popper.min.js' %}"></script>
     <!-- Bootstrap Min Js -->
-    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.min.js' %}"></script>
     <!-- Plugins Js-->
-    <script src="assets/js/plugins.js"></script>
+    <script src="{% static 'assets/js/plugins.js' %}"></script>
     <!-- Ajax Mail Js -->
-    <script src="assets/js/ajax-mail.js"></script>
+    <script src="{% static 'assets/js/ajax-mail.js' %}"></script>
     <!-- Active Js -->
-    <script src="assets/js/main.js"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
     <!-- Switcher JS [Please Remove this when Choose your Final Projct] -->
-    <script src="assets/js/switcher.js"></script>
+    <script src="{% static 'assets/js/switcher.js' %}"></script>
 </body>
 
 

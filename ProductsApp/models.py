@@ -2,6 +2,9 @@ from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
 from User.models import MerchantUser, CustomerUser
+from PIL import Image
+from imagekit.models import ImageSpecField
+from imagekit.processors import ResizeToFill
 # Create your models here.
 
 class Categories(models.Model):
@@ -62,6 +65,11 @@ class Products(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.CASCADE)
     subcategories_id=models.ForeignKey(SubCategories,on_delete=models.CASCADE)
     product_name=models.CharField(max_length=255)
+    image = models.ImageField(upload_to="images/products/main")
+    image_thumbnail = ImageSpecField(source='image',
+                                   processors = [ResizeToFill(300,300)],
+                                   format='JPEG',
+                                   options = {'quality':100})
     brand=models.CharField(max_length=255)
     product_max_price=models.CharField(max_length=255)
     product_discount_price=models.CharField(max_length=255)
@@ -85,6 +93,9 @@ class Products(models.Model):
     
     def get_absolute_url(self):
         return reverse("products:product-detail", kwargs={"slug": self.slug})
+    
+    def __str__(self):
+        return self.product_name
     
  
 class ProductDetails(models.CharField):
