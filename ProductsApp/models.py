@@ -210,3 +210,14 @@ class PopularBrand(models.Model):
     
     def __str__(self):
         return self.name
+    
+class ContactMessage(models.Model):
+    name= models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=14)
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+    
+    def __str__(self):
+        return self.name
+    
