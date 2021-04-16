@@ -11,8 +11,11 @@ def IndexView(request, *args, **kwargs):
 
 
 def Shop(request, *args, **kwargs):
-    shop_items = Item.objects.filter(date_added__lte=timezone.now()).order_by('-date_added')
+    shop = MerchantUser.objects.all()
+    
+    shop_products = Products.objects.filter(added_by_merchant=shop)
+    
     context = {
-        'shop_items':shop_items,
+        'shop_items':shop_products,
     }
     return render(request, 'shop.html', context)
