@@ -15,7 +15,7 @@ class Categories(models.Model):
     def get_absolute_url(self):
         return reverse("products:category-list-page")
 
-    def save(*args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.title)
         return super().save(*args, **kwargs)
@@ -30,12 +30,12 @@ class SubCategories(models.Model):
     thumbnail = models.ImageField(upload_to="images/products/subcategories")
     description=models.TextField()
     created_at=models.DateTimeField(auto_now_add=True)
-    is_active = models.IntegerField(default=1)
+    is_active = models.BooleanField(default=True)
     
     def get_absolute_url(self):
         return reverse("products:sub-category-list-page")
 
-    def save(*args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.title)
         return super().save(*args, **kwargs)
@@ -43,6 +43,19 @@ class SubCategories(models.Model):
     def __str__(self):
         return self.title
 
+class Shop(models.Model):
+    shop_name = models.CharField(max_length=255)
+    slug = models.SlugField(blank=True)
+    is_active = models.BooleanField(default=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.shop_name)
+        return super().save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("products:shop-detail", kwargs={"slug": self.slug})
+    
 
 class Products(models.Model):
     slug=models.SlugField(blank=True)
@@ -56,13 +69,29 @@ class Products(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
-    is_active=models.IntegerField(default=1)
+    is_active = models.BooleanField(default=True)
     
-    def save(*args, **kwargs):
+    def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.product_name)
         return super().save(*args, **kwargs)
     
+    def get_product_prices(self):
+        return ShopPrice.objects.filter(product_id=self)
+    
+    def get_absolute_url(self):
+        return reverse("products:product-detail", kwargs={"slug": self.slug})
+    
+ 
+class ProductDetails(models.CharField):
+    product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
+    title=models.CharField(max_length=255)
+    title_details=models.CharField(max_length=255)
+    created_at=models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True) 
+    
+    def __str__(self):
+        return self.product_id.product_name
     
 class ProductMedia(models.Model):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
@@ -70,8 +99,13 @@ class ProductMedia(models.Model):
     media_type=models.CharField(max_length=255)
     media_content=models.FileField(upload_to="product_media")
     created_at=models.DateTimeField(auto_now_add=True)
-    is_active=models.IntegerField(default=1) 
-    
+    is_active = models.BooleanField(default=True)
+
+class ShopPrice(models.Model):
+    product_id = models.ForeignKey(Products, on_delete=models.CASCADE)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    product_max_price=models.CharField(max_length=255)
+    product_discount_price=models.CharField(max_length=255)
     
 class ProductTransaction(models.Model):
     transaction_type_choices=((1,"BUY"),(2,"SELL"))
@@ -80,14 +114,6 @@ class ProductTransaction(models.Model):
     transaction_type=models.CharField(choices=transaction_type_choices,max_length=255)
     transaction_description=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True) 
-    
-class ProductDetails(models.CharField):
-    product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
-    title=models.CharField(max_length=255)
-    title_details=models.CharField(max_length=255)
-    created_at=models.DateTimeField(auto_now_add=True)
-    is_active=models.IntegerField(default=1)
-    
     
 class ProductAbout(models.CharField):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)

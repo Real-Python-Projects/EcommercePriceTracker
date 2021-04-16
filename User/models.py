@@ -23,6 +23,8 @@ class AdminUser(models.Model):
     auth_user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.auth_user_id.username
     
 class StaffUser(models.Model):
     profile_pic=models.ImageField(upload_to="images/profile/staff")
@@ -33,6 +35,9 @@ class StaffUser(models.Model):
                                            )
     auth_user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.auth_user_id.username
     
 class MerchantUser(models.Model):
     profile_pic=models.ImageField(upload_to="images/profile/merchant")
@@ -46,6 +51,9 @@ class MerchantUser(models.Model):
     address = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     
+    def __str__(self):
+        return self.auth_user_id.username
+    
 class CustomerUser(models.Model):
     profile_pic=models.ImageField(upload_to="images/profile/customer")
     profile_pic_thumbnail = ImageSpecField(source='profile_pic',
@@ -55,4 +63,7 @@ class CustomerUser(models.Model):
                                            )
     auth_user_id = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.auth_user_id.username
     
