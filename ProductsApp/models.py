@@ -190,3 +190,23 @@ class OrderDeliveryStatus(models.Model):
     status_message=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
+    
+class PopularBrand(models.Model):
+    name = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to='images/products/brands')
+    avatar_thumbnail = ImageSpecField(source='avatar',
+                                   processors = [ResizeToFill(160,65)],
+                                   format='JPEG',
+                                   options = {'quality':100})
+    slug = models.SlugField(blank=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(PopularBrand, self).save(*args, **kwargs)
+    
+    def get_absolute_url(self):
+        return reverse("products:brand_detail", kwargs={"slug": self.slug})
+    
+    def __str__(self):
+        return self.name
