@@ -124,10 +124,10 @@
                                             <a href="#">my wishlist</a>
                                         </li>
                                         <li>
-                                            <a href="#">my cart</a>
+                                            <a href="{% url 'products:cart' %}">my cart</a>
                                         </li>
                                         <li>
-                                            <a href="#">checkout</a>
+                                            <a href="{% url 'products:checkout' %}">checkout</a>
                                         </li>
                                     </ul>
                                 </nav>
@@ -224,7 +224,7 @@
                                                 <span class="subtotal-price">$88.66</span>
                                             </li>
                                             <li class="checkout-btn">
-                                                <a href="#">checkout</a>
+                                                <a href="{% url 'products:checkout' %}">checkout</a>
                                             </li>
                                         </ul>
                                     </div>
@@ -380,8 +380,8 @@
                                                     </li>
                                                     <li class="mega-title"><a href="#">column 03</a>
                                                         <ul>
-                                                            <li><a href="cart.html">cart</a></li>
-                                                            <li><a href="checkout.html">checkout</a></li>
+                                                            <li><a href="{% url 'products:cart' %}">cart</a></li>
+                                                            <li><a href="{% url 'products:checkout' %}">checkout</a></li>
                                                             <li><a href="compare.html">compare</a></li>
                                                             <li><a href="wishlist.html">wishlist</a></li>
                                                         </ul>
@@ -538,8 +538,8 @@
                                 <div class="widget-body">
                                     <ul>
                                         <li><a href="{% url 'products:my-account' user=request.user %}">my account</a></li>
-                                        <li><a href="#">my cart</a></li>
-                                        <li><a href="#">checkout</a></li>
+                                        <li><a href="{% url 'products:cart' %}">my cart</a></li>
+                                        <li><a href="{% url 'products:checkout' %}">checkout</a></li>
                                         <li><a href="#">my wishlist</a></li>
                                         <li><a href="#">login</a></li>
                                     </ul>

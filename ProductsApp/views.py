@@ -60,6 +60,18 @@ def ContactView(request, *args, **kwargs):
     }
     return render(request, 'contact-us.html', context)
 
+def CheckoutView(request, *args, **kwargs):
+    context = {
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'checkout.html', context)
+
+def CartView(request, *args, **kwargs):
+    context = {
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'cart.html', context)
+
 def AboutUsView(request, *args, **kwargs):
     return render(request, 'about-us.html', {})
 
