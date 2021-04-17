@@ -114,7 +114,7 @@
                                                     <i class="fa fa-angle-down"></i>
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="myaccount">
-                                                    <a class="dropdown-item" href="my-account.html">my account</a>
+                                                    <a class="dropdown-item" href="{% url 'products:my-account' user=request.user %}">my account</a>
                                                     <a class="dropdown-item" href="login-register.html"> login</a>
                                                     <a class="dropdown-item" href="login-register.html">register</a>
                                                 </div>
@@ -537,7 +537,7 @@
                                 </div>
                                 <div class="widget-body">
                                     <ul>
-                                        <li><a href="#">my account</a></li>
+                                        <li><a href="{% url 'products:my-account' user=request.user %}">my account</a></li>
                                         <li><a href="#">my cart</a></li>
                                         <li><a href="#">checkout</a></li>
                                         <li><a href="#">my wishlist</a></li>

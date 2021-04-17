@@ -55,8 +55,18 @@ def ContactView(request, *args, **kwargs):
         form_db.save()               
         return HttpResponseRedirect(reverse('products:contact'))
     
-    content = {
+    context = {
         "popular_brands": PopularBrand.objects.all()
     }
-    return render(request, 'contact-us.html', {})
+    return render(request, 'contact-us.html', context)
+
+def AboutUsView(request, *args, **kwargs):
+    return render(request, 'about-us.html', {})
+
+
+def MyAccountView(request, *args, **kwargs):
+    context = {
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'my-account.html', context)
                     
