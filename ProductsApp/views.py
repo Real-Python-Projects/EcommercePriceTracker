@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
-from .models import *
+from .models import (Products, PopularBrand, ContactMessage)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -38,32 +38,22 @@ def Shop(request, *args, **kwargs):
 def ContactView(request, *args, **kwargs):
     if request.method == 'POST':
         name = request.POST.get('name')
-        phone = request.post.get('phone')
+        phone = request.POST.get('phone')
         email = request.POST.get('email')
         subject = request.POST.get('subject')
         message = request.POST.get('message')
         
-        if name == "":
-            messages.error(request, "name is required")
-            if phone == "":
-                message.error(request, "Phone is required")
-                if email == "":
-                    messages.error(request, "Email is required")
-                    if subject == "":
-                        messages.error(request, "subject is required")
-                        if message == "":
-                            messages.error(request, "message is required")
+        print(name)
                             
-                            send_mail(subject, message, email, ["retechstoreke@gmail.com"], fail_silently=True)
-                            form_db = ContactMessage(name=name,
-                                                     email=email,
-                                                     phone=phone,
-                                                     subject=subject,
-                                                     message=message)
-                            form_db.save()
-                            
-                            
-        return HttpResponseRedirect(reverse('products:contact-page'))
+        send_mail(subject, message, email, ["retechstoreke@gmail.com"], fail_silently=True)
+        messages.success(request, "Message Sent")
+        form_db = ContactMessage(name=name,
+                                    email=email,
+                                    phone=phone,
+                                    subject=subject,
+                                    message=message)
+        form_db.save()               
+        return HttpResponseRedirect(reverse('products:contact'))
     
     content = {
         "popular_brands": PopularBrand.objects.all()

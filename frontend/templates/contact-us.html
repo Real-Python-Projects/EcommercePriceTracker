@@ -35,7 +35,7 @@
                     <div class="col-lg-6">
                         <div class="contact-message">
                             <h2>tell us your project</h2>
-                            <form id="contact-form" action="{% url 'products:contact' %}" method="POST" class="contact-form">
+                            <form id="" action="{% url 'products:contact' %}" method="POST" class="contact-form">{% csrf_token %}
                                 <div class="row">
                                     <div class="col-lg-6 col-md-6 col-sm-6">
                                         <input name="name" placeholder="Name *" type="text" required>    
@@ -57,9 +57,6 @@
                                             <button class="sqr-btn" type="submit">Send Message</button> 
                                         </div> 
                                     </div> 
-                                    <div class="col-12 d-flex justify-content-center">
-                                        <p class="form-messege"></p>
-                                    </div>
                                 </div>
                             </form>    
                         </div> 
