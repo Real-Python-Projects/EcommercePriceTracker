@@ -108,7 +108,7 @@
                         <div class="brand-active slick-padding slick-arrow-style">
                             {% for brand in popular_brands %}
                                 <div class="brand-item text-center">
-                                    <a href="#"><img src="{{ brand.avatar_thumbnail.url }}" alt=""></a>
+                                    <a href="#"><img src="{{ brand.avatar_thumbnail.url }}" alt="{{brand.name}}"></a>
                                 </div>
                              {% endfor %}
                         </div>
