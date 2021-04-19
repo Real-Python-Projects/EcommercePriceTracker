@@ -85,3 +85,4 @@ class PhoneNumber(models.Model):
     phone = models.CharField(max_length=13)
     otp = models.IntegerField()
     is_activated = models.BooleanField(default=False)
+    date_added = models.DateTimeField(auto_now_add=True)

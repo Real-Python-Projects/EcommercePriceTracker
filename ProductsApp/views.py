@@ -24,6 +24,13 @@ def IndexView(request, *args, **kwargs):
     return render(request, 'index.html', content)
 
 
+def ProductDetailView(request, *args, **kwargs):
+    content = {
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'product-details.html',content)
+
+
 def Shop(request, *args, **kwargs):
     shop = MerchantUser.objects.all()
     

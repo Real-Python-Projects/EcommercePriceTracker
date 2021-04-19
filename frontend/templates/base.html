@@ -144,7 +144,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3">
                             <div class="brand-logo">
-                                <a href="index.html">
+                                <a href="{% url 'products:index' %}">
                                     <img src="{% static 'assets/img/logo/logo.png' %}" alt="brand logo">
                                 </a>
                             </div>
@@ -197,10 +197,10 @@
                                         <ul class="cart-list">
                                             <li>
                                                 <div class="cart-img">
-                                                    <a href="product-details.html"><img src="{% static 'assets/img/cart/cart-1.jpg' %}" alt=""></a>
+                                                    <a href="{% url 'products:product-detail' %}"><img src="{% static 'assets/img/cart/cart-1.jpg' %}" alt=""></a>
                                                 </div>
                                                 <div class="cart-info">
-                                                    <h4><a href="product-details.html">simple product 09</a></h4>
+                                                    <h4><a href="{% url 'products:product-detail' %}">simple product 09</a></h4>
                                                     <span>$60.00</span>
                                                 </div>
                                                 <div class="del-icon">
@@ -209,10 +209,10 @@
                                             </li>
                                             <li>
                                                 <div class="cart-img">
-                                                    <a href="product-details.html"><img src="{% static 'assets/img/cart/cart-2.jpg' %}" alt=""></a>
+                                                    <a href="{% url 'products:product-detail' %}"><img src="{% static 'assets/img/cart/cart-2.jpg' %}" alt=""></a>
                                                 </div>
                                                 <div class="cart-info">
-                                                    <h4><a href="product-details.html">virtual product 10</a></h4>
+                                                    <h4><a href="{% url 'products:product-detail' %}">virtual product 10</a></h4>
                                                     <span>$50.00</span>
                                                 </div>
                                                 <div class="del-icon">
@@ -352,7 +352,7 @@
                                         <ul>
                                             <li class="active"><a href="#"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="index.html">Home version 01</a></li>
+                                                    <li><a href="{% url 'products:index' %}">Home version 01</a></li>
                                                     <li><a href="index-2.html">Home version 02</a></li>
                                                     <li><a href="index-3.html">Home version 03</a></li>
                                                     <li><a href="index-4.html">Home version 04</a></li>
@@ -370,7 +370,7 @@
                                                     </li>
                                                     <li class="mega-title"><a href="#">column 02</a>
                                                         <ul>
-                                                            <li><a href="product-details.html">product details</a></li>
+                                                            <li><a href="{% url 'products:product-detail' %}">product details</a></li>
                                                             <li><a href="product-details-affiliate.html">product details
                                                                     affiliate</a></li>
                                                             <li><a href="product-details-variable.html">product details
@@ -417,7 +417,7 @@
                                                     </li>
                                                     <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
                                                         <ul class="dropdown">
-                                                            <li><a href="product-details.html">product details</a></li>
+                                                            <li><a href="{% url 'products:product-detail' %}">product details</a></li>
                                                             <li><a href="product-details-affiliate.html">product details
                                                                 affiliate</a></li>
                                                             <li><a href="product-details-variable.html">product details
