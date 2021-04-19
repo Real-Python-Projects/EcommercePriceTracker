@@ -14,7 +14,7 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.validators import validate_email
 from .forms import ResetEmailForm
 import random
-from .models import Profile, PhoneDb
+from .models import Profile, PhoneNumber
 from django.contrib.auth import get_user_model
 User = get_user_model()
 
@@ -57,7 +57,7 @@ def LogInView(request, *args, **kwargs):
             login(request, user)
             messages.info(request, "You have successfully logged in")
             
-            user_phone = PhoneDb.objects.get(user = request.user)
+            user_phone = PhoneNumber.objects.get(user = request.user)
             
             #phone verification 
             if user_phone.is_verified == False:
@@ -84,7 +84,6 @@ def RegisterView(request):
         username = request.POST.get('username')
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        gender = request.POST.get("gender")
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         password1 = request.POST.get('password1')
@@ -130,13 +129,11 @@ def RegisterView(request):
             
             profile = Profile.objects.get(user=user)
             profile.phone = phone
-            profile.gender = gender
             profile.save()
 
             
-            phone_database = PhoneDb(user=user,
+            phone_database = PhoneNumber(user=user,
                                      phone=phone,
-                                     gender=gender,
                                      otp = random.randint(100000,999999),
                                      is_verified=False)
             phone_database.save()

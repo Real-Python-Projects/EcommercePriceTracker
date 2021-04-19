@@ -5,6 +5,8 @@ from django.urls import reverse
 from PIL import Image
 from imagekit.models import ImageSpecField
 from pilkit.processors import ResizeToFill
+from django.conf import settings
+User = settings.AUTH_USER_MODEL
 # Create your models here.
 
 
@@ -68,3 +70,18 @@ class CustomerUser(models.Model):
     def __str__(self):
         return self.auth_user_id.username
     
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_pic=models.ImageField(upload_to="images/profile/customer")
+    profile_pic_thumbnail = ImageSpecField(source='profile_pic',
+                                           processors=[ResizeToFill(100,100)],
+                                           format='JPEG',
+                                           options={'quality':100}
+                                           )
+    phone = models.CharField(max_length=13)
+    
+class PhoneNumber(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(max_length=13)
+    otp = models.IntegerField()
+    is_activated = models.BooleanField(default=False)
