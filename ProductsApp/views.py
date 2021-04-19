@@ -39,7 +39,7 @@ def Shop(request, *args, **kwargs):
     context = {
         'shop_items':shop_products,
     }
-    return render(request, 'shop.html', context)
+    return render(request, 'shop-grid-full-4-col.html', context)
 
 
 def ContactView(request, *args, **kwargs):
