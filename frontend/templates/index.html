@@ -400,7 +400,7 @@
                                             <a href="#" data-toggle="modal" data-target="#quick_view"> <span
                                                     data-toggle="tooltip" data-placement="left" title="Quick view"><i
                                                         class="fa fa-search"></i></span> </a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
+                                            <a href="{% url 'products:add-to-wishlist' product.slug %}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                     class="fa fa-heart-o"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i
                                                     class="fa fa-refresh"></i></a>

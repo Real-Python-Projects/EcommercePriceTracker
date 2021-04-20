@@ -222,6 +222,8 @@ class CustomerWishList(models.Model):
         verbose_name_plural = "Customer wishlist items"
         ordering = ["-timestamp"]
     
+    def __str__(self):
+        return self.user.username
     
 class PopularBrand(models.Model):
     name = models.CharField(max_length=255)

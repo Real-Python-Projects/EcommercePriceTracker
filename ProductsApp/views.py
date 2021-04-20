@@ -1,11 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
-from .models import (Products, PopularBrand, ContactMessage)
+from .models import (Products, PopularBrand, ContactMessage,
+                     WishListItem, CustomerWishList)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
 
+
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -24,13 +27,28 @@ def IndexView(request, *args, **kwargs):
     }
     return render(request, 'index.html', content)
 
-
-def add_to_wishlist(self, slug, *args, **kwargs):
+@login_required
+def add_to_wishlist(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
+    wishlist_item, created = WishListItem.objects.get_or_create(user=request.user
+                                                                ,product=product)
+    wishlist_qs = CustomerWishList.objects.filter(user=request.user)
+    if wishlist_qs.exists():
+        wishlist = wishlist_qs[0]
+        if wishlist.products.filter(product__slug=product.slug).exists():
+            messages.info(request, "Item is already on the wishlist")
+            return redirect("products:product-detail", slug=slug)
+        else:
+            wishlist.products.add(wishlist_item)
+            messages.info(request, "Item has been added to the wishlist")
+            return redirect("products:product-detail", slug=slug)
+        
+    else:
+        wishlist = CustomerWishList.objects.create(user=request.user)
+        wishlist.products.add(wishlist_item)
+        messages.info(request, "Item added to the cart")
+        return redirect("products:product-detail", slug=slug)
     
-    
-
-
 def ProductDetailView(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
     content = {

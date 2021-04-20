@@ -6,7 +6,7 @@ from .models import (Categories, SubCategories, Shop,models,
                      ProductReviews, ProductReviewVoting, 
                      ProductVarientItems, CustomerOrders,
                      OrderDeliveryStatus, PopularBrand, ContactMessage,
-                     )
+                     CustomerWishList)
 # Register your models here.
 
 class SubCategoryInline(admin.TabularInline):
@@ -17,6 +17,7 @@ class CategoryAdmin(admin.ModelAdmin):
     
 admin.site.register(Categories, CategoryAdmin)
 admin.site.register(Products)
+admin.site.register(CustomerWishList)
 
 admin.site.register(PopularBrand)
 admin.site.register(ContactMessage)
