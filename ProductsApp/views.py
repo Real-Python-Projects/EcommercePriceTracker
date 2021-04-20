@@ -25,7 +25,13 @@ def IndexView(request, *args, **kwargs):
     return render(request, 'index.html', content)
 
 
-def ProductDetailView(request,slug, *args, **kwargs):
+def add_to_wishlist(self, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    
+    
+
+
+def ProductDetailView(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
     content = {
         "product":product,

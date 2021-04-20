@@ -57,6 +57,13 @@ class Blog(models.Model):
     def get_absolute_url(self):
         return reverse("blog:blog-detail", kwargs={"slug": self.slug, 'pk':self.pk})
     
+class BlogMedia(models.Model):
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    post_file = models.FileField()
+    description = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    
 class Comments(models.Model):
     post = models.ForeignKey(Blog, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

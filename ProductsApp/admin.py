@@ -5,7 +5,8 @@ from .models import (Categories, SubCategories, Shop,models,
                      ProductTags, ProductQuestions, 
                      ProductReviews, ProductReviewVoting, 
                      ProductVarientItems, CustomerOrders,
-                     OrderDeliveryStatus, PopularBrand, ContactMessage)
+                     OrderDeliveryStatus, PopularBrand, ContactMessage,
+                     )
 # Register your models here.
 
 class SubCategoryInline(admin.TabularInline):
