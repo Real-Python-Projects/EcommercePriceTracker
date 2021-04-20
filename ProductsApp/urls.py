@@ -7,7 +7,7 @@ app_name="products"
 
 urlpatterns = [
     path("", IndexView, name="index"),
-    path('product-detail/', ProductDetailView, name="product-detail"),
+    path('<slug>/', ProductDetailView, name="product-detail"),
     path('shop/', Shop, name="shop"),
     path("checkout/", CheckoutView, name="checkout"),
     path("cart/", CartView, name="cart"),

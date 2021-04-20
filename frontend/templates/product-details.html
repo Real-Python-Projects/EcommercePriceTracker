@@ -20,7 +20,7 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                                     <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">product details</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ product.product_name }}</li>
                                 </ul>
                             </nav>
                         </div>
@@ -63,7 +63,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="product-details-des mt-md-34 mt-sm-34">
-                                        <h3><a href="product-details.html">external product 12</a></h3>
+                                        <h3><a href="product-details.html">{{ product.product_name }}</a></h3>
                                         <div class="ratings">
                                             <span class="good"><i class="fa fa-star"></i></span>
                                             <span class="good"><i class="fa fa-star"></i></span>

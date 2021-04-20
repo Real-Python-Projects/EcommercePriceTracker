@@ -25,9 +25,11 @@ def IndexView(request, *args, **kwargs):
     return render(request, 'index.html', content)
 
 
-def ProductDetailView(request, *args, **kwargs):
+def ProductDetailView(request,slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
     content = {
-        "popular_brands": PopularBrand.objects.all()
+        "product":product,
+        "brands": PopularBrand.objects.all()
     }
     return render(request, 'product-details.html',content)
 
