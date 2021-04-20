@@ -51,6 +51,7 @@ class SubCategories(models.Model):
 
 class Shop(models.Model):
     shop_name = models.CharField(max_length=255)
+    merchant = models.ForeignKey(MerchantUser, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True)
     is_active = models.BooleanField(default=True)
     
@@ -82,6 +83,10 @@ class Products(models.Model):
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_active = models.BooleanField(default=True)
+    
+    class Meta:
+        verbose_name = "Product"
+        verbose_name_plural = "Products"
     
     def get_merchant_products(self):
         return Products.objects.filter(added_by_merchant=MerchantUser)

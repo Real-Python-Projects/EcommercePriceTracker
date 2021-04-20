@@ -58,7 +58,7 @@ def ProductDetailView(request, slug, *args, **kwargs):
     return render(request, 'product-details.html',content)
 
 
-def Shop(request, *args, **kwargs):
+def ShopList(request, *args, **kwargs):
     shop = MerchantUser.objects.all()
     
     shop_products = Products.objects.filter(added_by_merchant=shop)
