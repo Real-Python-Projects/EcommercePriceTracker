@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import Blog
+from ProductsApp.models import PopularBrand
 from django.shortcuts import render, get_object_or_404
 # Create your views here.
 
@@ -9,6 +10,7 @@ def BlogView(request, *args, **kwargs):
     
     context = {
         'posts':posts,
+        "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'blog/blog.html', context)
 

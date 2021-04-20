@@ -233,21 +233,24 @@
                                     <div class="category-append"></div>
                                 </div> <!-- section title end -->
                                 <div class="category-carousel-active row" data-row="4">
+                                    
+                                    
+                                    {% for product in best_seller %}
                                     <div class="col">
                                         <div class="category-item">
                                             <div class="category-thumb">
                                                 <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img1.jpg' %}" alt="">
+                                                    <img src="{{ product.image_thumbnail.url }}" alt="">
                                                 </a>
                                             </div>
                                             <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
+                                                <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                                 <div class="price-box">
                                                     <div class="regular-price">
-                                                        $150.00
+                                                        Ksh. {{ product.product_discount_price }}
                                                     </div>
                                                     <div class="old-price">
-                                                        <del>$180.00</del>
+                                                        <del>Ksh. {{ product.product_max_price }}</del>
                                                     </div>
                                                 </div>
                                                 <div class="ratings">
@@ -263,216 +266,9 @@
                                             </div>
                                         </div> <!-- end single item -->
                                     </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img2.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img3.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img4.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img5.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img6.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img10.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">simple Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $150.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$180.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
-                                    <div class="col">
-                                        <div class="category-item">
-                                            <div class="category-thumb">
-                                                <a href="{% url 'products:product-detail' %}">
-                                                    <img src="{% static 'assets/img/product/product-img12.jpg' %}" alt="">
-                                                </a>
-                                            </div>
-                                            <div class="category-content">
-                                                <h4><a href="{% url 'products:product-detail' %}">external Product 01</a></h4>
-                                                <div class="price-box">
-                                                    <div class="regular-price">
-                                                        $140.00
-                                                    </div>
-                                                    <div class="old-price">
-                                                        <del>$160.00</del>
-                                                    </div>
-                                                </div>
-                                                <div class="ratings">
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span class="good"><i class="fa fa-star"></i></span>
-                                                    <span><i class="fa fa-star"></i></span>
-                                                    <div class="pro-review">
-                                                        <span>1 review(s)</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> <!-- end single item -->
-                                    </div> <!-- end single item column -->
+                                    {% endfor %}
+                                        
+                                    
                                 </div>
                             </div>
                             <!-- best seller area end -->
@@ -590,8 +386,7 @@
                                 <div class="product-item fix">
                                     <div class="product-thumb">
                                         <a href="{% url 'products:product-detail' %}">
-                                            <img src="{% static 'assets/img/product/product-img1.jpg' %}" class="img-pri" alt="">
-                                            <img src="{% static 'assets/img/product/product-img2.jpg' %}" class="img-sec" alt="">
+                                            <img src="{{ product.image_thumbnail.url }}" class="img-pri" alt="">
                                         </a>
                                         <div class="product-label">
                                             <span>hot</span>
@@ -609,9 +404,9 @@
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h4><a href="{% url 'products:product-detail' %}">affiliate product</a></h4>
+                                        <h4><a href="{% url 'products:product-detail' %}">{{product.product_name}}</a></h4>
                                         <div class="pricebox">
-                                            <span class="regular-price">$90.00</span>
+                                            <span class="regular-price">ksh. {{product.product_discount_price}}</span>
                                             <div class="ratings">
                                                 <span class="good"><i class="fa fa-star"></i></span>
                                                 <span class="good"><i class="fa fa-star"></i></span>
@@ -662,8 +457,7 @@
                                 <div class="product-item fix">
                                     <div class="product-thumb">
                                         <a href="{% url 'products:product-detail' %}">
-                                            <img src="{% static 'assets/img/product/product-img1.jpg' %}" class="img-pri" alt="">
-                                            <img src="{% static 'assets/img/product/product-img2.jpg' %}" class="img-sec" alt="">
+                                            <img src="{{product.image_thumbnail.url}}" class="img-pri" alt="">
                                         </a>
                                         <div class="product-label">
                                             <span>new</span>
@@ -681,9 +475,9 @@
                                         </div>
                                     </div>
                                     <div class="product-content">
-                                        <h4><a href="{% url 'products:product-detail' %}">vertual product 01</a></h4>
+                                        <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                         <div class="pricebox">
-                                            <span class="regular-price">$70.00</span>
+                                            <span class="regular-price">Ksh. {{ product.product_discount_price }}</span>
                                             <div class="ratings">
                                                 <span class="good"><i class="fa fa-star"></i></span>
                                                 <span class="good"><i class="fa fa-star"></i></span>
@@ -747,14 +541,14 @@
                                             <div class="category-item">
                                                 <div class="category-thumb">
                                                     <a href="{% url 'products:product-detail' %}">
-                                                        <img src="{% static 'assets/img/product/product-img1.jpg' %}" alt="">
+                                                        <img src="{{ product.image_thumbnail.url }}" alt="">
                                                     </a>
                                                 </div>
                                                 <div class="category-content">
-                                                    <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
+                                                    <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                                     <div class="price-box">
                                                         <div class="regular-price">
-                                                            $150.00
+                                                            Ksh. {{ product.product_discount_price }}
                                                         </div>
                                                         <div class="old-price">
                                                             <del></del>
@@ -802,17 +596,17 @@
                                                 <div class="category-item">
                                                     <div class="category-thumb">
                                                         <a href="{% url 'products:product-detail' %}">
-                                                            <img src="{% static 'assets/img/product/product-img14.jpg' %}" alt="">
+                                                            <img src="{{ product.image_thumbnail.url }}" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="category-content">
-                                                        <h4><a href="{% url 'products:product-detail' %}">simple Product 06</a></h4>
+                                                        <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                                         <div class="price-box">
                                                             <div class="regular-price">
-                                                                $190.00
+                                                               Ksh . {{product.product_max_price}}
                                                             </div>
                                                             <div class="old-price">
-                                                                <del>$210.00</del>
+                                                                <del>Ksh. {{ product.product_discount_price }}</del>
                                                             </div>
                                                         </div>
                                                         <div class="ratings">
@@ -853,17 +647,17 @@
                                                 <div class="category-item">
                                                     <div class="category-thumb">
                                                         <a href="{% url 'products:product-detail' %}">
-                                                            <img src="{% static 'assets/img/product/product-img6.jpg' %}" alt="">
+                                                            <img src="{{ product.image_thumbnail.url }}" alt="">
                                                         </a>
                                                     </div>
                                                     <div class="category-content">
-                                                        <h4><a href="{% url 'products:product-detail' %}">Virtual Product 01</a></h4>
+                                                        <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                                         <div class="price-box">
                                                             <div class="regular-price">
-                                                                $120.00
+                                                                Ksh . {{product.product_max_price}}
                                                             </div>
                                                             <div class="old-price">
-                                                                <del>$150.00</del>
+                                                                <del>Ksh. {{ product.product_discount_price }}</del>
                                                             </div>
                                                         </div>
                                                         <div class="ratings">
@@ -914,8 +708,8 @@
                         <div class="product-item fix">
                             <div class="product-thumb">
                                 <a href="{% url 'products:product-detail' %}">
-                                    <img src="{% static 'assets/img/product/product-img1.jpg' %}" class="img-pri" alt="">
-                                    <img src="{% static 'assets/img/product/product-img2.jpg' %}" class="img-sec" alt="">
+                                    <img src="{{ product.image_thumbnail.url }}" class="img-pri" alt="">
+                                    
                                 </a>
                                 <div class="product-label">
                                     <span>hot</span>
@@ -930,9 +724,9 @@
                                 </div>
                             </div>
                             <div class="product-content">
-                                <h4><a href="{% url 'products:product-detail' %}">vertual product 01</a></h4>
+                                <h4><a href="{% url 'products:product-detail' %}">{{ product.product_name }}</a></h4>
                                 <div class="pricebox">
-                                    <span class="regular-price">$70.00</span>
+                                    <span class="regular-price">Ksh. {{ product.product_discount_price }}</span>
                                     <div class="ratings">
                                         <span class="good"><i class="fa fa-star"></i></span>
                                         <span class="good"><i class="fa fa-star"></i></span>

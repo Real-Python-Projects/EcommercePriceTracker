@@ -56,3 +56,11 @@ class Blog(models.Model):
     
     def get_absolute_url(self):
         return reverse("blog:blog-detail", kwargs={"slug": self.slug, 'pk':self.pk})
+    
+class Comments(models.Model):
+    post = models.ForeignKey(Blog, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    slug = models.SlugField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    

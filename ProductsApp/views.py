@@ -19,6 +19,7 @@ def IndexView(request, *args, **kwargs):
         "new_arrivals":new_arrivals,
         "most_viewed":Products.objects.filter(is_active=True).order_by('-created_at'),
         "hot_sale":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "best_seller":Products.objects.filter(is_active=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'index.html', content)
