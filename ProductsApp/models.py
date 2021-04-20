@@ -5,6 +5,9 @@ from User.models import MerchantUser, CustomerUser
 from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 # Create your models here.
 
 class Categories(models.Model):
@@ -190,6 +193,35 @@ class OrderDeliveryStatus(models.Model):
     status_message=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     updated_at=models.DateTimeField(auto_now_add=True)
+    
+    
+class WishListItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.product.product_name}"
+    
+    class Meta:
+        verbose_name = "Wishlist item"
+        verbose_name_plural = "wishlist items"
+        ordering = ["-timestamp"]
+        
+    def get_absolute_url(self):
+        return self.product.get_absolute_url()
+    
+    
+class CustomerWishList(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(WishListItem)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "Customer Wishlist item"
+        verbose_name_plural = "Customer wishlist items"
+        ordering = ["-timestamp"]
+    
     
 class PopularBrand(models.Model):
     name = models.CharField(max_length=255)
