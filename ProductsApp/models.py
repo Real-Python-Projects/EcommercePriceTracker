@@ -8,10 +8,14 @@ from imagekit.processors import ResizeToFill
 from django.conf import settings
 
 User = settings.AUTH_USER_MODEL
+
+#implementing categories
+from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
-class Categories(models.Model):
+class Category(MPTTModel):
     title=models.CharField(max_length=255)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug=models.SlugField(blank=True)
     thumbnail = models.ImageField(upload_to="images/products/categories/")
     description=models.TextField()
@@ -20,34 +24,41 @@ class Categories(models.Model):
     
     def get_absolute_url(self):
         return reverse("products:category-list-page")
+    
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
+    
+    class MPTTMeta:
+        order_insertion_by = ['title']
 
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug=slugify(self.title)
-        return super(Categories, self).save(*args, **kwargs)
+        return super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
     
-class SubCategories(models.Model):
-    category_id=models.ForeignKey(Categories,on_delete=models.CASCADE)
-    title=models.CharField(max_length=255)
-    slug=models.SlugField(blank=True)
-    thumbnail = models.ImageField(upload_to="images/products/subcategories")
-    description=models.TextField()
-    created_at=models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True)
+# class SubCategories(models.Model):
+#     category_id=models.ForeignKey(Category,on_delete=models.CASCADE)
+#     title=models.CharField(max_length=255)
+#     slug=models.SlugField(blank=True)
+#     thumbnail = models.ImageField(upload_to="images/products/subcategories")
+#     description=models.TextField()
+#     created_at=models.DateTimeField(auto_now_add=True)
+#     is_active = models.BooleanField(default=True)
     
-    def get_absolute_url(self):
-        return reverse("products:sub-category-list-page")
+#     def get_absolute_url(self):
+#         return reverse("products:sub-category-list-page")
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug=slugify(self.title)
-        return super().save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#         if not self.slug:
+#             self.slug=slugify(self.title)
+#         return super().save(*args, **kwargs)
 
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title
 
 class Shop(models.Model):
     shop_name = models.CharField(max_length=255)
@@ -66,8 +77,8 @@ class Shop(models.Model):
 
 class Products(models.Model):
     slug=models.SlugField(blank=True)
-    category = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    subcategories_id=models.ForeignKey(SubCategories,on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    # subcategories_id=models.ForeignKey(SubCategories,on_delete=models.CASCADE)
     product_name=models.CharField(max_length=255)
     image = models.ImageField(upload_to="images/products/main")
     image_thumbnail = ImageSpecField(source='image',

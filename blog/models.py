@@ -7,10 +7,13 @@ from  django.utils.text import slugify
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
+#implementing categories
+from mptt.models import MPTTModel, TreeForeignKey
 # Create your models here.
 
-class BlogCategory(models.Model):
+class BlogCategory(MPTTModel):
     name = models.CharField(max_length=255)
+    parent = TreeForeignKey('self', on_delete=models.CASCADE, null=True, blank=True, related_name='children')
     slug = models.SlugField(blank=True)
     
     def CategoryItems(self):
@@ -18,6 +21,8 @@ class BlogCategory(models.Model):
     
     def __str__(self):
         return self.name
+    class MPTTMeta:
+        order_insertion_by = ['name']
     class Meta:
         verbose_name = "Blog Category"
         verbose_name_plural = "Blog Categories"
