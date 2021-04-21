@@ -1,6 +1,6 @@
 from django.contrib import admin
 from User.models import (CustomUser, AdminUser, StaffUser,
-                         MerchantUser, CustomerUser, PhoneNumber)
+                         MerchantUser, CustomerUser, PhoneNumber, Profile)
 
 # Register your models here.
 
@@ -10,3 +10,4 @@ admin.site.register(StaffUser)
 admin.site.register(MerchantUser)
 admin.site.register(CustomerUser)
 admin.site.register(PhoneNumber)
+admin.site.register(Profile)
