@@ -92,7 +92,7 @@ class PhoneNumber(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone = models.CharField(max_length=13)
     otp = models.IntegerField()
-    is_activated = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)
     date_added = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

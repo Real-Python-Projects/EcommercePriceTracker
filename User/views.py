@@ -18,7 +18,7 @@ from .models import Profile, PhoneNumber
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
-User = settings.AUTH_USER_MODEL
+User = get_user_model()
 
 """for threading function where a user 
 is told a function is complete while still loading
@@ -131,14 +131,15 @@ def RegisterView(request):
             
             profile = Profile.objects.get(user=user)
             profile.phone = phone
-            profile.save()
-
-            
             phone_database = PhoneNumber(user=user,
                                      phone=phone,
                                      otp = random.randint(100000,999999),
                                      is_verified=False)
             phone_database.save()
+            profile.save()
+
+            
+            
             
             
             uidb64 = urlsafe_base64_encode(force_bytes(user.pk))

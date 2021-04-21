@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+    Register
+{% endblock title %}
+    
 
 {% block body %}
     
@@ -35,22 +39,44 @@
                         <div class="col-lg-6">
                             <div class="login-reg-form-wrap mt-md-34 mt-sm-34">
                                 <h2>Singup Form</h2>
-                                <form action="#" method="post">
-                                    <div class="single-input-item">
-                                        <input type="text" placeholder="Full Name" required />
-                                    </div>
-                                    <div class="single-input-item">
-                                        <input type="email" placeholder="Enter your Email" required />
-                                    </div>
+                                {% include 'partials/messages.html' %}
+                                <form action="{% url 'user:register' %}" method="POST">{% csrf_token %}
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input type="password" placeholder="Enter your Password" required />
+                                                <input name="first_name" type="name" placeholder="Enter First Name" required />
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
                                             <div class="single-input-item">
-                                                <input type="password" placeholder="Repeat your Password" required />
+                                                <input name=last_name type="name" placeholder="Enter Last Name" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="single-input-item">
+                                        <input name='username' type="text" placeholder="Username" required />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input name='email' type="email" placeholder="Enter Email" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input name='phone' type="name" placeholder="Enter Phone" required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input name='password1' type="password" placeholder="Enter your Password" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="single-input-item">
+                                                <input name='password2' type="password" placeholder="Repeat your Password" required />
                                             </div>
                                         </div>
                                     </div>
@@ -58,7 +84,7 @@
                                         <div class="login-reg-form-meta">
                                             <div class="remember-meta">
                                                 <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input" id="subnewsletter">
+                                                    <input name='subscribe' type="checkbox" class="custom-control-input" id="subnewsletter">
                                                     <label class="custom-control-label" for="subnewsletter">Subscribe Our Newsletter</label>
                                                 </div>
                                             </div>
@@ -78,3 +104,5 @@
         <!-- login register wrapper end -->
 
         {% include 'partials/brand.html' %}
+
+{% endblock body %}
