@@ -16,7 +16,9 @@ from .forms import ResetEmailForm
 import random
 from .models import Profile, PhoneNumber
 from django.contrib.auth import get_user_model
-User = get_user_model()
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
 
 """for threading function where a user 
 is told a function is complete while still loading
@@ -43,8 +45,8 @@ class EmailThread(threading.Thread):
         
 def LogInView(request, *args, **kwargs):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
     
         if username == "":
             messages.error(request, "Username required")
@@ -57,17 +59,17 @@ def LogInView(request, *args, **kwargs):
             login(request, user)
             messages.info(request, "You have successfully logged in")
             
-            user_phone = PhoneNumber.objects.get(user = request.user)
+            # user_phone = PhoneNumber.objects.get(user = request.user)
             
-            #phone verification 
-            if user_phone.is_verified == False:
-                phone_no = user_phone.phone
-                sms = sms_provider
-                sender_id = "DjangoAuth"
-                sms_content = f"{user_phone.otp} is your verification code"
-                recipients = [str(user_phone.phone)]
-                response = sms.send(sms_content, recipients)
-                return HttpResponseRedirect(reverse())
+            # #phone verification 
+            # if user_phone.is_verified == False:
+            #     phone_no = user_phone.phone
+            #     sms = sms_provider
+            #     sender_id = "DjangoAuth"
+            #     sms_content = f"{user_phone.otp} is your verification code"
+            #     recipients = [str(user_phone.phone)]
+            #     response = sms.send(sms_content, recipients)
+            #     return HttpResponseRedirect(reverse())
             return redirect('products:index')
         else:
             messages.error(request,"Ivalid Login")

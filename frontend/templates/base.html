@@ -115,8 +115,14 @@
                                                 </a>
                                                 <div class="dropdown-menu" aria-labelledby="myaccount">
                                                     <a class="dropdown-item" href="{% url 'products:my-account' user=request.user %}">my account</a>
-                                                    <a class="dropdown-item" href="login-register.html"> login</a>
-                                                    <a class="dropdown-item" href="login-register.html">register</a>
+                                                    
+                                                    {% if request.user.is_authenticated %}
+                                                        <a class="dropdown-item" href="{% url 'user:logout' %}"> logout</a>
+                                                    {% else %}
+                                                        <a class="dropdown-item" href="{% url 'user:login' %}"> login</a>
+                                                        <a class="dropdown-item" href="{% url 'user:register' %}">register</a>
+                                                    {% endif %}
+                                                                                                           
                                                 </div>
                                             </div>
                                         </li>
@@ -137,7 +143,7 @@
                 </div>
             </div>
             <!-- header top end -->
-
+            {% include 'partials/messages.html' %}
             <!-- header middle start -->
             <div class="header-middle-area pt-20 pb-20">
                 <div class="container">
@@ -389,7 +395,13 @@
                                                     <li class="mega-title"><a href="#">column 04</a>
                                                         <ul>
                                                             <li><a href="my-account.html">my-account</a></li>
-                                                            <li><a href="login-register.html">login-register</a></li>
+                                                            
+                                                            {% if request.user.is_authenticated %}
+                                                            <li><a href="{% url 'user:login' %}">logout</a></li>
+                                                            {% else %}
+                                                            <li><a href="{% url 'user:login' %}">login-register</a></li>
+                                                            {% endif %}
+                                                                
                                                             <li><a href="about-us.html">about us</a></li>
                                                             <li><a href="{% url 'products:contact' %}">contact us</a></li>
                                                         </ul>
@@ -541,7 +553,13 @@
                                         <li><a href="{% url 'products:cart' %}">my cart</a></li>
                                         <li><a href="{% url 'products:checkout' %}">checkout</a></li>
                                         <li><a href="#">my wishlist</a></li>
-                                        <li><a href="#">login</a></li>
+                                        
+                                        {% if request.user.is_authenticated %}
+                                        <li><a href="{% url 'user:logout' %}">logout</a></li>
+                                        {% else %}
+                                        <li><a href="{% url 'user:login' %}">login</a></li>
+                                        {% endif %}
+                                            
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->

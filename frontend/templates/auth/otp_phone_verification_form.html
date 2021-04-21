@@ -3,6 +3,17 @@
 
 
 {% block title %}
+    Verify Phone
+{% endblock title %}
+
+
+
+{% block body %}
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
     | Login
 {% endblock title %}
 
@@ -42,21 +53,7 @@
                                 <input name="username" type="name" placeholder="Username" required />
                             </div>
                             <div class="single-input-item">
-                                <input name=password type="password" placeholder="Enter your Password" required />
-                            </div>
-                            <div class="single-input-item">
-                                <div class="login-reg-form-meta d-flex align-items-center justify-content-between">
-                                    <div class="remember-meta">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="rememberMe">
-                                            <label class="custom-control-label" for="rememberMe">Remember Me</label>
-                                        </div>
-                                    </div>
-                                    <a href="#" class="forget-pwd">Forget Password?</a>
-                                </div>
-                            </div>
-                            <div class="single-input-item">
-                                <button class="sqr-btn">Login</button>
+                                <button class="sqr-btn">Submit</button>
                             </div>
                         </form>
                     </div>
@@ -74,4 +71,7 @@
 <!-- brand area end -->
  
 {% endblock body %}
+    
+{% endblock body %}
+    
     
