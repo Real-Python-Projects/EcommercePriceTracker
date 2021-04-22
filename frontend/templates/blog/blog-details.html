@@ -18,8 +18,8 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">blog details</li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{post.title}}</li>
                                 </ul>
                             </nav>
                         </div>
@@ -65,39 +65,23 @@
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar mb-24">
                                 <h4 class="title mb-30">recent post</h4>
+                                
+                                
+                                {% for blog in recent %}
                                 <div class="recent-post mb-20">
                                     <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'assets/img/product/product-img1.jpg' %}" alt="">
+                                        <a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">
+                                            <img src="{{blog.image_thumbnail.url}}" alt="">
                                         </a>
                                     </div>
                                     <div class="recent-post-des">
-                                        <span><a href="blog-details.html">first blog post</a></span>
-                                        <span class="post-date">28.10.2018</span>
+                                        <span><a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">{{ blog.title }}</a></span>
+                                        <span class="post-date">{{ blog.pub_date|date:"d.M.Y" }}</span>
                                     </div>
                                 </div> <!-- end single popular item -->
-                                <div class="recent-post mb-20">
-                                    <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'assets/img/product/product-img2.jpg' %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="recent-post-des">
-                                        <span><a href="blog-details.html">second blog post</a></span>
-                                        <span class="post-date">28.10.2018</span>
-                                    </div>
-                                </div> <!-- end single popular item -->
-                                <div class="recent-post mb-20">
-                                    <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'assets/img/product/product-img3.jpg' %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="recent-post-des">
-                                        <span><a href="blog-details.html">third blog post</a></span>
-                                        <span class="post-date">28.10.2018</span>
-                                    </div>
-                                </div> <!-- end single popular item -->
+                                {% endfor %}
+                                    
+
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar mb-24">
                                 <h4 class="title mb-30">Tags</h4>
@@ -120,27 +104,32 @@
                                     <div class="blog-item mb-30">
                                         <div class="blog-thumb img-full fix">
                                             <div class="blog-gallery-slider slick-arrow-style_2">
+
+                                                {% if blog_media %}
+                                                
+                                                    
+                                                {% for media in blog_media %}
+                                                    <div class="blog-single-slide">
+                                                        <img src="{{ media.image_thumbnail.url }}" alt="">
+                                                    </div>
+                                                {% endfor %}
+                                            
+                                                {% else %}
                                                 <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog4.jpg' %}" alt="">
+                                                    <img src="post.image_thumbnail.url" alt="">
                                                 </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog2.jpg' %}" alt="">
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog3.jpg' %}" alt="">
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog1.jpg' %}" alt="">
-                                                </div>
+                                                {% endif %}
+                                                
+                                                
                                             </div>
                                         </div>
                                         <div class="blog-content">
                                             <div class="blog-details">
-                                                <h3 class="blog-heading">The biggest collection for virtual product</h3>
+                                                <h3 class="blog-heading">{{ post.title }}</h3>
                                                 <div class="blog-meta">
-                                                    <a class="author" href="#"><i class="icon-people"></i> Admin</a>
+                                                    <a class="author" href="#"><i class="icon-people"></i> {{ post.author }}</a>
                                                     <a class="comment" href="#"><i class="icon-bubbles"></i> 3 comment</a>
-                                                    <a class="post-time" href="#"><i class="icon-calendar"></i> 15 nov 2018</a>
+                                                    <a class="post-time" href="#"><i class="icon-calendar"></i> {{ post.pub_date|date:"d M Y" }}</a>
                                                 </div>
                                                 <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum laborum in labore rerum</p>
                                                 <blockquote><p>Quisque semper nunc vitae erat pellentesque, ac placerat arcu consectetur. In venenatis elit ac ultrices convallis. Duis est nisi, tincidunt ac urna sed, cursus blandit lectus. In ullamcorper sit amet ligula ut eleifend. Proin dictum tempor ligula, ac feugiat metus. Sed finibus tortor eu scelerisque scelerisque. Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex</p></blockquote> 

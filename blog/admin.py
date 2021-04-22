@@ -9,9 +9,11 @@ from mptt.admin import DraggableMPTTAdmin
 
 class BlogMediaInLine(admin.TabularInline):
     model = BlogMedia
+    extra = 1
     
 class BlogCommentInline(admin.TabularInline):
     model = Comments
+    extra = 1
     
 class BlogAdmin(admin.ModelAdmin):
     inlines = [BlogMediaInLine, BlogCommentInline]
