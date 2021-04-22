@@ -62,7 +62,7 @@ class Category(MPTTModel):
 
 class Shop(models.Model):
     shop_name = models.CharField(max_length=255)
-    merchant = models.ForeignKey(MerchantUser, on_delete=models.CASCADE)
+    merchant = models.OneToOneField(MerchantUser, on_delete=models.CASCADE)
     slug = models.SlugField(blank=True)
     is_active = models.BooleanField(default=True)
     
@@ -73,6 +73,10 @@ class Shop(models.Model):
     
     def get_absolute_url(self):
         return reverse("products:shop-detail", kwargs={"slug": self.slug})
+    
+    def __str__(self):
+        return self.shop_name
+    
     
 
 class Products(models.Model):
