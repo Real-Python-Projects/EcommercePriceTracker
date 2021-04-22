@@ -66,39 +66,23 @@
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar mb-20">
                                 <h4 class="title mb-30">recent post</h4>
+
+                                
+                                {% for blog in recent %}
                                 <div class="recent-post mb-20">
                                     <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
+                                        <a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">
                                             <img src="{% static 'assets/img/product/product-img1.jpg' %}" alt="">
                                         </a>
                                     </div>
                                     <div class="recent-post-des">
-                                        <span><a href="blog-details.html">first blog post</a></span>
+                                        <span><a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">first blog post</a></span>
                                         <span class="post-date">28.10.2018</span>
                                     </div>
                                 </div> <!-- end single popular item -->
-                                <div class="recent-post mb-20">
-                                    <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'assets/img/product/product-img2.jpg' %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="recent-post-des">
-                                        <span><a href="blog-details.html">second blog post</a></span>
-                                        <span class="post-date">28.10.2018</span>
-                                    </div>
-                                </div> <!-- end single popular item -->
-                                <div class="recent-post mb-20">
-                                    <div class="recent-post-thumb">
-                                        <a href="blog-details.html">
-                                            <img src="{% static 'assets/img/product/product-img3.jpg' %}" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="recent-post-des">
-                                        <span><a href="blog-details.html">third blog post</a></span>
-                                        <span class="post-date">28.10.2018</span>
-                                    </div>
-                                </div> <!-- end single popular item -->
+                                {% endfor %}
+                                    
+                                
                             </div> <!-- single sidebar end -->
                             <div class="blog-sidebar mb-20">
                                 <h4 class="title mb-30">Tags</h4>
@@ -113,177 +97,38 @@
                             </div> <!-- single sidebar end -->
                         </div>
                     </div>
+
+
                     <div class="col-lg-9 order-1 order-lg-2">
                         <div class="blog-wrapper-inner">
                             <div class="row">
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb img-full fix">
-                                            <a href="blog-details.html">
-                                                <img src="{% static 'assets/img/blog/img_blog1.jpg' %}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format audio</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="{% url 'blog:blog-detail' %}">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb img-full fix">
-                                            <div class="blog-gallery-slider slick-arrow-style_2">
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog4.jpg' %}" alt="">
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog2.jpg' %}" alt="">
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog3.jpg' %}" alt="">
-                                                </div>
-                                                <div class="blog-single-slide">
-                                                    <img src="{% static 'assets/img/blog/img_blog1.jpg' %}" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format video</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb img-full fix">
-                                            <a href="blog-details.html">
-                                                <img src="{% static 'assets/img/blog/img_blog3.jpg' %}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format image</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb embed-responsive embed-responsive-16by9">
-                                            <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/501298839&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true"></iframe>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format audio</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb embed-responsive embed-responsive-16by9">
-                                            <iframe src="https://www.youtube.com/embed/DR2c266yWEA" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format video</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb img-full fix">
-                                            <a href="blog-details.html">
-                                                <img src="{% static 'assets/img/blog/img_blog4.jpg' %}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format audio</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
+
                                 
-                                <!-- start single blog item -->
+                                {% for blog in blogs %}
+                                    <!-- start single blog item -->
                                 <div class="col-lg-6 col-md-6">
                                     <div class="blog-item mb-26">
                                         <div class="blog-thumb img-full fix">
-                                            <a href="blog-details.html">
-                                                <img src="{% static 'assets/img/blog/img_blog1.jpg' %}" alt="">
+                                            <a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">
+                                                <img src="{{ blog.image_thumbnail.url }}" alt="">
                                             </a>
                                         </div>
                                         <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format image</a></h3>
+                                            <h3><a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">{{ blog.title }}</a></h3>
                                             <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
+                                                <span class="posted-author">by: {{blog.author}}</span>
                                                 <span class="post-date">25 Nov, 2018</span>
                                             </div>
                                             <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
                                         </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
+                                        <a href="{% url 'blog:blog-detail' blog.slug blog.pk %}">read more <i class="fa fa-long-arrow-right"></i></a>
                                     </div>
                                 </div>
                                 <!-- end single blog item -->
-                                <!-- start single blog item -->
-                                <div class="col-lg-6 col-md-6">
-                                    <div class="blog-item mb-26">
-                                        <div class="blog-thumb img-full fix">
-                                            <a href="blog-details.html">
-                                                <img src="{% static 'assets/img/blog/img_blog2.jpg' %}" alt="">
-                                            </a>
-                                        </div>
-                                        <div class="blog-content">
-                                            <h3><a href="blog-details.html">post format audio</a></h3>
-                                            <div class="blog-meta">
-                                                <span class="posted-author">by: admin</span>
-                                                <span class="post-date">25 Nov, 2018</span>
-                                            </div>
-                                            <p>Curabitur sed diam enim. Sed varius faucibus lectus, a scelerisque massa posuere ac. Quisque dapibus, est ac...</p>
-                                        </div>
-                                        <a href="blog-details.html">read more <i class="fa fa-long-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                <!-- end single blog item -->
+                                {% endfor %}
+                                    
+                                
+                                
                             </div>
                         </div>
                         <!-- start pagination area -->

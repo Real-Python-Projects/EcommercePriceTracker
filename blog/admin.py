@@ -1,11 +1,22 @@
 from django.contrib import admin
-from .models import BlogCategory, Blog
+from .models import BlogCategory, Blog, Comments, BlogMedia
 from mptt.admin import DraggableMPTTAdmin
 # Register your models here.
 
 
 # admin.site.register(BlogCategory)
-admin.site.register(Blog)
+
+
+class BlogMediaInLine(admin.TabularInline):
+    model = BlogMedia
+    
+class BlogCommentInline(admin.TabularInline):
+    model = Comments
+    
+class BlogAdmin(admin.ModelAdmin):
+    inlines = [BlogMediaInLine, BlogCommentInline]
+    
+admin.site.register(Blog, BlogAdmin)
 
 class CategoryAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "name"

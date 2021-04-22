@@ -6,15 +6,16 @@ from django.shortcuts import render, get_object_or_404
 
 
 def BlogView(request, *args, **kwargs):
-    posts = Blog.objects.filter(is_published=True).order_by('pub_date')
+    blogs = Blog.objects.filter(is_published=True).order_by('pub_date')
     
     context = {
-        'posts':posts,
+        'blogs':blogs,
+        'recent':Blog.objects.filter(is_published=True).order_by("-added_date")[:3],
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'blog/blog.html', context)
 
-def BlogDetailView(request, slug, pk):
+def BlogDetailView(request, slug, pk,*args, **kwargs):
     post = get_object_or_404(Blog, slug=slug, pk=pk)
     context = {
         'post':post,

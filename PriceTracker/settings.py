@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     
     'imagekit',
     'mptt',
+    'tinymce',
 ]
 
 MIDDLEWARE = [
