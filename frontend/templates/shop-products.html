@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    Shops
+    | {{ shop.shop_name }}
 {% endblock title %}
 
 
@@ -162,6 +162,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-lg-5 col-md-6">
                                         <div class="top-bar-right">
                                             <div class="product-short">
@@ -177,6 +178,12 @@
                                                 </select>
                                             </div>
                                         </div>
+                                    </div>
+                                    
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button type="submit"><a href="{% url 'products:add-product' %}">Add Product</a></button>
                                     </div>
                                 </div>
                             </div>

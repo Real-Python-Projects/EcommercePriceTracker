@@ -66,6 +66,9 @@ class Shop(models.Model):
     slug = models.SlugField(blank=True)
     is_active = models.BooleanField(default=True)
     
+    def shop_products(self):
+        return Products.objects.filter(added_by_merchant=self.merchant)
+    
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.shop_name)
@@ -97,7 +100,7 @@ class Products(models.Model):
     created_at=models.DateTimeField(auto_now_add=True)
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
-    is_active = models.BooleanField(default=True)
+    is_approved = models.BooleanField(default=False)
     
     class Meta:
         verbose_name = "Product"

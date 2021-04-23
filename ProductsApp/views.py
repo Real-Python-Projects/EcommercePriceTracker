@@ -4,6 +4,8 @@ from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, CustomerWishList, Shop)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
+from django.utils import  timezone
+from .forms import ProductForm
 from django.contrib import messages
 from django.core.mail import send_mail
 
@@ -57,6 +59,23 @@ def ProductDetailView(request, slug, *args, **kwargs):
     }
     return render(request, 'product-details.html',content)
 
+def ProductCreateView(request):
+    form = ProductForm or None
+    
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        
+        if form.is_valid():
+            created_at = timezone.now()
+            is_approved = False
+            added_by_merchant = request.user
+            form.save()
+            messages.success(request, "Item has been added")
+            HttpResponseRedirect(reverse("products:shop"))  
+    context = {
+        "form":form,
+    }
+    return render(request, 'product-form.html', context)
 
 def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
@@ -74,10 +93,13 @@ def ShopList(request, *args, **kwargs):
     return render(request, 'shop-list.html', context)
 
 
-def ShopProducts(request,slug,added_by_merchant, *args, **kwargs):
-    products = Products.objects.filter(added_by_merchant=added_by_merchant)
+def ShopProducts(request,slug, *args, **kwargs):
+    shop = get_object_or_404(Shop, slug=slug)
+    products = shop.shop_products
     
-    content = {
+    print(products)
+    context = {
+        'shop':shop,
         'products':products,
     }
     return render(request, 'shop-products.html', context)

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+    | Add Product
+{% endblock title %}
+
+
+{% block body %}
+    <!-- breadcrumb area start -->
+ <div class="breadcrumb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb-wrap">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Add Product</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- breadcrumb area end -->
+
+<!-- login register wrapper start -->
+<div class="login-register-wrapper">
+    <div class="container">
+        <div class="member-area-from-wrap">
+            <div class="row">
+                <!-- Login Content Start -->
+                <div class="col-lg-6">
+                    <div class="login-reg-form-wrap  pr-lg-50">
+                        <h2>Add Product</h2>
+                        {% include 'partials/messages.html' %}
+                        <form action="{% url 'products:add-product' %}" method="POST">{% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="single-input-item">
+                                <button class="sqr-btn">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Login Content End -->
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- login register wrapper end -->
+
+<!-- brand area start -->
+{% include 'partials/brand.html' %}
+<!-- brand area end -->
+ 
+{% endblock body %}
+    

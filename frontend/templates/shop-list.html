@@ -55,7 +55,7 @@
                     <div class="title-icon">
                         <i class="fa fa-flash"></i>
                     </div>
-                    <h3>{{ shop.shop_name }}</h3>
+                    <h3><a href="{% url 'products:shop-products' shop.slug %}">{{ shop.shop_name }}</a></h3>
                 </div> <!-- section title end -->
                 <!-- featured category start -->
                 <div class="latest-product-active slick-padding slick-arrow-style">

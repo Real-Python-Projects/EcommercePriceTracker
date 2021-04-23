@@ -51,9 +51,10 @@ class CategoryAdmin(DraggableMPTTAdmin):
     
 admin.site.register(Category, CategoryAdmin)
 
+admin.site.register(Shop)
 admin.site.register(Products)
 admin.site.register(CustomerWishList)
-admin.site.register(Shop)
+
 
 admin.site.register(PopularBrand)
 admin.site.register(ContactMessage)
