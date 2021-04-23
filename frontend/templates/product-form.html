@@ -39,10 +39,8 @@
                         {% include 'partials/messages.html' %}
                         <form action="" enctype="multipart/form-data" method="POST">
                             {% csrf_token %}
-                            {{ form.as_p }}
-                            <div class="single-input-item">
-                                <button  type="submit" class="sqr-btn">Post</button>
-                            </div>
+                            <table>{{ form }}</table>
+                            <button class="btn btn-primary  " type="submit">Post</button>
                         </form>
                     </div>
                 </div>

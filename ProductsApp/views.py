@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
-                     WishListItem, CustomerWishList, Shop)
+                     WishListItem, CustomerWishList, Shop, Category)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import  timezone
@@ -59,19 +59,22 @@ def ProductDetailView(request, slug, *args, **kwargs):
     }
     return render(request, 'product-details.html',content)
 
-def ProductCreateView(request):
-    form = ProductForm or None
+@login_required
+def ProductCreateView(request, *args, **kwargs):
+    form = ProductForm
+    categories = Category.objects.all()
     
     if request.method == 'POST':
-        form = ProductForm(request.POST)
+        form = ProductForm(request.POST, request.FILES)
         
         if form.is_valid():
-            added_by_merchant = request.user
+            added_by_merchant_id = request.user
             form.save()
             messages.success(request, "Item has been added")
             HttpResponseRedirect(reverse("products:shop"))  
     context = {
         "form":form,
+        "categories":categories
     }
     return render(request, 'product-form.html', context)
 
@@ -79,7 +82,7 @@ def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
 
-    
+    print(request.user.merchantuser.user)
     context = {
         'shops':shops,
         "new_arrivals":new_arrivals,
