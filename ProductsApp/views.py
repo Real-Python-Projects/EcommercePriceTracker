@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
-                     WishListItem, CustomerWishList)
+                     WishListItem, CustomerWishList, Shop)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib import messages
@@ -59,14 +59,29 @@ def ProductDetailView(request, slug, *args, **kwargs):
 
 
 def ShopList(request, *args, **kwargs):
-    shop = MerchantUser.objects.all()
-    
-    shop_products = Products.objects.filter(added_by_merchant=shop)
+    shops = Shop.objects.all()
+    new_arrivals = Products.objects.filter(is_active=True).order_by('-created_at')
+
     
     context = {
-        'shop_items':shop_products,
+        'shops':shops,
+        "new_arrivals":new_arrivals,
+        "most_viewed":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "hot_sale":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "best_seller":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'shop-list.html', context)
+
+
+def ShopProducts(request,slug,added_by_merchant, *args, **kwargs):
+    products = Products.objects.filter(added_by_merchant=added_by_merchant)
+    
+    content = {
+        'products':products,
+    }
+    return render(request, 'shop-products.html', context)
+    
 
 
 def ContactView(request, *args, **kwargs):
