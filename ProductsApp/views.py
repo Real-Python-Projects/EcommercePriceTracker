@@ -16,15 +16,15 @@ from django.contrib.auth.decorators import login_required
 
 
 def IndexView(request, *args, **kwargs):
-    featured_products = Products.objects.filter(is_active=True)
-    new_arrivals = Products.objects.filter(is_active=True).order_by('-created_at')
+    featured_products = Products.objects.filter(is_approved=True)
+    new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
     
     content = {
         "featured":featured_products,
         "new_arrivals":new_arrivals,
-        "most_viewed":Products.objects.filter(is_active=True).order_by('-created_at'),
-        "hot_sale":Products.objects.filter(is_active=True).order_by('-created_at'),
-        "best_seller":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "most_viewed":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'index.html', content)
@@ -66,8 +66,6 @@ def ProductCreateView(request):
         form = ProductForm(request.POST)
         
         if form.is_valid():
-            created_at = timezone.now()
-            is_approved = False
             added_by_merchant = request.user
             form.save()
             messages.success(request, "Item has been added")
@@ -79,15 +77,15 @@ def ProductCreateView(request):
 
 def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
-    new_arrivals = Products.objects.filter(is_active=True).order_by('-created_at')
+    new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
 
     
     context = {
         'shops':shops,
         "new_arrivals":new_arrivals,
-        "most_viewed":Products.objects.filter(is_active=True).order_by('-created_at'),
-        "hot_sale":Products.objects.filter(is_active=True).order_by('-created_at'),
-        "best_seller":Products.objects.filter(is_active=True).order_by('-created_at'),
+        "most_viewed":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'shop-list.html', context)

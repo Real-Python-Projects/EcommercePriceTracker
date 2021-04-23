@@ -37,10 +37,11 @@
                     <div class="login-reg-form-wrap  pr-lg-50">
                         <h2>Add Product</h2>
                         {% include 'partials/messages.html' %}
-                        <form action="{% url 'products:add-product' %}" method="POST">{% csrf_token %}
+                        <form action="" enctype="multipart/form-data" method="POST">
+                            {% csrf_token %}
                             {{ form.as_p }}
                             <div class="single-input-item">
-                                <button class="sqr-btn">Login</button>
+                                <button  type="submit" class="sqr-btn">Post</button>
                             </div>
                         </form>
                     </div>
