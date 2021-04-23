@@ -68,10 +68,10 @@ def ProductCreateView(request, *args, **kwargs):
         form = ProductForm(request.POST, request.FILES)
         
         if form.is_valid():
-            added_by_merchant_id = request.user
+            form.instance.added_by_merchant = request.user.merchantuser
             form.save()
             messages.success(request, "Item has been added")
-            HttpResponseRedirect(reverse("products:shop"))  
+            redirect("products:shop")
     context = {
         "form":form,
         "categories":categories
