@@ -95,11 +95,11 @@
                             <div class="header-call-action">
                                 <a href="#">
                                     <i class="fa fa-envelope"></i>
-                                    info@website.com
+                                    info@retechke.com
                                 </a>
                                 <a href="#">
                                     <i class="fa fa-phone"></i>
-                                    0123456789
+                                    +254 712 860 997
                                 </a>
                             </div>
                         </div>
@@ -359,18 +359,12 @@
                                             <li class="active"><a href="#"><i class="fa fa-home"></i>Home <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
                                                     <li><a href="{% url 'products:index' %}">Home version 01</a></li>
-                                                    <li><a href="index-2.html">Home version 02</a></li>
-                                                    <li><a href="index-3.html">Home version 03</a></li>
-                                                    <li><a href="index-4.html">Home version 04</a></li>
                                                 </ul>
                                             </li>
                                             <li class="static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
                                                     <li class="mega-title"><a href="#">column 01</a>
                                                         <ul>
-                                                            <li><a href="shop-grid-left-sidebar.html">shop grid left sidebar</a></li>
-                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                            <li><a href="shop-grid-full-3-col.html">shop grid full 3 column</a></li>
                                                             <li><a href="{% url 'products:shop' %}">shop grid full 4 column</a></li>
                                                         </ul>
                                                     </li>
@@ -402,7 +396,7 @@
                                                             <li><a href="{% url 'user:login' %}">login-register</a></li>
                                                             {% endif %}
                                                                 
-                                                            <li><a href="about-us.html">about us</a></li>
+                                                            <li><a href="{% url 'products:about-us' %}">about us</a></li>
                                                             <li><a href="{% url 'products:contact' %}">contact us</a></li>
                                                         </ul>
                                                     </li>
@@ -410,47 +404,13 @@
                                             </li>
                                             <li><a href="#">shop <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="#">shop grid layout <i class="fa fa-angle-right"></i></a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="shop-grid-left-sidebar.html">shop grid left sidebar</a></li>
-                                                            <li><a href="shop-grid-left-sidebar-3-col.html">left sidebar 3 col</a></li>
-                                                            <li><a href="shop-grid-right-sidebar.html">shop grid right sidebar</a></li>
-                                                            <li><a href="shop-grid-right-sidebar-3-col.html">grid right sidebar 3 col</a></li>
-                                                            <li><a href="shop-grid-full-3-col.html">shop grid full 3 column</a></li>
-                                                            <li><a href="{% url 'products:shop' %}">shop grid full 4 column</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">shop list layout <i class="fa fa-angle-right"></i></a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="shop-list-left-sidebar.html">shop list left sidebar</a></li>
-                                                            <li><a href="shop-list-right-sidebar.html">shop list right sidebar</a></li>
-                                                            <li><a href="shop-list-full.html">shop list full width</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li><a href="#">products details <i class="fa fa-angle-right"></i></a>
-                                                        <ul class="dropdown">
-                                                            <li><a href="#">product details</a></li>
-                                                            <li><a href="product-details-affiliate.html">product details
-                                                                affiliate</a></li>
-                                                            <li><a href="product-details-variable.html">product details
-                                                                variable</a></li>
-                                                            <li><a href="product-details-group.html">product details group</a></li>
-                                                            <li><a href="product-details-box.html">product details box slider</a></li>
-                                                        </ul>
+                                                    <li><a href="{% url 'products:shop' %}">Shops <i class="fa fa-angle-right"></i></a>
                                                     </li>
                                                 </ul>
                                             </li>
                                             <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
                                                 <ul class="dropdown">
-                                                    <li><a href="{% url 'blog:blog' %}">blog left sidebar</a></li>
-                                                    <li><a href="blog-left-sidebar-2-col.html">blog left sidebar 2 col</a></li>
-                                                    <li><a href="blog-right-sidebar.html">blog right sidebar</a></li>
-                                                    <li><a href="blog-full-2-column.html">blog full 2 column</a></li>
-                                                    <li><a href="blog-full-3-column.html">blog full 3 column</a></li>
-                                                    <li><a href="blog-details.html">blog details</a></li>
-                                                    <li><a href="blog-details-audio.html">blog details audio</a></li>
-                                                    <li><a href="blog-details-video.html">blog details video</a></li>
-                                                    <li><a href="blog-details-image.html">blog details image</a></li>
+                                                    <li><a href="{% url 'blog:blog' %}">Blogs</a></li>
                                                 </ul>
                                             </li>
                                             <li><a href="{% url 'products:contact' %}">Contact us</a></li>
