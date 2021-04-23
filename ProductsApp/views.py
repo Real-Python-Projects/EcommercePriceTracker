@@ -153,4 +153,11 @@ def MyAccountView(request, *args, **kwargs):
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'my-account.html', context)
+
+def SpecsCompareView(request, *args, **kwargs):
+    context = {
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'compare.html', context)
+    
                     
