@@ -18,8 +18,9 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">shop left sidebar</li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:shop' %}">Shop</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ shop.shop_name }}</li>
                                 </ul>
                             </nav>
                         </div>
@@ -185,7 +186,7 @@
                                     <div class="col">
                                         
                                         {% if request.user.is_merchant and request.user == shop.merchant.user %}
-                                            <button class="btn " type="submit"><a href="{% url 'products:add-product' %}"><i class="fa fa-plus"></i></a></button>
+                                            <button class="btn  " type="submit"><a href="{% url 'products:add-product' %}"><i class="fa fa-plus"></i></a></button>
                                         {% endif %}
                                             
                                     </div>
