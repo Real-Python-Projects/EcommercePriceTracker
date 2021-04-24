@@ -183,7 +183,11 @@
                                 </div>
                                 <div class="row">
                                     <div class="col">
-                                        <button type="submit"><a href="{% url 'products:add-product' %}">Add Product</a></button>
+                                        
+                                        {% if request.user.is_merchant and request.user == shop.merchant.user %}
+                                            <button class="btn " type="submit"><a href="{% url 'products:add-product' %}"><i class="fa fa-plus"></i></a></button>
+                                        {% endif %}
+                                            
                                     </div>
                                 </div>
                             </div>
