@@ -78,7 +78,7 @@ class Shop(models.Model):
         return reverse("products:shop-detail", kwargs={"slug": self.slug})
     
     def __str__(self):
-        return self.shop_name
+        return f"{self.shop_name} - {self.merchant.user}"
     
     
 

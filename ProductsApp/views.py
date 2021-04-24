@@ -96,9 +96,8 @@ def ShopList(request, *args, **kwargs):
 
 def ShopProducts(request,slug, *args, **kwargs):
     shop = get_object_or_404(Shop, slug=slug)
-    products = shop.shop_products
+    products = shop.shop_products()
     
-    print(products)
     context = {
         'shop':shop,
         'products':products,
