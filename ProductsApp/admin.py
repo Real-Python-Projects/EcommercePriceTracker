@@ -5,7 +5,7 @@ from .models import (Category,Shop,models,
                      ShopPrice, ProductTransaction, ProductAbout,
                      ProductTags, ProductQuestions, 
                      ProductReviews, ProductReviewVoting, 
-                     ProductVarientItems, CustomerOrders,
+                     ProductVarientItems, CustomerOrder,
                      OrderDeliveryStatus, PopularBrand, ContactMessage,
                      CustomerWishList)
 # Register your models here.
@@ -53,6 +53,7 @@ admin.site.register(Category, CategoryAdmin)
 
 admin.site.register(Shop)
 admin.site.register(Products)
+admin.site.register(CustomerOrder)
 admin.site.register(CustomerWishList)
 
 

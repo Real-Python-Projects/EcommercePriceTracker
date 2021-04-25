@@ -202,16 +202,36 @@ class ProductVarientItems(models.Model):
     title=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
 
-class CustomerOrders(models.Model):
-    product_id=models.ForeignKey(Products,on_delete=models.DO_NOTHING)
-    purchase_price=models.CharField(max_length=255)
-    coupon_code=models.CharField(max_length=255)
-    discount_amt=models.CharField(max_length=255)
-    product_status=models.CharField(max_length=255)
-    created_at=models.DateTimeField(auto_now_add=True)
+class OrderItem(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Products, on_delete=models.CASCADE)
+    quantity = models.IntegerField(default=1)
+    is_ordered = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.product.product_name}"
+    
+    def totalQuantityPrice(self):
+        return self.quantity * self.product.product_discount_price
+
+class CustomerOrder(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(OrderItem)
+    start_date = models.DateTimeField(auto_now_add=True)
+    is_ordered = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return self.user.username
+    
+    def totalorderPrice(self):
+        total=0
+        for product in self.products.all():
+            total += product.totalQuantityPice()
+        return total
+    
 
 class OrderDeliveryStatus(models.Model):
-    order_id=models.ForeignKey(CustomerOrders,on_delete=models.CASCADE)
+    order_id=models.ForeignKey(CustomerOrder,on_delete=models.CASCADE)
     status=models.CharField(max_length=255)
     status_message=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)

@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
-                     WishListItem, CustomerWishList, Shop, Category)
+                     WishListItem, OrderItem, CustomerOrder,
+                     CustomerWishList, Shop, Category)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect
 from django.utils import  timezone
@@ -28,6 +29,26 @@ def IndexView(request, *args, **kwargs):
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'index.html', content)
+
+@login_required
+def add_to_cart(request, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    order_item, created = OrderItem.objects.get_or_create(user=request.user,
+                                                          product=product)
+    order_qs = CustomerOrder.objects.filter(user=request.user)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.products.filter(poduct__slug=product.slug).exists():
+            order_item.quantity += 1
+            order_item.save()
+            messages.info(request, "Item quantity has been updated")
+            return redirect("products:product-detail", slug=slug)
+        order.products.add(order_item)
+        messages.info(request, "product has been added to the cart")
+    order = CustomerOrder.objects.create(user=request.user)
+    order.products.add(order_item)
+    messages.info(request, "Item has been added")
+    return redirect("poducts:product-detail", slug=slug)
 
 @login_required
 def add_to_wishlist(request, slug, *args, **kwargs):
