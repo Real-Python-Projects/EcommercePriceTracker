@@ -51,6 +51,25 @@ def add_to_cart(request, slug, *args, **kwargs):
     return redirect("products:product-detail", slug=slug)
 
 @login_required
+def remove_from_cart(request, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    order_qs = CustomerOrder.objects.filter(user=request.user)
+    if order_qs.exists():
+        order = order_qs[0]
+        if order.products.filter(product__slug=product.slug).exists():
+            order_item = OrderItem.objects.filter(user=request.user,
+                                                  product=product,
+                                                  is_ordered=False)[0]
+            order.products.remove(order_item)
+            messages.info(request, "Item  has been removed")
+            return redirect("products:product-detail", slug=slug)
+        messages.info(request, "Product not in the cart")
+        return redirect("products:product-detail", slug=slug)
+    messages.info(request, "You do not have an active order")
+    return redirect("products:product-detail", slug=slug)
+
+
+@login_required
 def add_to_wishlist(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
     wishlist_item, created = WishListItem.objects.get_or_create(user=request.user
@@ -71,6 +90,23 @@ def add_to_wishlist(request, slug, *args, **kwargs):
         wishlist.products.add(wishlist_item)
         messages.info(request, "Item added to the cart")
         return redirect("products:product-detail", slug=slug)
+    
+@login_required
+def remove_from_wishlist(request, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    wishlist_qs = CustomerWishList.objects.filter(user=request.user)
+    if wishlist_qs.exists():
+        wishlist = wishlist_qs[0]
+        if wishlist.products.filter(product__slug=product.slug).exists():
+            wishlist_item = WishListItem.objects.filter(user=request.user,
+                                                  product=product)[0]
+            wishlist.products.remove(wishlist_item)
+            messages.info(request, "Item  has been removed")
+            return redirect("products:product-detail", slug=slug)
+        messages.info(request, "Product not in the wishlist")
+        return redirect("products:product-detail", slug=slug)
+    messages.info(request, "Product not in the wishlist")
+    return redirect("products:product-detail", slug=slug)
     
 def ProductDetailView(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
