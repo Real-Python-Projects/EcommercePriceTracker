@@ -38,7 +38,7 @@ def add_to_cart(request, slug, *args, **kwargs):
     order_qs = CustomerOrder.objects.filter(user=request.user)
     if order_qs.exists():
         order = order_qs[0]
-        if order.products.filter(poduct__slug=product.slug).exists():
+        if order.products.filter(product__slug=product.slug).exists():
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "Item quantity has been updated")
@@ -48,7 +48,7 @@ def add_to_cart(request, slug, *args, **kwargs):
     order = CustomerOrder.objects.create(user=request.user)
     order.products.add(order_item)
     messages.info(request, "Item has been added")
-    return redirect("poducts:product-detail", slug=slug)
+    return redirect("products:product-detail", slug=slug)
 
 @login_required
 def add_to_wishlist(request, slug, *args, **kwargs):

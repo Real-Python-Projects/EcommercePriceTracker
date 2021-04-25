@@ -212,7 +212,7 @@ class OrderItem(models.Model):
         return f"{self.user.username} - {self.product.product_name}"
     
     def totalQuantityPrice(self):
-        return self.quantity * self.product.product_discount_price
+        return self.quantity * int(self.product.product_discount_price)
 
 class CustomerOrder(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -226,7 +226,7 @@ class CustomerOrder(models.Model):
     def totalorderPrice(self):
         total=0
         for product in self.products.all():
-            total += product.totalQuantityPice()
+            total += int(product.totalQuantityPrice())
         return total
     
 
