@@ -5,7 +5,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from  django.utils.text import slugify
 from django.contrib.auth import get_user_model
-from tinymce.models import HTMLField
+from ckeditor.fields import RichTextField
 
 User = get_user_model()
 #implementing categories
@@ -37,7 +37,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey(BlogCategory, on_delete=models.CASCADE)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    content = HTMLField()
+    content = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='images/blog/')
     image_thumbnail = ImageSpecField(source='image',
                                      processors=[ResizeToFill(1024,610)],
