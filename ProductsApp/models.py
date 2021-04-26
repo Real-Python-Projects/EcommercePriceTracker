@@ -6,7 +6,7 @@ from PIL import Image
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.conf import settings
-
+from ckeditor.fields import RichTextField
 User = settings.AUTH_USER_MODEL
 
 #implementing categories
@@ -95,8 +95,8 @@ class Products(models.Model):
     brand=models.CharField(max_length=255)
     product_max_price=models.CharField(max_length=255)
     product_discount_price=models.CharField(max_length=255)
-    product_description=models.TextField()
-    product_long_description=models.TextField()
+    product_description=RichTextField(blank=True, null=True)
+    product_long_description=RichTextField(blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'User',
     'blog',
     
-    'imagekit',
+    'ckeditor',
     'mptt',
     'tinymce',
 ]
