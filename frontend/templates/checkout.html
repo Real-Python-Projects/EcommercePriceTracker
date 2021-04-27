@@ -133,24 +133,12 @@
                                     </div>
         
                                     <div class="single-input-item">
-                                        <label for="com-name">Company Name</label>
-                                        <input type="text" id="com-name" placeholder="Company Name" />
-                                    </div>
-        
-                                    <div class="single-input-item">
                                         <label for="country" class="required">Country</label>
                                         <select name="country nice-select" id="country">
-                                            <option value="Afghanistan">Afghanistan</option>
-                                            <option value="Albania">Albania</option>
-                                            <option value="Algeria">Algeria</option>
-                                            <option value="Armenia">Armenia</option>
-                                            <option value="Bangladesh">Bangladesh</option>
-                                            <option value="India">India</option>
-                                            <option value="Pakistan">Pakistan</option>
-                                            <option value="England">England</option>
-                                            <option value="London">London</option>
-                                            <option value="London">London</option>
-                                            <option value="Chaina">China</option>
+                                            <option value="Afghanistan">Kenya</option>
+                                            <option value="Albania">Uganda</option>
+                                            <option value="Algeria">Tanzania</option>
+  
                                         </select>
                                     </div>
         
@@ -227,22 +215,14 @@
                                                 <label for="email_2" class="required">Email Address</label>
                                                 <input type="email" id="email_2" placeholder="Email Address" required />
                                             </div>
-        
-                                            <div class="single-input-item">
-                                                <label for="com-name_2">Company Name</label>
-                                                <input type="text" id="com-name_2" placeholder="Company Name" />
-                                            </div>
+                                            
         
                                             <div class="single-input-item">
                                                 <label for="country_2" class="required">Country</label>
                                                 <select name="country" id="country_2">
-                                                    <option value="Bangladesh">Bangladesh</option>
-                                                    <option value="India">India</option>
-                                                    <option value="Pakistan">Pakistan</option>
-                                                    <option value="England">England</option>
-                                                    <option value="London">London</option>
-                                                    <option value="London">London</option>
-                                                    <option value="Chaina">Chaina</option>
+                                                    <option value="Bangladesh">Kenya</option>
+                                                    <option value="India">Uganda</option>
+                                                    <option value="Pakistan">Tanzania</option>
                                                 </select>
                                             </div>
         
@@ -296,23 +276,19 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            
+                                            {% for item in cart_items.products.all %}
                                             <tr>
-                                                <td><a href="single-product.html">Suscipit Vestibulum <strong> × 1</strong></a></td>
-                                                <td>$165.00</td>
+                                                <td><a href="single-product.html">{{item.product.product_name}} <strong> × {{item.quantity}}</strong></a></td>
+                                                <td>ksh. {{ item.totalQuantityPrice }}</td>
                                             </tr>
-                                            <tr>
-                                                <td><a href="single-product.html">Ami Vestibulum suscipit <strong> × 4</strong></a></td>
-                                                <td>$165.00</td>
-                                            </tr>
-                                            <tr>
-                                                <td><a href="single-product.html">Vestibulum suscipit <strong> × 2</strong></a></td>
-                                                <td>$165.00</td>
-                                            </tr>
+                                            {% endfor %}
+                                                
                                         </tbody>
                                         <tfoot>
                                             <tr>
                                                 <td>Sub Total</td>
-                                                <td><strong>$400</strong></td>
+                                                <td><strong>ksh. {{ cart_items.totalorderPrice }}</strong></td>
                                             </tr>
                                             <tr>
                                                 <td>Shipping</td>
@@ -368,13 +344,14 @@
                                         <div class="payment-method-name">
                                             <div class="custom-control custom-radio">
                                                 <input type="radio" id="checkpayment" name="paymentmethod" value="check" class="custom-control-input" />
-                                                <label class="custom-control-label" for="checkpayment">Pay with Check</label>
+                                                <label class="custom-control-label" for="checkpayment">Lipa na Mpesa</label>
                                             </div>
                                         </div>
                                         <div class="payment-method-details" data-method="check">
-                                            <p>Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                            <input type="tel" placeholder="eg. +254712860997" name="mpesa_phone" id="">
                                         </div>
                                     </div>
+                                    
                                     <div class="single-payment-method">
                                         <div class="payment-method-name">
                                             <div class="custom-control custom-radio">

@@ -193,21 +193,23 @@ def ContactView(request, *args, **kwargs):
     }
     return render(request, 'contact-us.html', context)
 
-def CheckoutView(request, *args, **kwargs):
-    context = {
-        "popular_brands": PopularBrand.objects.all()
-    }
-    return render(request, 'checkout.html', context)
-
 def CartView(request, *args, **kwargs):
     cart_items = CustomerOrder.objects.get(user=request.user, is_ordered=False)
-    shipping = 200
     
     context = {
         "cart_items": cart_items,
         "popular_brands": PopularBrand.objects.all() or None
     }
     return render(request, 'cart.html', context)
+
+def CheckoutView(request, *args, **kwargs):
+    cart_items = CustomerOrder.objects.get(user=request.user, is_ordered=False)
+    
+    context = {
+        "cart_items": cart_items,
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'checkout.html', context)
 
 def AboutUsView(request, *args, **kwargs):
     return render(request, 'about-us.html', {})
