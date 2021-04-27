@@ -49,53 +49,23 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'assets/img/product/product-img2.jpg' %}"
-                                                                                alt="Product"/></a></td>
-                                    <td class="pro-title"><a href="#">k2 snowboard 2018</a></td>
-                                    <td class="pro-price"><span>$295.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty"><input type="text" value="1"></div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$295.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'assets/img/product/product-img3.jpg' %}"
-                                                                                alt="Product"/></a></td>
-                                    <td class="pro-title"><a href="#">Aquet Drone D 420</a></td>
-                                    <td class="pro-price"><span>$275.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty"><input type="text" value="2"></div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$550.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'assets/img/product/product-img4.jpg' %}" alt="Product"/></a></td>
-                                    <td class="pro-title"><a href="#">berzerker snowboard</a></td>
-                                    <td class="pro-price"><span>$295.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="1" />
-                                        </div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$295.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                </tr>
-                                <tr>
-                                    <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'assets/img/product/product-img5.jpg' %}"
-                                                                                alt="Product"/></a></td>
-                                    <td class="pro-title"><a href="#">element snowboard</a></td>
-                                    <td class="pro-price"><span>$110.00</span></td>
-                                    <td class="pro-quantity">
-                                        <div class="pro-qty">
-                                            <input type="text" value="3" />
-                                        </div>
-                                    </td>
-                                    <td class="pro-subtotal"><span>$110.00</span></td>
-                                    <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                                </tr>
+                                    
+                                    {% for item in cart_items.products.all %}
+
+                                    <tr>
+                                        <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{% static 'assets/img/product/product-img2.jpg' %}"
+                                                                                    alt="Product"/></a></td>
+                                        <td class="pro-title"><a href="#">{{item.product.product_name}}</a></td>
+                                        <td class="pro-price"><span>Ksh. {{ item.product.product_discount_price }}</span></td>
+                                        <td class="pro-quantity">
+                                            <div class="pro-qty"><input type="text" value="{{ item.quantity }}"></div>
+                                        </td>
+                                        <td class="pro-subtotal"><span>Ksh. {{item.totalQuantityPrice}}</span></td>
+                                        <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                                    </tr>
+                                    
+                                    {% endfor %}
+                                        
                                 </tbody>
                             </table>
                         </div>
@@ -125,15 +95,15 @@
                                     <table class="table">
                                         <tr>
                                             <td>Sub Total</td>
-                                            <td>$230</td>
+                                            <td>Ksh {{ cart_items.totalorderPrice }}</td>
                                         </tr>
                                         <tr>
                                             <td>Shipping</td>
-                                            <td>$70</td>
+                                            <td>Ksh 200</td>
                                         </tr>
                                         <tr class="total">
                                             <td>Total</td>
-                                            <td class="total-amount">$300</td>
+                                            <td class="total-amount">Ksh {{cart_items.totalorderPrice}}</td>
                                         </tr>
                                     </table>
                                 </div>

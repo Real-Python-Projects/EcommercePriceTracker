@@ -34,8 +34,9 @@ def IndexView(request, *args, **kwargs):
 def add_to_cart(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
     order_item, created = OrderItem.objects.get_or_create(user=request.user,
-                                                          product=product)
-    order_qs = CustomerOrder.objects.filter(user=request.user)
+                                                          product=product,
+                                                          is_ordered=False)
+    order_qs = CustomerOrder.objects.filter(user=request.user, is_ordered=False)
     if order_qs.exists():
         order = order_qs[0]
         if order.products.filter(product__slug=product.slug).exists():
@@ -43,12 +44,15 @@ def add_to_cart(request, slug, *args, **kwargs):
             order_item.save()
             messages.info(request, "Item quantity has been updated")
             return redirect("products:product-detail", slug=slug)
+        else:
+            order.products.add(order_item)
+            messages.info(request, "product has been added to the cart")
+            return redirect("products:product-detail", slug=slug)
+    else:
+        order = CustomerOrder.objects.create(user=request.user)
         order.products.add(order_item)
-        messages.info(request, "product has been added to the cart")
-    order = CustomerOrder.objects.create(user=request.user)
-    order.products.add(order_item)
-    messages.info(request, "Item has been added")
-    return redirect("products:product-detail", slug=slug)
+        messages.info(request, "Item has been added")
+        return redirect("products:product-detail", slug=slug)
 
 @login_required
 def remove_from_cart(request, slug, *args, **kwargs):
@@ -135,6 +139,7 @@ def ProductCreateView(request, *args, **kwargs):
     }
     return render(request, 'product-form.html', context)
 
+
 def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
@@ -195,8 +200,12 @@ def CheckoutView(request, *args, **kwargs):
     return render(request, 'checkout.html', context)
 
 def CartView(request, *args, **kwargs):
+    cart_items = CustomerOrder.objects.get(user=request.user, is_ordered=False)
+    shipping = 200
+    
     context = {
-        "popular_brands": PopularBrand.objects.all()
+        "cart_items": cart_items,
+        "popular_brands": PopularBrand.objects.all() or None
     }
     return render(request, 'cart.html', context)
 

@@ -329,11 +329,11 @@
                                             <a href="#" data-toggle="modal" data-target="#quick_view"> <span
                                                     data-toggle="tooltip" data-placement="left" title="Quick view"><i
                                                         class="fa fa-search"></i></span> </a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
+                                            <a href="{% url 'products:add-to-wishlist' product.slug %}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                     class="fa fa-heart-o"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i
                                                     class="fa fa-refresh"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
+                                            <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                     class="fa fa-shopping-cart"></i></a>
                                         </div>
                                     </div>
