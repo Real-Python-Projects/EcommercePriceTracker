@@ -229,6 +229,20 @@ class CustomerOrder(models.Model):
             total += int(product.totalQuantityPrice())
         return total
     
+class OrderAddress(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=255)
+    last_name = models.CharField(max_length=255)
+    email_address = models.EmailField(max_length=255)
+    country = models.CharField(max_length=255)
+    street_address = models.CharField(max_length=255)
+    street_address2 = models.CharField(max_length=255)
+    division = models.CharField(max_length=255)    
+    post_address = models.CharField(max_length=255)
+    phone = models.CharField(max_length=13)
+    
+    def __str__(self):
+        return self.user.username
 
 class OrderDeliveryStatus(models.Model):
     order_id=models.ForeignKey(CustomerOrder,on_delete=models.CASCADE)
