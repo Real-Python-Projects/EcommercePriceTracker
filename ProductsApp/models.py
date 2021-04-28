@@ -243,6 +243,8 @@ class OrderAddress(models.Model):
     
     def __str__(self):
         return self.user.username
+    
+
 
 class OrderDeliveryStatus(models.Model):
     order_id=models.ForeignKey(CustomerOrder,on_delete=models.CASCADE)

@@ -10,8 +10,12 @@ from .forms import ProductForm
 from django.contrib import messages
 from django.core.mail import send_mail
 
-
+from decouple import config
+import json
+import requests
+from requests.auth import HTTPBasicAuth
 from django.contrib.auth.decorators import login_required
+from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken
 
 # Create your views here.
 
@@ -202,8 +206,61 @@ def CartView(request, *args, **kwargs):
     }
     return render(request, 'cart.html', context)
 
+def getAccessToken(request):
+    consumer_key = config('consumer_key')
+    consumer_secret = config('consumer_secret')
+    api_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+    
+    r = requests.get(api_URL, auth=HTTPBasicAuth(consumer_key, consumer_secret))
+    mpesa_access_token = json.loads(r.text)
+    validated_mpesa_access_token = mpesa_access_token['access_token']
+    
+    return HttpResponse(validated_mpesa_access_token)
+
 def CheckoutView(request, *args, **kwargs):
     cart_items = CustomerOrder.objects.get(user=request.user, is_ordered=False)
+    
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST['email']
+        country = request.POST['country']
+        street_address = request.POST['street_address']
+        street_address2 = request.POST['street_address2']
+        county = request.POST['county']
+        town = request.POST['town']
+        postcode = request.POST['post_code']
+        direct_bank_transfer = request.POST['direct_bank_transfer']
+        lipa_na_mpesa = request.POST['lipa_na_mpesa']
+        paypal = request.POST['paypal']
+        terms = request.POST['terms']
+        
+        
+        if lipa_na_mpesa == 'True':
+            access_token = MpesaAccessToken.validated_mpesa_access_token
+            api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+            headers = {"Authorization":"Bearer %s" % access_token}
+            request = {
+                "BusinessShortCode": LipaNaMpesaPassword.business_short_code,
+                "Password":LipaNaMpesaPassword.decode_password,
+                "Timestamp":LipaNaMpesaPassword.lipa_time,
+                "TransactionType":"CustomerPayBillOnline",
+                "Amount":"5",
+                "PartyA":"254712860997",
+                "PartyB":"174379",
+                "PhoneNumber":"254712860997",
+                "CallBackURL":"https/retechstore.pythonanywhere.com/c2b/confirmation/",
+                "AccountReference":"GiftWasHere",
+                "TransactionDesc":"myhealth test"
+                    }
+            response = requests.post(api_url, json=request, headers=headers)
+            print(response)
+            return HttpResponse('success')
+        
+        
+        
+        
+        
     
     context = {
         "cart_items": cart_items,
