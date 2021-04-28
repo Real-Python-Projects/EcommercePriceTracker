@@ -17,7 +17,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken
+from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 # Create your views here.
 
@@ -225,21 +225,20 @@ def CheckoutView(request, *args, **kwargs):
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        email = request.POST['email']
-        country = request.POST['country']
-        street_address = request.POST['street_address']
-        street_address2 = request.POST['street_address2']
-        county = request.POST['county']
-        town = request.POST['town']
-        postcode = request.POST['post_code']
-        direct_bank_transfer = request.POST['direct_bank_transfer']
-        lipa_na_mpesa = request.POST['lipa_na_mpesa']
-        lipa_na_mpesa_phone = request.POST.get('lipa_na_mpesa_phone')
-        paypal = request.POST['paypal']
-        terms = request.POST['terms']
+        email = request.POST.get('email')
+        country = request.POST.get('country')
+        street_address = request.POST.get('street_address')
+        street_address2 = request.POST.get('street_address2')
+        county = request.POST.get('county')
+        town = request.POST.get('town')
+        postcode = request.POST.get('post_code')
+        payment_method = request.POST.get('paymentmethod')
+        lipa_na_mpesa_phone = request.POST.get('mpesa_phone')
+        terms = request.POST.get('terms')
         
+        print(payment_method)
         
-        if lipa_na_mpesa == 'True':
+        if payment_method == 'mpesa':
             access_token = MpesaAccessToken.validated_mpesa_access_token
             api_url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
             headers = {"Authorization":"Bearer %s" % access_token}
@@ -248,10 +247,10 @@ def CheckoutView(request, *args, **kwargs):
                 "Password":LipaNaMpesaPassword.decode_password,
                 "Timestamp":LipaNaMpesaPassword.lipa_time,
                 "TransactionType":"CustomerPayBillOnline",
-                "Amount":f"{cart_items.totalQuantityPrice}",
-                "PartyA":"254712860997",
+                "Amount":"5",
+                "PartyA":"254729754363",
                 "PartyB":"174379",
-                "PhoneNumber":f"{lipa_na_mpesa_phone}",
+                "PhoneNumber":"254729754363",
                 "CallBackURL":"https/retechstore.pythonanywhere.com/c2b/confirmation/",
                 "AccountReference":"GiftWasHere",
                 "TransactionDesc":"myhealth test"
