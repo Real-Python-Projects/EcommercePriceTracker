@@ -2,9 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
-                     CustomerWishList, Shop, Category)
+                     CustomerWishList, Shop, Category, MpesaPayment)
 from User.models import AdminUser, MerchantUser
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
 from .forms import ProductForm
 from django.contrib import messages
@@ -14,7 +14,9 @@ from decouple import config
 import json
 import requests
 from requests.auth import HTTPBasicAuth
+
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken
 
 # Create your views here.
@@ -232,6 +234,7 @@ def CheckoutView(request, *args, **kwargs):
         postcode = request.POST['post_code']
         direct_bank_transfer = request.POST['direct_bank_transfer']
         lipa_na_mpesa = request.POST['lipa_na_mpesa']
+        lipa_na_mpesa_phone = request.POST.get('lipa_na_mpesa_phone')
         paypal = request.POST['paypal']
         terms = request.POST['terms']
         
@@ -245,10 +248,10 @@ def CheckoutView(request, *args, **kwargs):
                 "Password":LipaNaMpesaPassword.decode_password,
                 "Timestamp":LipaNaMpesaPassword.lipa_time,
                 "TransactionType":"CustomerPayBillOnline",
-                "Amount":"5",
+                "Amount":f"{cart_items.totalQuantityPrice}",
                 "PartyA":"254712860997",
                 "PartyB":"174379",
-                "PhoneNumber":"254712860997",
+                "PhoneNumber":f"{lipa_na_mpesa_phone}",
                 "CallBackURL":"https/retechstore.pythonanywhere.com/c2b/confirmation/",
                 "AccountReference":"GiftWasHere",
                 "TransactionDesc":"myhealth test"
@@ -257,16 +260,85 @@ def CheckoutView(request, *args, **kwargs):
             print(response)
             return HttpResponse('success')
         
-        
-        
-        
-        
-    
     context = {
         "cart_items": cart_items,
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'checkout.html', context)
+
+
+#register confirmation and validation url with safaricom
+
+@csrf_exempt
+def register_urls(request):
+    access_token = MpesaAccessToken.validated_mpesa_access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    options = {"ShortCode": LipaNaMpesaPassword.test_c2b_shortcode,
+               "ResponseType": "Completed",
+               "ConfirmationURL": "https://93c0351429ab.ngrok.io/c2b/confirmation/",
+               "ValidationURL": "https://93c0351429ab.ngrok.io/c2b/validation/"}
+    response = requests.post(api_url, json=options, headers=headers)
+    return HttpResponse(response.text)
+
+#simulate transaction
+
+@csrf_exempt
+def simulate_transaction(request):
+    access_token = MpesaAccessToken.validated_mpesa_access_token
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    request = { "ShortCode":LipaNaMpesaPassword.test_c2b_shortcode,
+                "CommandID":"CustomerPayBillOnline",
+                "Amount":"500",
+                "Msisdn":"254708374149",
+                "BillRefNumber":LipaNaMpesaPassword.business_short_code}
+  
+    response = requests.post(api_url, json=request, headers=headers)
+    return HttpResponse(response.text)
+
+
+#capture the mpesa calls
+@csrf_exempt
+def call_back(request):
+    pass
+
+@csrf_exempt
+def validation(request):
+    data = json.loads(request.body)
+    file = open('validate.json','a')
+    file.write(json.dumps(data))
+    file.close()
+    
+    context = {
+        "ResultCode":0,
+        "ResultDesc":"Accepted"
+    }
+    return JsonResponse(dict(context))
+
+@csrf_exempt
+def confirmation(request):   
+    mpesa_body = request.body.decode('utf-8')
+    mpesa_payment = json.loads(mpesa_body)
+    
+    payment = MpesaPayment (
+        first_name=mpesa_payment['FirstName'],
+        last_name=mpesa_payment['LastName'],
+        middle_name=mpesa_payment['MiddleName'],
+        description=mpesa_payment['TransID'],
+        phone_number=mpesa_payment['MSISDN'],
+        amount=mpesa_payment['TransAmount'],
+        reference=mpesa_payment['BillRefNumber'],
+        organization_balance=mpesa_payment['OrgAccountBalance'],
+        type=mpesa_payment['TransactionType']
+    )
+    payment.save()
+    context = {
+        "ResultCode":0,
+        "ResultDesc":"Accepted"
+    }
+    
+    return JsonResponse(dict(context))
 
 def AboutUsView(request, *args, **kwargs):
     return render(request, 'about-us.html', {})

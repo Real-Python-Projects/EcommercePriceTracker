@@ -237,7 +237,7 @@ class OrderAddress(models.Model):
     country = models.CharField(max_length=255)
     street_address = models.CharField(max_length=255)
     street_address2 = models.CharField(max_length=255)
-    division = models.CharField(max_length=255)    
+    town = models.CharField(max_length=255)    
     post_address = models.CharField(max_length=255)
     phone = models.CharField(max_length=13)
     
@@ -313,4 +313,48 @@ class ContactMessage(models.Model):
     
     def __str__(self):
         return self.name
+    
+class MpesaBaseModel(models.Model):
+    created_dt = models.DateTimeField(auto_now_add=True)
+    updated_when = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        abstract = True
+
+class MpesaCalls(MpesaBaseModel):
+    ip_address = models.CharField(max_length=200)
+    caller = models.CharField(max_length=100)
+    conversation_id = models.CharField(max_length=100)
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name = "Mpesa Call"
+        verbose_name_plural = "Mpesa Calls"
+        
+class MpesaCallBacks(MpesaBaseModel):
+    ip_address = models.CharField(max_length=200)
+    caller = models.CharField(max_length=100)
+    conversation_id = models.CharField(max_length=100)
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name = "Mpesa Call Back"
+        verbose_name_plural = "Mpesa Call Backs"
+class MpesaPayment(MpesaBaseModel):
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    description = models.TextField(max_length=100)
+    type = models.CharField(max_length=100)
+    reference = models.CharField(max_length=100)
+    first_name = models.CharField(max_length=100)
+    middle_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    phone_number = models.CharField(max_length=100) 
+    organization_balance = models.DecimalField(max_digits=10, decimal_places=2)
+    
+    class Meta:
+        verbose_name = "Mpesa Payment"
+        verbose_name_plural = "Mpesa Payments"
+        
+    def __str__(self):
+        return f"{self.first_name} - {self.amount}"
     
