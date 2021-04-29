@@ -4,7 +4,7 @@
 
 
 {% block title %}
-    | Category }}
+    | {{ category.title }}
 {% endblock title %}
 
 
@@ -21,7 +21,7 @@
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
                                     <li class="breadcrumb-item"><a href="{% url 'products:shop' %}">Shop</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Category</li>
+                                    <li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li>
                                 </ul>
                             </nav>
                         </div>

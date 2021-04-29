@@ -370,6 +370,7 @@ def CategoryListView(request, slug, *args, **kwargs):
         
     
     context = {
+        'category':category,
         'categories':categories,
         'products':category.category_objects()
     }
