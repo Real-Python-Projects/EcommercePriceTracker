@@ -262,20 +262,16 @@
                                         <ul>
                                             {% recursetree categories %}
                                             <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"><i class="fa fa-camera"></i> {{ node.title }}</a>   
-                                                
-                                                <ul class="category-mega-menu">
-                                                    
+                                                {% if not node.is_leaf_node %}
+                                                <ul class="category-mega-menu">    
                                                     <li class="menu-item-has-children">
-                                                        <a href="shop-grid-left-sidebar.html">Smartphone</a>
+                                                        <a href="shop-grid-left-sidebar.html">Smartphone</a> 
                                                         <ul>
-                                                            <li><a href="shop-grid-left-sidebar.html">Samsome</a></li>
-                                                            <li><a href="shop-grid-left-sidebar.html">GL Stylus</a></li>
-                                                            <li><a href="shop-grid-left-sidebar.html">Uawei</a></li>
-                                                            <li><a href="shop-grid-left-sidebar.html">Cherry Berry</a></li>
-                                                        </ul>
+                                                            <li><a href="shop-grid-left-sidebar.html">{{ children }}</a></li>
+                                                        </ul>     
                                                     </li>
-                                                    
                                                 </ul><!-- Mega Category Menu End --> 
+                                            {%endif%}
                                             </li>
                                             
                                 
