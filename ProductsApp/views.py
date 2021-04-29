@@ -18,7 +18,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+# from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 # Create your views here.
 
@@ -360,3 +360,12 @@ def SpecsCompareView(request, *args, **kwargs):
 
 def SerchView(request, *args, **kwargs):
     pass
+
+
+def CategoryListView(request, slug, *args, **kwargs):
+    Category = get_object_or_404(Category, slug=slug)
+    
+    context = {
+        'category_items':Category.category_objects()
+    }
+    return render(request, 'category_items.html', context)

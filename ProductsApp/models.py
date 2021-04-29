@@ -23,7 +23,10 @@ class Category(MPTTModel):
     is_active = models.IntegerField(default=1)
     
     def get_absolute_url(self):
-        return reverse("products:category-list-page")
+        return reverse("products:category-objects", kwargs = {'slug':self.slug})
+    
+    def category_objects(self):
+        return Products.objects.filter(is_approved=True, category=self)
     
     class Meta:
         verbose_name = "Category"

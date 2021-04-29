@@ -261,17 +261,17 @@
                                     <nav class="category-menu category-style-2">
                                         <ul>
                                             {% recursetree categories %}
-                                            <li class="menu-item-has-children"><a href="shop-grid-left-sidebar.html"><i class="fa fa-camera"></i> {{ node.title }}</a>   
+                                            <li class="menu-item-has-children"><a href="{{ node.get_absolute_url }}"><i class="fa fa-camera"></i> {{ node.title }}</a>   
                                                 {% if not node.is_leaf_node %}
                                                 <ul class="category-mega-menu">    
                                                     <li class="menu-item-has-children">
-                                                        <a href="shop-grid-left-sidebar.html">Smartphone</a> 
+                                                        <a href="shop-grid-left-sidebar.html">Subcateory</a> 
                                                         <ul>
                                                             <li><a href="shop-grid-left-sidebar.html">{{ children }}</a></li>
                                                         </ul>     
                                                     </li>
                                                 </ul><!-- Mega Category Menu End --> 
-                                            {%endif%}
+                                                {%endif%}
                                             </li>
                                             
                                 

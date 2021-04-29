@@ -3,7 +3,7 @@ from .views import (IndexView, ContactView, MyAccountView,
                     CheckoutView, CartView, ProductDetailView, ShopList, ShopProducts,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
                     add_to_cart, ProductCreateView,
-                    AboutUsView, SpecsCompareView)
+                    AboutUsView, SpecsCompareView, CategoryListView)
 
 app_name="products"
 
@@ -22,5 +22,6 @@ urlpatterns = [
     path("remove-fom-wishlist/<slug>/",remove_from_wishlist, name="remove-from-wishlist"),
     path("checkout/", CheckoutView, name="checkout"),
     path("contact", ContactView, name='contact'),
+    path('view-product-by-category/<slug>/', CategoryListView, name='category-objects'),
     path('account/<str:user>/', MyAccountView, name="my-account"),
 ]
