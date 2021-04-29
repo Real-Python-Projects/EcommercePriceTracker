@@ -363,9 +363,14 @@ def SerchView(request, *args, **kwargs):
 
 
 def CategoryListView(request, slug, *args, **kwargs):
-    Category = get_object_or_404(Category, slug=slug)
+    category = get_object_or_404(Category, slug=slug)
+    categories = Category.objects.all()
+    
+
+        
     
     context = {
-        'category_items':Category.category_objects()
+        'categories':categories,
+        'products':category.category_objects()
     }
-    return render(request, 'category_items.html', context)
+    return render(request, 'category-objects.html', context)
