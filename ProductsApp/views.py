@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
-                     CustomerWishList, Shop, Category, MpesaPayment)
+                     CustomerWishList, Shop, Category, MpesaPayment,
+                     Category)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
@@ -25,8 +26,10 @@ from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCr
 def IndexView(request, *args, **kwargs):
     featured_products = Products.objects.filter(is_approved=True)
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
+    categories = Category.objects.all()
     
     content = {
+        'categories':categories,
         "featured":featured_products,
         "new_arrivals":new_arrivals,
         "most_viewed":Products.objects.filter(is_approved=True).order_by('-created_at'),
@@ -354,5 +357,6 @@ def SpecsCompareView(request, *args, **kwargs):
         "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'compare.html', context)
-    
-                    
+
+def SerchView(request, *args, **kwargs):
+    pass
