@@ -15,8 +15,8 @@
                     <div class="breadcrumb-wrap">
                         <nav aria-label="breadcrumb">
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                <li class="breadcrumb-item"><a href="{% url 'products:shop' %}">shop</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">checkout</li>
                             </ul>
                         </nav>
@@ -47,42 +47,22 @@
                             </tr>
                             </thead>
                             <tbody>
+
+
+                            
+                            {% for product in wishlist_items.products.all %}
                             <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img7.jpg"
+                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="{{ product.product.image_thumbnail.url }}"
                                                                             alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">element snowboard</a></td>
-                                <td class="pro-price"><span>$295.00</span></td>
+                                <td class="pro-title"><a href="#">{{ product.product.product_name }}</a></td>
+                                <td class="pro-price"><span>Ksh. {{ product.product.product_discount_price }}</span></td>
                                 <td class="pro-quantity"><span class="text-success">In Stock</span></td>
-                                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
+                                <td class="pro-subtotal"><a href="{% url 'products:add-to-cart' product.product.slug %}" class="sqr-btn text-white">Add to Cart</a></td>
                                 <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
                             </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img8.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">raygun snowboard</a></td>
-                                <td class="pro-price"><span>$275.00</span></td>
-                                <td class="pro-quantity"><span class="text-success">In Stock</span></td>
-                                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img9.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">berzerker snoeboard</a></td>
-                                <td class="pro-price"><span>$295.00</span></td>
-                                <td class="pro-quantity"><span class="text-danger">Stock Out</span></td>
-                                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white disabled">Add to Cart</a></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
-                            <tr>
-                                <td class="pro-thumbnail"><a href="#"><img class="img-fluid" src="assets/img/product/product-img10.jpg"
-                                                                            alt="Product"/></a></td>
-                                <td class="pro-title"><a href="#">turbo snowboard</a></td>
-                                <td class="pro-price"><span>$110.00</span></td>
-                                <td class="pro-quantity"><span class="text-success">In Stock</span></td>
-                                <td class="pro-subtotal"><a href="cart.html" class="sqr-btn text-white">Add to Cart</a></td>
-                                <td class="pro-remove"><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                            </tr>
+                            {% endfor %}
+                                
+                            
                             </tbody>
                         </table>
                     </div>
