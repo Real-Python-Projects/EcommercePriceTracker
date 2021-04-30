@@ -42,26 +42,6 @@ class Category(MPTTModel):
 
     def __str__(self):
         return self.title
-    
-# class SubCategories(models.Model):
-#     category_id=models.ForeignKey(Category,on_delete=models.CASCADE)
-#     title=models.CharField(max_length=255)
-#     slug=models.SlugField(blank=True)
-#     thumbnail = models.ImageField(upload_to="images/products/subcategories")
-#     description=models.TextField()
-#     created_at=models.DateTimeField(auto_now_add=True)
-#     is_active = models.BooleanField(default=True)
-    
-#     def get_absolute_url(self):
-#         return reverse("products:sub-category-list-page")
-
-#     def save(self, *args, **kwargs):
-#         if not self.slug:
-#             self.slug=slugify(self.title)
-#         return super().save(*args, **kwargs)
-
-#     def __str__(self):
-#         return self.title
 
 class Shop(models.Model):
     shop_name = models.CharField(max_length=255)
@@ -165,9 +145,22 @@ class ProductAbout(models.CharField):
     created_at=models.DateTimeField(auto_now_add=True)
     is_active=models.IntegerField(default=1)
 
+class Tags(models.Model):
+    name = models.CharField(max_length=15)
+    slug = models.SlugField(blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    def save(self,*args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Tags, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name
+    
 class ProductTags(models.Model):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
-    title=models.CharField(max_length=255)
+    tags = models.ManyToManyField(Tags)
     created_at=models.DateTimeField(auto_now_add=True)
     is_active=models.IntegerField(default=1)
 
@@ -204,7 +197,7 @@ class ProductVarientItems(models.Model):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
     title=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
-
+    
 class OrderItem(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Products, on_delete=models.CASCADE)
