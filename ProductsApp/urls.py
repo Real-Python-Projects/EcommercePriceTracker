@@ -2,7 +2,7 @@ from django.urls import path
 from .views import (IndexView, ContactView, MyAccountView,
                     CheckoutView, CartView, ProductDetailView, ShopList, ShopProducts,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
-                    add_to_cart, ProductCreateView,
+                    add_to_cart, ProductCreateView, WishListView,
                     AboutUsView, SpecsCompareView, CategoryListView)
 
 app_name="products"
@@ -17,6 +17,7 @@ urlpatterns = [
     path("cart/", CartView, name="cart"),
     path('product/<slug>/', ProductDetailView, name="product-detail"),
     path('add-to-cart/<slug>/', add_to_cart, name="add-to-cart"),
+    path('wishlist/<user>/', WishListView, name='wishlist'),
     path('remove-from-cart/<slug>/', remove_from_cart, name="remove-from-cart"),
     path("add-to-wishlist/<slug>/",add_to_wishlist, name="add-to-wishlist"),
     path("remove-fom-wishlist/<slug>/",remove_from_wishlist, name="remove-from-wishlist"),

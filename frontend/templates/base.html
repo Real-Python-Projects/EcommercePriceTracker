@@ -14,7 +14,7 @@
     <!-- Site title -->
     <title>Price Tracker {% block title %}{% endblock title %}</title>
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'assets/img/favicon.ico' %}" type="image/x-icon" />
+    <link rel="shortcut icon" href="{% static 'assets/img/favicon.png' %}" type="image/x-icon" />
     <!-- Bootstrap CSS -->
     <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
     <!-- Font-Awesome CSS -->
@@ -130,7 +130,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="#">my wishlist</a>
+                                            <a href="{% url 'products:wishlist' request.user.username %}">my wishlist</a>
                                         </li>
                                         <li>
                                             <a href="{% url 'products:cart' %}">my cart</a>
@@ -154,7 +154,7 @@
                         <div class="col-lg-3">
                             <div class="brand-logo">
                                 <a href="{% url 'products:index' %}">
-                                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="brand logo">
+                                    <img src="{% static 'assets/img/logo/logo1.png' %}" alt="brand logo">
                                 </a>
                             </div>
                         </div> <!-- end logo area -->

@@ -18,7 +18,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-# from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 # Create your views here.
 
@@ -209,6 +209,17 @@ def CartView(request, *args, **kwargs):
         "popular_brands": PopularBrand.objects.all() or None
     }
     return render(request, 'cart.html', context)
+
+@login_required
+def WishListView(request, *args, **kwargs):
+    wishlist_items = get_object_or_404(CustomerWishList, user=request.user)
+    
+    context = {
+        'wishlist_items':wishlist_items,
+        "popular_brands": PopularBrand.objects.all() or None
+        
+    }
+    return render(request, 'wishlist.html', context)
 
 def getAccessToken(request):
     consumer_key = config('consumer_key')
