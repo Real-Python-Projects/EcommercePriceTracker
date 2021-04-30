@@ -1,5 +1,5 @@
 from django import template
-from ProductsApp.models import CustomerOrder
+from ProductsApp.models import CustomerOrder, Category
 
 register = template.Library()
 
@@ -18,3 +18,4 @@ def cart_total_order(user):
         if user_order.exists():
             return user_order[0].totalorderPrice()
         return 0
+    

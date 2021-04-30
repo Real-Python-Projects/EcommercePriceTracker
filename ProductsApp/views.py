@@ -22,7 +22,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
-
 def IndexView(request, *args, **kwargs):
     featured_products = Products.objects.filter(is_approved=True)
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
@@ -370,7 +369,7 @@ def CategoryListView(request, slug, *args, **kwargs):
         
     
     context = {
-        'category':category,
+        'category':category,    
         'categories':categories,
         'products':category.category_objects()
     }
