@@ -19,3 +19,5 @@ def cart_total_order(user):
             return user_order[0].totalorderPrice()
         return 0
     
+
+    

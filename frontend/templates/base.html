@@ -167,7 +167,7 @@
                                         </div>
                                         <div class="shipping-content">
                                             <h5>Working time</h5>
-                                            <span>Mon- Sun: 8.00 - 18.00</span>
+                                            <span>Mon- Sun: 24 hrs</span>
                                         </div>
                                     </div> <!-- end single shipping -->
                                     <div class="single-block-shipping">
@@ -176,7 +176,7 @@
                                         </div>
                                         <div class="shipping-content">
                                             <h5>free shipping</h5>
-                                            <span>On order over $199</span>
+                                            <span>On order over Ksh 2000</span>
                                         </div>
                                     </div> <!-- end single shipping -->
                                     <div class="single-block-shipping">
@@ -204,21 +204,14 @@
                                             Ksh. {{ request.user|cart_total_order }}
                                         </div>
                                         <ul class="cart-list">
+                                            
+                                            
+                                            
+                                            
+                                            {% for product in prep_cart_items %}
                                             <li>
                                                 <div class="cart-img">
-                                                    <a href="#"><img src="{% static 'assets/img/cart/cart-1.jpg' %}" alt=""></a>
-                                                </div>
-                                                <div class="cart-info">
-                                                    <h4><a href="#">simple product 09</a></h4>
-                                                    <span>$60.00</span>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="cart-img">
-                                                    <a href="#"><img src="{% static 'assets/img/cart/cart-2.jpg' %}" alt=""></a>
+                                                    <a href="#"><img src="{{ product.product.image_thumbnail.url }}" alt=""></a>
                                                 </div>
                                                 <div class="cart-info">
                                                     <h4><a href="#">virtual product 10</a></h4>
@@ -228,6 +221,12 @@
                                                     <i class="fa fa-times"></i>
                                                 </div>
                                             </li>
+                                            
+                                            {% endfor %}
+                                                
+                                                
+                                                
+                                            
                                             <li class="mini-cart-price">
                                                 <span class="subtotal">subtotal : </span>
                                                 <span class="subtotal-price">$88.66</span>
