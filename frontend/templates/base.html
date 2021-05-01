@@ -307,7 +307,7 @@
                                                         <ul>
                                                             <li><a href="{% url 'products:cart' %}">cart</a></li>
                                                             <li><a href="{% url 'products:checkout' %}">checkout</a></li>
-                                                            <li><a href="{% url 'products:specs-compare' %}">compare</a></li>
+                                                            <li><a href="{% url 'products:compare' request.user %}">compare</a></li>
                                                             <li><a href="wishlist.html">wishlist</a></li>
                                                         </ul>
                                                     </li>

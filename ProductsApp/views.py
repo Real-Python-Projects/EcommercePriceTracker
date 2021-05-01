@@ -362,12 +362,6 @@ def MyAccountView(request, *args, **kwargs):
     }
     return render(request, 'my-account.html', context)
 
-def SpecsCompareView(request, *args, **kwargs):
-    context = {
-        "popular_brands": PopularBrand.objects.all()
-    }
-    return render(request, 'compare.html', context)
-
 def SerchView(request, *args, **kwargs):
     pass
 
@@ -386,28 +380,18 @@ def CategoryListView(request, slug, *args, **kwargs):
     }
     return render(request, 'category-objects.html', context)
 
+
 @login_required
-def add_to_wishlist(request, slug, *args, **kwargs):
-    product = get_object_or_404(Products, slug=slug)
-    wishlist_item, created = WishListItem.objects.get_or_create(user=request.user
-                                                                ,product=product)
-    wishlist_qs = CustomerWishList.objects.filter(user=request.user)
-    if wishlist_qs.exists():
-        wishlist = wishlist_qs[0]
-        if wishlist.products.filter(product__slug=product.slug).exists():
-            messages.info(request, "Item is already on the wishlist")
-            return redirect("products:product-detail", slug=slug)
-        else:
-            wishlist.products.add(wishlist_item)
-            messages.info(request, "Item has been added to the wishlist")
-            return redirect("products:product-detail", slug=slug)
-        
-    else:
-        wishlist = CustomerWishList.objects.create(user=request.user)
-        wishlist.products.add(wishlist_item)
-        messages.info(request, "Item added to the cart")
-        return redirect("products:product-detail", slug=slug)
+def CompaireView(request, *args, **kwargs):
+    compaire_items = CompaireItems.objects.filter(user=request.user)
     
+    context = {
+        'compaire_items':compaire_items.products.all(),
+        "popular_brands": PopularBrand.objects.all(),
+    }
+    return render(request, 'compare.html', context)
+    
+
 @login_required
 def add_to_compaire(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
@@ -423,3 +407,4 @@ def add_to_compaire(request, slug, *args, **kwargs):
             return redirect('products:compaire')
         compaire.products.add(clicked_item)
         return redirect('products:compaire')
+    
