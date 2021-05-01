@@ -3,7 +3,7 @@ from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
-                     Category)
+                     Category, CompaireItems)
 from User.models import AdminUser, MerchantUser
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
@@ -385,3 +385,41 @@ def CategoryListView(request, slug, *args, **kwargs):
         'products':category.category_objects()
     }
     return render(request, 'category-objects.html', context)
+
+@login_required
+def add_to_wishlist(request, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    wishlist_item, created = WishListItem.objects.get_or_create(user=request.user
+                                                                ,product=product)
+    wishlist_qs = CustomerWishList.objects.filter(user=request.user)
+    if wishlist_qs.exists():
+        wishlist = wishlist_qs[0]
+        if wishlist.products.filter(product__slug=product.slug).exists():
+            messages.info(request, "Item is already on the wishlist")
+            return redirect("products:product-detail", slug=slug)
+        else:
+            wishlist.products.add(wishlist_item)
+            messages.info(request, "Item has been added to the wishlist")
+            return redirect("products:product-detail", slug=slug)
+        
+    else:
+        wishlist = CustomerWishList.objects.create(user=request.user)
+        wishlist.products.add(wishlist_item)
+        messages.info(request, "Item added to the cart")
+        return redirect("products:product-detail", slug=slug)
+    
+@login_required
+def add_to_compaire(request, slug, *args, **kwargs):
+    product = get_object_or_404(Products, slug=slug)
+    compaire_qs = CompaireItems.objects.filter(user=request.user)
+    if compaire_qs.exists():
+        compaire = compaire_qs[0]
+        
+        clicked_item = compaire.products.filter(product__slug=product.slug)
+        
+        if clicked_item.exists():
+            compaire.products.remove(clicked_item)
+            messages.info(request, "Item added for comparison")
+            return redirect('products:compaire')
+        compaire.products.add(clicked_item)
+        return redirect('products:compaire')

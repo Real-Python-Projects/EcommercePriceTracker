@@ -355,3 +355,11 @@ class MpesaPayment(MpesaBaseModel):
         return f"{self.first_name} - {self.amount}"
     
     
+class CompaireItems(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    products = models.ManyToManyField(Products)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.user.username
+    
