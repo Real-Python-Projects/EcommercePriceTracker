@@ -19,7 +19,7 @@ def user_cart_items(request, *args, **kwargs):
             }
         return 0
     
-def SubscribeEmail(request):
+def SubscribeEmail(request, *args, **kwargs):
     if request.method == 'POST':
         sub_email = request.POST.get('sub_email')
         
@@ -27,13 +27,13 @@ def SubscribeEmail(request):
         
         if email_qs.exists():
             messages.error(request, 'Email already exists')
-            return redirect(request.META['HTTP_REFERER'])
-            
+            return redirect(request.META['HTTP_REFERER'])   
         
         subscribers = EmailSubscibers(
             email = sub_email
         )
         subscribers.save()
         messages.success(request, "Thanyou for subscribin")
-        
-        return redirect(request.META['HTTP_REFERER'])
+    
+    context = {}
+    return context

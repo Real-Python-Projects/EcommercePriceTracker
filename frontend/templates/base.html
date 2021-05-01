@@ -383,9 +383,9 @@
                                 </div>
                             </div>
                             <div class="newsletter__box">
-                                <form id="mc-form" action="{% url 'products:subscribe' %}" method="POST">
-                                    <input name='sub_email' type="email" id="mc-email" autocomplete="off" placeholder="Email">
-                                    <button id="mc-submit">subscribe!</button>
+                                <form action="{% url 'products:subscribe' %}" method="POST">{% csrf_token %}
+                                    <input name='sub_email' type="email" placeholder="Email">
+                                    <button>subscribe!</button>
                                 </form>
                             </div>
                             <!-- mailchimp-alerts Start -->

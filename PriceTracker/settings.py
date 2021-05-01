@@ -75,7 +75,6 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'ProductsApp.context_processors.category_context_preprocessor',
                 'ProductsApp.context_processors.user_cart_items',
-                'ProductsApp.context_processors.SubscribeEmail',
             ],
         },
     },

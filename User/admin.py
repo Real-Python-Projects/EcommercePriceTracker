@@ -1,6 +1,7 @@
 from django.contrib import admin
 from User.models import (CustomUser, AdminUser, StaffUser,
-                         MerchantUser, CustomerUser, PhoneNumber, Profile)
+                         MerchantUser, CustomerUser, PhoneNumber, Profile,
+                         EmailSubscibers)
 from django.contrib.auth.admin import UserAdmin
 # Register your models here.
 
@@ -26,3 +27,4 @@ admin.site.register(MerchantUser)
 admin.site.register(CustomerUser)
 admin.site.register(PhoneNumber)
 admin.site.register(Profile)
+admin.site.register(EmailSubscibers)
