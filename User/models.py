@@ -98,3 +98,14 @@ class PhoneNumber(models.Model):
     def __str__(self):
         return f"{self.phone} - {self.user.username}"
     
+    
+class EmailSubscibers(models.Model):
+    email = models.EmailField(max_length=255)
+    date_added = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return self.email
+    
+    def no_of_subscribers(self):
+        return self.objects.all().count()
+    
