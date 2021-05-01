@@ -386,7 +386,7 @@ def CompaireView(request, *args, **kwargs):
     compaire_items = CompaireItems.objects.filter(user=request.user)
     
     context = {
-        'compaire_items':compaire_items.products.all(),
+        'compaire_items':compaire_items,
         "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'compare.html', context)
