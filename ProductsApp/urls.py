@@ -4,6 +4,7 @@ from .views import (IndexView, ContactView, MyAccountView,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
                     add_to_cart, ProductCreateView, WishListView,
                     AboutUsView, SpecsCompareView, CategoryListView)
+from .context_processors import EmailSubscibers
 
 app_name="products"
 
@@ -25,4 +26,5 @@ urlpatterns = [
     path("contact", ContactView, name='contact'),
     path('view-product-by-category/<slug>/', CategoryListView, name='category-objects'),
     path('account/<str:user>/', MyAccountView, name="my-account"),
+    path('subscribe/email/', EmailSubscibers, name="subscribe"),
 ]

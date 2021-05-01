@@ -19,7 +19,7 @@ def user_cart_items(request, *args, **kwargs):
             }
         return 0
     
-def SubscibeEmail(request):
+def SubscribeEmail(request):
     if request.method == 'POST':
         sub_email = request.POST.get('sub_email')
         

@@ -383,8 +383,8 @@
                                 </div>
                             </div>
                             <div class="newsletter__box">
-                                <form id="mc-form">
-                                    <input type="email" id="mc-email" autocomplete="off" placeholder="Email">
+                                <form id="mc-form" action="{% url 'products:subscribe' %}" method="POST">
+                                    <input name='sub_email' type="email" id="mc-email" autocomplete="off" placeholder="Email">
                                     <button id="mc-submit">subscribe!</button>
                                 </form>
                             </div>
