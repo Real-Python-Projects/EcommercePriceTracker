@@ -396,6 +396,7 @@ def CompaireView(request, *args, **kwargs):
 def add_to_compaire(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
     compaire_qs = CompaireItems.objects.filter(user=request.user)
+    compare_item = Products.objects.get(slug=slug)
     if compaire_qs.exists():
         compaire = compaire_qs[0]
         
@@ -404,12 +405,12 @@ def add_to_compaire(request, slug, *args, **kwargs):
         if clicked_item.exists():
             messages.info(request, "Item is already on the compare items")
             return redirect('products:compare', user=request.user)
-        compaire.products.add(clicked_item)
+        compaire.products.add(compare_item)
         return redirect('products:compare', user=request.user)
     
     
     compare = CompaireItems.objects.create(user=request.user)
-    compare.products.add(product)
+    compare.products.add(compare_item)
     messages.success(request, "item was added to compaire")
     redirect('products:compare', user=request.user)
     
