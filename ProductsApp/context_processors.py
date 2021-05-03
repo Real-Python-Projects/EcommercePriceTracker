@@ -2,6 +2,7 @@ from .models import Category, CustomerOrder
 from User.models import EmailSubscibers
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 def category_context_preprocessor(request):
     context = {
@@ -9,6 +10,7 @@ def category_context_preprocessor(request):
     }
     return context
 
+@login_required
 def user_cart_items(request, *args, **kwargs):
     if request.user.is_authenticated:
         user_order = CustomerOrder.objects.filter(user=request.user, is_ordered=False)

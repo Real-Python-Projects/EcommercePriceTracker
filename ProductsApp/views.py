@@ -18,7 +18,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+# from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 # Create your views here.
 

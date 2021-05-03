@@ -130,7 +130,7 @@
                                             </div>
                                         </li>
                                         <li>
-                                            <a href="{% url 'products:wishlist' request.user.username %}">my wishlist</a>
+                                            <a href="{% url 'products:wishlist' request.user %}">my wishlist</a>
                                         </li>
                                         <li>
                                             <a href="{% url 'products:cart' %}">my cart</a>
@@ -201,28 +201,38 @@
                                         </div>
                                         <div class="cart-total-price">
                                             <span>total</span>
-                                            Ksh. {{ request.user|cart_total_order }}
+                                            
+                                            {% if request.user.is_authenticated %}
+                                                Ksh. {{ request.user|cart_total_order }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                                
                                         </div>
                                         <ul class="cart-list">
                                             
                                             
                                             
                                             
-                                            {% for product in prep_cart_items %}
-                                            <li>
-                                                <div class="cart-img">
-                                                    <a href="#"><img src="{{ product.product.image_thumbnail.url }}" alt=""></a>
-                                                </div>
-                                                <div class="cart-info">
-                                                    <h4><a href="#">virtual product 10</a></h4>
-                                                    <span>$50.00</span>
-                                                </div>
-                                                <div class="del-icon">
-                                                    <i class="fa fa-times"></i>
-                                                </div>
-                                            </li>
                                             
-                                            {% endfor %}
+                                            {% if request.user.is_authenticated %}
+                                                {% for product in prep_cart_items %}
+                                                <li>
+                                                    <div class="cart-img">
+                                                        <a href="#"><img src="{{ product.product.image_thumbnail.url }}" alt=""></a>
+                                                    </div>
+                                                    <div class="cart-info">
+                                                        <h4><a href="#">virtual product 10</a></h4>
+                                                        <span>$50.00</span>
+                                                    </div>
+                                                    <div class="del-icon">
+                                                        <i class="fa fa-times"></i>
+                                                    </div>
+                                                </li>
+                                                
+                                                {% endfor %}
+                                                
+                                            {% endif %}
                                                 
                                                 
                                                 

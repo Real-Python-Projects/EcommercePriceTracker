@@ -150,7 +150,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True #This is for encription    
 EMAIL_PORT = 587
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = 'user:login'
 
 MESSAGE_TAGS = {
     messages.ERROR:'danger',
