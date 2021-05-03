@@ -383,10 +383,10 @@ def CategoryListView(request, slug, *args, **kwargs):
 
 @login_required
 def CompaireView(request, *args, **kwargs):
-    compaire_items = CompaireItems.objects.filter(user=request.user)    
+    compaire_items = CompaireItems.objects.get(user=request.user)    
     
     context = {
-        'compaire_items':compaire_items,
+        'compare_items':compaire_items.products.all(),
         "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'compare.html', context)

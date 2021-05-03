@@ -296,7 +296,24 @@
                                                     <li><a href="{% url 'products:index' %}">Home version 01</a></li>
                                                 </ul>
                                             </li>
-                                            <li class="static"><a href="#">pages <i class="fa fa-angle-down"></i></a>
+                                            
+                                            <li><a href="#">shop <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    <li><a href="{% url 'products:shop' %}">Shops <i class="fa fa-angle-right"></i></a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+
+                                            <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
+                                                <ul class="dropdown">
+                                                    <li><a href="{% url 'blog:blog' %}">Blogs</a></li>
+                                                </ul>
+                                            </li>
+
+                                            <li><a href="{% url 'products:about-us' %}">About us</a></li>
+                                            <li><a href="{% url 'products:contact' %}">Contact us</a></li>
+                                            
+                                            <li class="static"><a href="#">More <i class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
                                                     <li class="mega-title"><a href="#">column 01</a>
                                                         <ul>
@@ -337,18 +354,6 @@
                                                     </li>
                                                 </ul>
                                             </li>
-                                            <li><a href="#">shop <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="{% url 'products:shop' %}">Shops <i class="fa fa-angle-right"></i></a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Blog <i class="fa fa-angle-down"></i></a>
-                                                <ul class="dropdown">
-                                                    <li><a href="{% url 'blog:blog' %}">Blogs</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="{% url 'products:contact' %}">Contact us</a></li>
                                         </ul>
                                     </nav>
                                 </div>

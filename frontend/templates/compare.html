@@ -18,8 +18,8 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item"><a href="shop-grid-left-sidebar.html">shop</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:shop' %}">shop</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">compare</li>
                                 </ul>
                             </nav>
@@ -42,66 +42,79 @@
                                     <tbody>
                                     <tr>
                                         <td class="first-column">Product</td>
+
+
+                                        
+                                        {% for product in compare_items %}
                                         <td class="product-image-title">
                                             <a href="single-product.html" class="image">
-                                                <img class="img-fluid" src="{% static 'assets/img/product/product-img4.jpg' %}" alt="Compare Product">
+                                                <img class="img-fluid" src="{{ product.image_thumbnail.url }}" alt="Compare Product">
                                             </a>
-                                            <a href="#" class="category">Daimond</a>
-                                            <a href="single-product-sale.html" class="title">wet food</a>
+                                            <a href="#" class="category">{{ product.product_name }}</a>
+                                            <a href="single-product-sale.html" class="title">{{ product.category.title }}</a>
+                                            <a href="single-product-sale.html" class="title">{{ product.added_by_merchant.shop.shop_name }}</a>
                                         </td>
-                                        <td class="product-image-title">
-                                            <a href="single-product.html" class="image">
-                                                <img class="img-fluid" src="{% static 'assets/img/product/product-img5.jpg' %}" alt="Compare Product">
-                                            </a>
-                                            <a href="#" class="category">Gold</a>
-                                            <a href="single-product-group.html" class="title">organic food</a>
-                                        </td>
-                                        <td class="product-image-title">
-                                            <a href="single-product.html" class="image">
-                                                <img class="img-fluid" src="{% static 'assets/img/product/product-img2.jpg' %}" alt="Compare Product">
-                                            </a>
-                                            <a href="#" class="category">Ring</a>
-                                            <a href="single-product.html" class="title">dry food</a>
-                                        </td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     <tr>
                                         <td class="first-column">Description</td>
+
+
+                                        
+                                        {% for product in compare_items %}
                                         <td class="pro-desc">
-                                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident nulla, explicabo iste a rerum pariatur.</p>
+                                            <p>{{ product.product_description }}</p>
                                         </td>
-                                        <td class="pro-desc">
-                                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit commodi obcaecati cumque consectetur alias incidunt?</p>
-                                        </td>
-                                        <td class="pro-desc">
-                                            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eius, facere. Fuga asperiores inventore iste tempora.</p>
-                                        </td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     <tr>
                                         <td class="first-column">Price</td>
-                                        <td class="pro-price">$295</td>
-                                        <td class="pro-price">$275</td>
-                                        <td class="pro-price">$395</td>
+
+                                       
+                                       {% for product in compare_items %}
+                                         <td class="pro-price">Ksh. {{ product.product_discount_price }}</td>
+                                       {% endfor %}
+                                           
+                                       
                                     </tr>
                                     <tr>
                                         <td class="first-column">Color</td>
-                                        <td class="pro-color">Black</td>
-                                        <td class="pro-color">Red</td>
-                                        <td class="pro-color">Blue</td>
+
+                                        
+                                        {% for product in compare_items %}
+                                            <td class="pro-color">Black</td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     <tr>
                                         <td class="first-column">Stock</td>
+
+                                        
+                                        {% for product in compare_items %}
                                         <td class="pro-stock">In Stock</td>
-                                        <td class="pro-stock">Stock Out</td>
-                                        <td class="pro-stock">In Stock</td>
+                                        {% endfor %}
+                                            
+
                                     </tr>
                                     <tr>
                                         <td class="first-column">Add to cart</td>
+                                        
+                                        {% for product in compare_items %}
                                         <td><a href="cart.html" class="sqr-btn">Add to Cart</a></td>
-                                        <td><a href="cart.html" class="sqr-btn disabled">Add to Cart</a></td>
-                                        <td><a href="cart.html" class="sqr-btn">Add to Cart</a></td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     <tr>
                                         <td class="first-column">Rating</td>
+
+                                        
+                                        {% for product in compare_items %}
                                         <td class="pro-ratting">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -109,32 +122,21 @@
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star-o"></i>
                                         </td>
-                                        <td class="pro-ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                        </td>
-                                        <td class="pro-ratting">
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star"></i>
-                                            <i class="fa fa-star-o"></i>
-                                        </td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     <tr>
                                         <td class="first-column">Remove</td>
+
+                                        
+                                        {% for product in compare_items %}
                                         <td class="pro-remove">
                                             <button><i class="fa fa-trash-o"></i></button>
                                         </td>
-                                        <td class="pro-remove">
-                                            <button><i class="fa fa-trash-o"></i></button>
-                                        </td>
-                                        <td class="pro-remove">
-                                            <button><i class="fa fa-trash-o"></i></button>
-                                        </td>
+                                        {% endfor %}
+                                            
+                                        
                                     </tr>
                                     </tbody>
                                 </table>
