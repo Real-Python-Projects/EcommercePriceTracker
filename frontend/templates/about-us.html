@@ -3,7 +3,7 @@
 
 
 {% block title %}
-    About Us
+   | About Us
 {% endblock title %}
 
 
@@ -19,7 +19,7 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">about us</li>
                                 </ul>
                             </nav>
@@ -67,78 +67,31 @@
                     </div>
                 </div> <!-- section title end -->
                 <div class="row">
+
+                    
+                    {% for staff in staffs %}
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <div class="team-member mb-30">
                             <div class="team-thumb img-full">
-                                <img src="{% static 'assets/img/team/team_member_1.jpg' %}" alt="">
+                                <img src="{{ staff.profile_pic_thumbnail.url }}" alt="">
                                 <div class="team-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    <a href="{{ staff.facebook }}"><i class="fa fa-facebook"></i></a>
+                                    <a href="{{ staff.twitter }}"><i class="fa fa-twitter"></i></a>
+                                    <a href="{{ staff.linkedin }}"><i class="fa fa-linkedin"></i></a>
+                                    <a href="{{staff.googleplus}}"><i class="fa fa-google-plus"></i></a>
                                 </div>
                             </div>
                             <div class="team-content text-center">
-                                <h3>Jonathan Scott</h3>
-                                <h6>CEO</h6>
-                                <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
+                                <h3>{{staff.user.username}}</h3>
+                                <h6>{{ staff.position }}</h6>
+                                <p>{{ staff.description }}</p>
                             </div>
                         </div>
-                    </div> <!-- end single team member -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="team-member mb-30">
-                            <div class="team-thumb img-full">
-                                <img src="{% static 'assets/img/team/team_member_2.jpg' %}" alt="">
-                                <div class="team-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content text-center">
-                                <h3>oliver bastin</h3>
-                                <h6>designer</h6>
-                                <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
-                            </div>
-                        </div>
-                    </div> <!-- end single team member -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="team-member mb-30">
-                            <div class="team-thumb img-full">
-                                <img src="{% static 'assets/img/team/team_member_3.jpg' %}" alt="">
-                                <div class="team-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content text-center">
-                                <h3>erik jonson</h3>
-                                <h6>developer</h6>
-                                <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
-                            </div>
-                        </div>
-                    </div> <!-- end single team member -->
-                    <div class="col-lg-3 col-md-6 col-sm-6">
-                        <div class="team-member mb-30">
-                            <div class="team-thumb img-full">
-                                <img src="{% static 'assets/img/team/team_member_4.jpg' %}" alt="">
-                                <div class="team-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-linkedin"></i></a>
-                                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                                </div>
-                            </div>
-                            <div class="team-content text-center">
-                                <h3>maria mandy</h3>
-                                <h6>marketing officer</h6>
-                                <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
-                            </div>
-                        </div>
-                    </div> <!-- end single team member -->
+                    </div> 
+                    {% endfor %}
+                        
+                    <!-- end single team member -->
+                    
                 </div>
             </div>
         </div>
@@ -206,21 +159,21 @@
                         <div class="single-choose-item text-center mb-md-30 mb-sm-30">
                             <i class="fa fa-globe"></i>
                             <h4>free shipping</h4>
-                            <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
+                            <p>All the shops in R-Market Provide free delivery for goods worth over ksh. 2000</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="single-choose-item text-center mb-md-30 mb-sm-30">
                             <i class="fa fa-plane"></i>
                             <h4>fast delivery</h4>
-                            <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
+                            <p>The R-Market team together with the merchants work together soo hard to provide fast delivery of goods</p>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="single-choose-item text-center mb-md-30 mb-sm-30">
                             <i class="fa fa-comments"></i>
                             <h4>customers support</h4>
-                            <p>Amadea Shop is a very slick and clean e-commerce template with endless possibilities.</p>
+                            <p>R-Market provides a 24/7 customer support.</p>
                         </div>
                     </div>
                 </div>

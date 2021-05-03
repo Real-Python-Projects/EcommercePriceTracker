@@ -11,7 +11,12 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 # Create your models here.
 
-
+STAFF_CHOICES = [
+    ("CEO", "CEO"),
+    ("Marketing Officer", "Marketing Officer"),
+    ("Customer Care","Customer Care"),
+    ("Quality Officer", "Quality Officer")
+]
 
 class CustomUser(AbstractUser):
     is_superuser = models.BooleanField(default=False)
@@ -37,11 +42,18 @@ class StaffUser(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     profile_pic=models.ImageField(upload_to="images/profile/staff")
     profile_pic_thumbnail = ImageSpecField(source='profile_pic',
-                                           processors=[ResizeToFill(100,100)],
+                                           processors=[ResizeToFill(400,400)],
                                            format='JPEG',
                                            options={'quality':100}
                                            )
+    position = models.CharField(choices=STAFF_CHOICES, max_length=255)
+    description = models.TextField(default="No description")
     created_at = models.DateTimeField(auto_now_add=True)
+    list_on_about = models.BooleanField(default=False)
+    facebook = models.CharField(max_length=255, blank=True, null=True)
+    twitter = models.CharField(max_length=255, blank=True, null=True)
+    linked_in = models.CharField(max_length=255, blank=True, null=True)
+    google_plus = models.CharField(max_length=255, blank=True, null=True)
     
     def __str__(self):
         return self.user.username

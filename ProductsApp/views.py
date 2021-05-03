@@ -4,7 +4,7 @@ from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
                      Category, CompaireItems)
-from User.models import AdminUser, MerchantUser
+from User.models import AdminUser, MerchantUser, StaffUser
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
 from .forms import ProductForm
@@ -353,7 +353,11 @@ def confirmation(request):
     return JsonResponse(dict(context))
 
 def AboutUsView(request, *args, **kwargs):
-    return render(request, 'about-us.html', {})
+    staffs = StaffUser.objects.filter(list_on_about=True)
+    context = {
+        "staffs":staffs
+    }
+    return render(request, 'about-us.html', context)
 
 
 def MyAccountView(request, *args, **kwargs):
