@@ -3,7 +3,8 @@ from .views import (IndexView, ContactView, MyAccountView,
                     CheckoutView, CartView, ProductDetailView, ShopList, ShopProducts,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
                     add_to_cart, ProductCreateView, WishListView,
-                    AboutUsView, CompaireView, CategoryListView)
+                    AboutUsView, CompaireView, CategoryListView,
+                    add_to_compaire)
 from .context_processors import EmailSubscibers
 
 app_name="products"
@@ -27,4 +28,5 @@ urlpatterns = [
     path('view-product-by-category/<slug>/', CategoryListView, name='category-objects'),
     path('account/<str:user>/', MyAccountView, name="my-account"),
     path('subscribe/email/', EmailSubscibers, name="subscribe"),
+    path('compare/<user>/add-to-compare/<slug>/', add_to_compaire, name = 'add-to-compare'),
 ]

@@ -383,7 +383,7 @@ def CategoryListView(request, slug, *args, **kwargs):
 
 @login_required
 def CompaireView(request, *args, **kwargs):
-    compaire_items = CompaireItems.objects.filter(user=request.user)
+    compaire_items = CompaireItems.objects.filter(user=request.user)    
     
     context = {
         'compaire_items':compaire_items,
@@ -399,12 +399,18 @@ def add_to_compaire(request, slug, *args, **kwargs):
     if compaire_qs.exists():
         compaire = compaire_qs[0]
         
-        clicked_item = compaire.products.filter(product__slug=product.slug)
+        clicked_item = compaire.products.filter(slug=product.slug)
         
         if clicked_item.exists():
-            compaire.products.remove(clicked_item)
-            messages.info(request, "Item added for comparison")
-            return redirect('products:compaire')
+            messages.info(request, "Item is already on the compare items")
+            return redirect('products:compare', user=request.user)
         compaire.products.add(clicked_item)
-        return redirect('products:compaire')
+        return redirect('products:compare', user=request.user)
+    
+    
+    compare = CompaireItems.objects.create(user=request.user)
+    compare.products.add(product)
+    messages.success(request, "item was added to compaire")
+    redirect('products:compare', user=request.user)
+    
     

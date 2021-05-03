@@ -96,7 +96,7 @@
                                             </div>
                                         </div>
                                         <div class="useful-links mt-20">
-                                            <a href="{% url 'products:compare' request.user %}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i>compare</a>
+                                            <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i>compare</a>
                                             <a href="#" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="fa fa-heart-o"></i>wishlist</a>
                                         </div>
                                         <div class="share-icon mt-20">
