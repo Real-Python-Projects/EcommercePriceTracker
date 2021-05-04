@@ -274,9 +274,9 @@
                                                 {% if not node.is_leaf_node %}
                                                 <ul class="category-mega-menu">    
                                                     <li class="menu-item-has-children">
-                                                        <a href="shop-grid-left-sidebar.html">Subcateory</a> 
+                                                        <a href="#">Subcateory</a> 
                                                         <ul>
-                                                            <li><a href="shop-grid-left-sidebar.html">{{ children }}</a></li>
+                                                            <li><a href="#">{{ children }}</a></li>
                                                         </ul>     
                                                     </li>
                                                 </ul><!-- Mega Category Menu End --> 
@@ -315,32 +315,17 @@
                                             
                                             <li class="static"><a href="#">More <i class="fa fa-angle-down"></i></a>
                                                 <ul class="megamenu dropdown">
-                                                    <li class="mega-title"><a href="#">column 01</a>
-                                                        <ul>
-                                                            <li><a href="{% url 'products:shop' %}">shop grid full 4 column</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li class="mega-title"><a href="#">column 02</a>
-                                                        <ul>
-                                                            <li><a href="#">product details</a></li>
-                                                            <li><a href="product-details-affiliate.html">product details
-                                                                    affiliate</a></li>
-                                                            <li><a href="product-details-variable.html">product details
-                                                                    variable</a></li>
-                                                            <li><a href="product-details-group.html">product details group</a></li>
-                                                        </ul>
-                                                    </li>
                                                     <li class="mega-title"><a href="#">column 03</a>
                                                         <ul>
                                                             <li><a href="{% url 'products:cart' %}">cart</a></li>
                                                             <li><a href="{% url 'products:checkout' %}">checkout</a></li>
                                                             <li><a href="{% url 'products:compare' request.user %}">compare</a></li>
-                                                            <li><a href="wishlist.html">wishlist</a></li>
+                                                            <li><a href="{% url 'products:wishlist' request.user %}">wishlist</a></li>
                                                         </ul>
                                                     </li>
                                                     <li class="mega-title"><a href="#">column 04</a>
                                                         <ul>
-                                                            <li><a href="my-account.html">my-account</a></li>
+                                                            <li><a href="{% url 'products:my-account' request.user %}">my-account</a></li>
                                                             
                                                             {% if request.user.is_authenticated %}
                                                             <li><a href="{% url 'user:login' %}">logout</a></li>

@@ -31,7 +31,7 @@ def IndexView(request, *args, **kwargs):
         'categories':categories,
         "featured":featured_products,
         "new_arrivals":new_arrivals,
-        "most_viewed":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        "most_viewed":Products.objects.filter(is_approved=True).order_by('-view_count'),
         "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all()
@@ -122,6 +122,11 @@ def remove_from_wishlist(request, slug, *args, **kwargs):
     
 def ProductDetailView(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)
+    
+    #code for implementing most viewed
+    product.view_count = int(product.view_count)+1
+    product.save()
+    
     content = {
         "product":product,
         "brands": PopularBrand.objects.all()
