@@ -261,15 +261,14 @@ def CheckoutView(request, *args, **kwargs):
                 "Timestamp":LipaNaMpesaPassword.lipa_time,
                 "TransactionType":"CustomerPayBillOnline",
                 "Amount":"5",
-                "PartyA":"254729754363",
+                "PartyA":f"{lipa_na_mpesa_phone}",
                 "PartyB":"174379",
-                "PhoneNumber":"254729754363",
-                "CallBackURL":"https/retechstore.pythonanywhere.com/c2b/confirmation/",
+                "PhoneNumber":f"{lipa_na_mpesa_phone}",
+                "CallBackURL":"https://retechstore.pythonanywhere.com/c2b/confirmation/",
                 "AccountReference":"GiftWasHere",
                 "TransactionDesc":"myhealth test"
                     }
             response = requests.post(api_url, json=request, headers=headers)
-            print(response)
             return HttpResponse('success')
         
     context = {

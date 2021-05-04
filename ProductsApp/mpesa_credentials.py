@@ -21,7 +21,7 @@ class LipaNaMpesaPassword:
     lipa_time = datetime.now().strftime('%Y%m%d%H%M%S')
     business_short_code = config('business_short_code')
     test_c2b_shortcode = config('test_c2b_shortcode')
-    pass_key = config('test_c2b_shortcode')
+    pass_key = config('pass_key')
     data_to_encode = business_short_code + pass_key + lipa_time
     online_password = base64.b64encode(data_to_encode.encode())
     decode_password = online_password.decode('utf-8')

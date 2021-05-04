@@ -84,6 +84,7 @@ class Products(models.Model):
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_approved = models.BooleanField(default=False)
+    view_count = models.IntegerField(default=0)
     
     class Meta:
         verbose_name = "Product"
