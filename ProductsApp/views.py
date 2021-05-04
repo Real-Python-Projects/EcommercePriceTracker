@@ -4,7 +4,7 @@ from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
                      Category, CompaireItems)
-from User.models import AdminUser, MerchantUser, StaffUser
+from User.models import AdminUser, MerchantUser, StaffUser, Profile
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
 from .forms import ProductForm
@@ -18,7 +18,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-# from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 # Create your views here.
 
@@ -359,13 +359,6 @@ def AboutUsView(request, *args, **kwargs):
     }
     return render(request, 'about-us.html', context)
 
-
-def MyAccountView(request, *args, **kwargs):
-    context = {
-        "popular_brands": PopularBrand.objects.all()
-    }
-    return render(request, 'my-account.html', context)
-
 def SerchView(request, *args, **kwargs):
     pass
 
@@ -417,5 +410,13 @@ def add_to_compaire(request, slug, *args, **kwargs):
     compare.products.add(compare_item)
     messages.success(request, "item was added to compaire")
     redirect('products:compare', user=request.user)
+    
+def MyAccountView(request, *args, **kwargs):
+    
+    context = {
+        "profile":get_object_or_404(Profile, user=request.user),
+        "popular_brands": PopularBrand.objects.all()
+    }
+    return render(request, 'my-account.html', context)
     
     

@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block title %}
-    {{ request.user.username }}
+    | {{ profile.user.username }}
 {% endblock title %}
 
 
@@ -17,7 +17,7 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">my account</li>
                                 </ul>
                             </nav>
@@ -60,7 +60,7 @@
                                             <div class="myaccount-content">
                                                 <h3>Dashboard</h3>
                                                 <div class="welcome">
-                                                    <p>Hello, <strong>Alex Tuntuni</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
+                                                    <p>Hello, <strong>{{ profile.user.username }}</strong> (If Not <strong>Tuntuni !</strong><a href="login-register.html" class="logout"> Logout</a>)</p>
                                                 </div>
                                                 <p class="mb-0">From your account dashboard. you can easily check & view your recent orders, manage your shipping and billing addresses and edit your password and account details.</p>
                                             </div>

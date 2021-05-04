@@ -14,8 +14,10 @@ from django.contrib.auth.tokens import PasswordResetTokenGenerator
 from django.core.validators import validate_email
 from .forms import ResetEmailForm
 import random
+from django.contrib.auth.decorators import login_required
 from .models import Profile, PhoneNumber
 from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
 from django.conf import settings
 
 User = get_user_model()
@@ -278,3 +280,12 @@ def ResetPasswordView(request, uidb64, token):
             messages.error(request, "oops! something went wrong")
             return render(request, 'auth/reset_password.html', context)
     return render(request, 'auth/reset_password.html', context)
+
+@login_required
+def MyAccountView(request, *args, **kwargs):
+    profile = get_object_or_404(Profile, user=request.user)
+    print(profile)
+    context = {
+        "profile":profile,
+    }
+    return render(request,'my-account.html',context)
