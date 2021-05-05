@@ -127,7 +127,7 @@
                                                             class="fa fa-search"></i></span> </a>
                                                 <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                         class="fa fa-heart-o"></i></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i
+                                                <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i
                                                         class="fa fa-refresh"></i></a>
                                                 <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                         class="fa fa-shopping-cart"></i></a>
@@ -320,7 +320,7 @@
                                                         class="fa fa-search"></i></span> </a>
                                             <a href="{% url 'products:add-to-wishlist' product.slug %}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                     class="fa fa-heart-o"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i
+                                            <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i
                                                     class="fa fa-refresh"></i></a>
                                             <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                     class="fa fa-shopping-cart"></i></a>
@@ -391,7 +391,7 @@
                                                         class="fa fa-search"></i></span> </a>
                                             <a href="{% url 'products:add-to-wishlist' product.slug %}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i
                                                     class="fa fa-heart-o"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i
+                                            <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i
                                                     class="fa fa-refresh"></i></a>
                                             <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i
                                                     class="fa fa-shopping-cart"></i></a>
@@ -642,7 +642,7 @@
                                             data-placement="left" title="Quick view"><i class="fa fa-search"></i></span>
                                     </a>
                                     <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                    <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
                                     <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                 </div>
                             </div>

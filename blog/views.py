@@ -28,5 +28,6 @@ def BlogDetailView(request, slug, pk,*args, **kwargs):
         'recent':Blog.objects.filter(is_published=True).order_by("-added_date")[:3],
         'post':post,
         'blog_media':blog_media,
+        "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'blog/blog-details.html', context)

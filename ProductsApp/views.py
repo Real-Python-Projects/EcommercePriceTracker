@@ -154,7 +154,8 @@ def ProductCreateView(request, *args, **kwargs):
             redirect("products:shop")
     context = {
         "form":form,
-        "categories":categories
+        "categories":categories,
+        "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'product-form.html', context)
 
@@ -163,7 +164,6 @@ def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
 
-    print(request.user.merchantuser.user)
     context = {
         'shops':shops,
         "new_arrivals":new_arrivals,
@@ -182,6 +182,7 @@ def ShopProducts(request,slug, *args, **kwargs):
     context = {
         'shop':shop,
         'products':products,
+        "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'shop-products.html', context)
     
@@ -365,20 +366,14 @@ def confirmation(request):
 def AboutUsView(request, *args, **kwargs):
     staffs = StaffUser.objects.filter(list_on_about=True)
     context = {
-        "staffs":staffs
+        "staffs":staffs,
+        "popular_brands": PopularBrand.objects.all()
     }
     return render(request, 'about-us.html', context)
-
-def SerchView(request, *args, **kwargs):
-    pass
-
 
 def CategoryListView(request, slug, *args, **kwargs):
     category = get_object_or_404(Category, slug=slug)
     categories = Category.objects.all()
-    
-
-        
     
     context = {
         'category':category,    
