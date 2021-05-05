@@ -43,6 +43,10 @@ class Blog(models.Model):
                                      processors=[ResizeToFill(1024,610)],
                                      format='jpeg',
                                      options={'quality':100})
+    small_image_thumbnail = ImageSpecField(source='image',
+                                     processors=[ResizeToFill(200,200)],
+                                     format='jpeg',
+                                     options={'quality':100})
     added_date = models.DateTimeField(auto_now_add=True)
     is_published = models.BooleanField(default=False)
     pub_date = models.DateTimeField(blank=True, null=True)
