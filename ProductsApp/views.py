@@ -14,6 +14,7 @@ from django.core.mail import send_mail
 
 from blog.models import Blog
 from decouple import config
+from django.db.models import Q
 import json
 import requests
 from requests.auth import HTTPBasicAuth
@@ -428,4 +429,15 @@ def MyAccountView(request, *args, **kwargs):
     }
     return render(request, 'my-account.html', context)
     
-    
+ 
+def MainSearch(request, *args, **kwargs):    
+    query = request.GET.get('product_search', None)
+        
+    if query is not None:
+        products = Products.objects.filter(Q(product_name__icontains=query)|
+                                        Q(slug__icontains=query))
+        context = {
+            'query':query,
+            'products':products
+        }
+        return render(request,'search-results.html', context)

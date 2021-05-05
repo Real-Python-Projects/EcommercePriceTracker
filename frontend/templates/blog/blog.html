@@ -4,7 +4,7 @@
 
 
 {% block title %}
-    Blog
+   | Blog
 {% endblock title %}
 
 
@@ -19,8 +19,8 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">blog left sidebar</li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">blog</li>
                                 </ul>
                             </nav>
                         </div>
@@ -39,7 +39,7 @@
                             <div class="blog-sidebar mb-30">
                                 <div class="sidebar-serch-form">
                                     <form action="#">
-                                        <input type="text" class="search-field" placeholder="search here">
+                                        <input name='blog_search' type="text" class="search-field" placeholder="search here" method="GET">
                                         <button type="submit" class="search-btn"><i class="fa fa-search"></i></button>
                                     </form>
                                 </div>

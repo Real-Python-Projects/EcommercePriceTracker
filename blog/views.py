@@ -2,11 +2,17 @@ from django.shortcuts import render
 from .models import Blog, BlogMedia
 from ProductsApp.models import PopularBrand
 from django.shortcuts import render, get_object_or_404
+from django.db.models import Q
+from django.core.paginator import Paginator
 # Create your views here.
 
 
 def BlogView(request, *args, **kwargs):
     blogs = Blog.objects.filter(is_published=True).order_by('pub_date')
+    
+    query = request.GET.get('blog_search', None)
+    if query is not None:
+        blogs = Blog.objects.filter(Q(title__icontains=query))
     
     context = {
         'blogs':blogs,
