@@ -1,3 +1,4 @@
+
 from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
@@ -11,6 +12,7 @@ from .forms import ProductForm
 from django.contrib import messages
 from django.core.mail import send_mail
 
+from blog.models import Blog
 from decouple import config
 import json
 import requests
@@ -19,6 +21,7 @@ from requests.auth import HTTPBasicAuth
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+
 
 # Create your views here.
 
@@ -34,9 +37,11 @@ def IndexView(request, *args, **kwargs):
         "most_viewed":Products.objects.filter(is_approved=True).order_by('-view_count'),
         "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "latest_blog": Blog.objects.filter(is_published=True).order_by("-pub_date")[:5],
     }
     return render(request, 'index.html', content)
+
 
 @login_required
 def add_to_cart(request, slug, *args, **kwargs):
