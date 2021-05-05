@@ -217,24 +217,24 @@
                                             
                                             
                                             
-                                            {% if request.user.is_authenticated %}
-                                                {% for product in prep_cart_items %}
-                                                <li>
-                                                    <div class="cart-img">
-                                                        <a href="#"><img src="{{ product.product.image_thumbnail.url }}" alt=""></a>
-                                                    </div>
-                                                    <div class="cart-info">
-                                                        <h4><a href="#">virtual product 10</a></h4>
-                                                        <span>Ksh. {{product.product.product_discount_price}}</span>
-                                                    </div>
-                                                    <div class="del-icon">
-                                                        <i class="fa fa-times"></i>
-                                                    </div>
-                                                </li>
-                                                
-                                                {% endfor %}
-                                                
-                                            {% endif %}
+                                        {% if request.user.is_authenticated %}
+                                            {% for product in prep_cart_items %}
+                                            <li>
+                                                <div class="cart-img">
+                                                    <a href="#"><img src="{{ product.product.image_thumbnail.url }}" alt=""></a>
+                                                </div>
+                                                <div class="cart-info">
+                                                    <h4><a href="#">{{ product.product.product_name }}</a></h4>
+                                                    <span>Ksh. {{product.product.product_discount_price}}</span>
+                                                </div>
+                                                <div class="del-icon">
+                                                    <i class="fa fa-times"></i>
+                                                </div>
+                                            </li>
+                                            
+                                            {% endfor %}
+                                            
+                                        {% endif %}
                                                 
                                                 
                                                 
@@ -439,7 +439,7 @@
                                         <li><a href="{% url 'products:my-account' user=request.user %}">my account</a></li>
                                         <li><a href="{% url 'products:cart' %}">my cart</a></li>
                                         <li><a href="{% url 'products:checkout' %}">checkout</a></li>
-                                        <li><a href="#">my wishlist</a></li>
+                                        <li><a href="{% url 'products:wishlist' request.user %}">my wishlist</a></li>
                                         
                                         {% if request.user.is_authenticated %}
                                         <li><a href="{% url 'user:logout' %}">logout</a></li>
