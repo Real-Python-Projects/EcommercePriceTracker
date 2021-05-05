@@ -4,7 +4,7 @@ from .views import (IndexView, ContactView, MyAccountView,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
                     add_to_cart, ProductCreateView, WishListView,
                     AboutUsView, CompaireView, CategoryListView,
-                    add_to_compaire)
+                    add_to_compaire, MainSearch)
 from .context_processors import EmailSubscibers
 
 app_name="products"
@@ -29,4 +29,5 @@ urlpatterns = [
     path('account/<str:user>/', MyAccountView, name="my-account"),
     path('subscribe/email/', EmailSubscibers, name="subscribe"),
     path('compare/<user>/add-to-compare/<slug>/', add_to_compaire, name = 'add-to-compare'),
+    path('query/', MainSearch, name='search'),
 ]
