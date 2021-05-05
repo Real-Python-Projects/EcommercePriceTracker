@@ -31,3 +31,7 @@ def BlogDetailView(request, slug, pk,*args, **kwargs):
         "popular_brands": PopularBrand.objects.all(),
     }
     return render(request, 'blog/blog-details.html', context)
+
+
+def BlogCreateView(request, *args, **kwargs):
+    return render(request, 'blog-create.html', {})
