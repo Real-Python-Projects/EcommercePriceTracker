@@ -3,18 +3,12 @@ from mptt.admin import DraggableMPTTAdmin
 from .models import (Category,Shop,models,
                      Products, ProductDetails, ProductMedia,
                      ShopPrice, ProductTransaction, ProductAbout,
-                     ProductTags, ProductQuestions, 
+                     ProductQuestions, 
                      ProductReviews, ProductReviewVoting, 
                      ProductVarientItems, CustomerOrder,
                      OrderDeliveryStatus, PopularBrand, ContactMessage,
-                     CustomerWishList, OrderItem, CompaireItems)
-# Register your models here.
-
-# class SubCategoryInline(admin.TabularInline):
-#     model = SubCategories
-    
-# class CategoryAdmin(admin.ModelAdmin):
-#     inlines = [SubCategoryInline]
+                     CustomerWishList, OrderItem, CompaireItems, Tags,
+                     MpesaPayment)
 
 class CategoryAdmin(DraggableMPTTAdmin):
     mptt_indent_field = "title"
@@ -57,7 +51,8 @@ admin.site.register(OrderItem)
 admin.site.register(CustomerOrder)
 admin.site.register(CustomerWishList)
 
-
+admin.site.register(MpesaPayment)
 admin.site.register(PopularBrand)
 admin.site.register(ContactMessage)
 admin.site.register(CompaireItems)
+admin.site.register(Tags)

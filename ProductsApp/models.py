@@ -81,6 +81,7 @@ class Products(models.Model):
     product_description=RichTextField(blank=True, null=True)
     product_long_description=RichTextField(blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
+    tags = models.ManyToManyField('Tags', blank=True)
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_approved = models.BooleanField(default=False)
@@ -150,6 +151,7 @@ class Tags(models.Model):
     name = models.CharField(max_length=15)
     slug = models.SlugField(blank=True)
     date_added = models.DateTimeField(auto_now_add=True)
+    show_on_index = models.BooleanField(default=False)
     
     def save(self,*args, **kwargs):
         if not self.slug:
@@ -159,11 +161,6 @@ class Tags(models.Model):
     def __str__(self):
         return self.name
     
-class ProductTags(models.Model):
-    product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
-    tags = models.ManyToManyField(Tags)
-    created_at=models.DateTimeField(auto_now_add=True)
-    is_active=models.IntegerField(default=1)
 
 class ProductQuestions(models.Model):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)

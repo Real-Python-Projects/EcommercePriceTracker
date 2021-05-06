@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import BlogCategory, Blog, Comments, BlogMedia
+from .models import BlogCategory, Blog, Comments, BlogMedia, Tag
 from mptt.admin import DraggableMPTTAdmin
 # Register your models here.
 
@@ -54,3 +54,4 @@ class CategoryAdmin(DraggableMPTTAdmin):
     related_blogs_cumulative_count.short_description = 'Related blogs (in tree)'
     
 admin.site.register(BlogCategory, CategoryAdmin)
+admin.site.register(Tag)
