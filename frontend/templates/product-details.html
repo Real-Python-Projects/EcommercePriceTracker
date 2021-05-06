@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="availability mt-10">
                                             <h5>Availability:</h5>
-                                            <span>1 in stock</span>
+                                            <span>{{ product.in_stock_total }} in stock</span>
                                         </div>
                                         <div class="pricebox">
                                             <span class="regular-price">Ksh. {{product.product_discount_price}}</span>
@@ -129,26 +129,7 @@
                                         <div class="tab-content reviews-tab">
                                             <div class="tab-pane fade show active" id="tab_one">
                                                 <div class="tab-one">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Ipsum metus feugiat sem, quis fermentum turpis eros eget velit. Donec ac tempus ante. Fusce ultricies massa massa. Fusce aliquam, purus eget sagittis vulputate, sapien libero hendrerit est, sed commodo augue nisi non neque.</p>
-                                                    <div class="review-description">
-                                                        <div class="tab-thumb">
-                                                            <img src="{% static 'assets/img/about/services.jpg' %}" alt="">
-                                                        </div>
-                                                        <div class="tab-des mt-sm-24">
-                                                            <h3>Product Information :</h3>
-                                                            <ul>
-                                                                <li>Donec non est at libero vulputate rutrum.</li>
-                                                                <li>Morbi ornare lectus quis justo gravida semper.</li>
-                                                                <li>Pellentesque aliquet, sem eget laoreet ultrices</li>
-                                                                <li>Nulla tellus mi, vulputate adipiscing cursus eu, suscipit id nulla</li>
-                                                                <li>Donec a neque libero.</li>
-                                                                <li>Pellentesque aliquet, sem eget laoreet ultrices</li>
-                                                                <li>Morbi ornare lectus quis justo gravida semper.</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <p>Cras neque metus, consequat et blandit et, luctus a nunc. Etiam gravida vehicula tellus, in imperdiet ligula euismod eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nam erat mi, rutrum at sollicitudin rhoncus, ultricies posuere erat. Duis convallis, arcu nec aliquam consequat, purus felis vehicula felis, a dapibus enim lorem nec augue. Nunc facilisis sagittis ullamcorper.</p>
-                                                    <p>Proin lectus ipsum, gravida et mattis vulputate, tristique ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor dignissim semper. Nulla luctus malesuada tincidunt.</p>
+                                                    {{ product.product_long_description|safe }}
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="tab_two">
