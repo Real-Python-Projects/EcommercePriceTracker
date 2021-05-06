@@ -4,7 +4,7 @@ from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
-                     Category, CompaireItems)
+                     Category, CompaireItems, Tags)
 from User.models import AdminUser, MerchantUser, StaffUser, Profile
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
@@ -40,6 +40,7 @@ def IndexView(request, *args, **kwargs):
         "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all(),
         "latest_blog": Blog.objects.filter(is_published=True).order_by("-pub_date")[:5],
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
     return render(request, 'index.html', content)
 
@@ -135,7 +136,8 @@ def ProductDetailView(request, slug, *args, **kwargs):
     
     content = {
         "product":product,
-        "brands": PopularBrand.objects.all()
+        "brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
     return render(request, 'product-details.html',content)
 
@@ -155,7 +157,8 @@ def ProductCreateView(request, *args, **kwargs):
     context = {
         "form":form,
         "categories":categories,
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'product-form.html', context)
 
@@ -171,6 +174,7 @@ def ShopList(request, *args, **kwargs):
         "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'shop-list.html', context)
 
@@ -182,7 +186,8 @@ def ShopProducts(request,slug, *args, **kwargs):
     context = {
         'shop':shop,
         'products':products,
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'shop-products.html', context)
     
@@ -209,7 +214,8 @@ def ContactView(request, *args, **kwargs):
         return HttpResponseRedirect(reverse('products:contact'))
     
     context = {
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'contact-us.html', context)
 
@@ -218,7 +224,8 @@ def CartView(request, *args, **kwargs):
     
     context = {
         "cart_items": cart_items,
-        "popular_brands": PopularBrand.objects.all() or None
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'cart.html', context)
 
@@ -228,7 +235,8 @@ def WishListView(request, *args, **kwargs):
     
     context = {
         'wishlist_items':wishlist_items,
-        "popular_brands": PopularBrand.objects.all() or None
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
         
     }
     return render(request, 'wishlist.html', context)
@@ -285,7 +293,8 @@ def CheckoutView(request, *args, **kwargs):
         
     context = {
         "cart_items": cart_items,
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'checkout.html', context)
 
@@ -367,7 +376,8 @@ def AboutUsView(request, *args, **kwargs):
     staffs = StaffUser.objects.filter(list_on_about=True)
     context = {
         "staffs":staffs,
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'about-us.html', context)
 
@@ -378,7 +388,8 @@ def CategoryListView(request, slug, *args, **kwargs):
     context = {
         'category':category,    
         'categories':categories,
-        'products':category.category_objects()
+        'products':category.category_objects(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
     return render(request, 'category-objects.html', context)
 
@@ -390,6 +401,7 @@ def CompaireView(request, *args, **kwargs):
     context = {
         'compare_items':compaire_items.products.all(),
         "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'compare.html', context)
     
@@ -420,7 +432,8 @@ def MyAccountView(request, *args, **kwargs):
     
     context = {
         "profile":get_object_or_404(Profile, user=request.user),
-        "popular_brands": PopularBrand.objects.all()
+        "popular_brands": PopularBrand.objects.all(),
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
     return render(request, 'my-account.html', context)
     
@@ -433,6 +446,8 @@ def MainSearch(request, *args, **kwargs):
                                         Q(slug__icontains=query))
         context = {
             'query':query,
-            'products':products
+            'products':products,
+            "popular_brands": PopularBrand.objects.all(),
+            "base_tags": Tags.objects.filter(show_on_index=True)[:5],
         }
         return render(request,'search-results.html', context)
