@@ -1,11 +1,8 @@
 from django.contrib import admin
 from mptt.admin import DraggableMPTTAdmin
-from .models import (Category,Shop,models,
-                     Products, ProductDetails, ProductMedia,
-                     ShopPrice, ProductTransaction, ProductAbout,
-                     ProductQuestions, 
-                     ProductReviews, ProductReviewVoting, 
-                     ProductVarientItems, CustomerOrder,
+from .models import (Category,Shop,models,Products, ProductDetails, ProductMedia,
+                     ShopPrice, ProductTransaction, ProductAbout,ProductQuestions, 
+                     ProductReviews, ProductReviewVoting, ProductVarientItems, CustomerOrder,
                      OrderDeliveryStatus, PopularBrand, ContactMessage,
                      CustomerWishList, OrderItem, CompaireItems, Tags,
                      MpesaPayment)
@@ -44,9 +41,18 @@ class CategoryAdmin(DraggableMPTTAdmin):
     related_products_cumulative_count.short_description = 'Related category (in tree)'
     
 admin.site.register(Category, CategoryAdmin)
-
 admin.site.register(Shop)
-admin.site.register(Products)
+
+
+class ProductMediaInline(admin.TabularInline):
+    model = ProductMedia
+    extra = 1 
+
+class ProductAdmin(admin.ModelAdmin):
+    inlines = [ProductMediaInline]
+admin.site.register(Products, ProductAdmin)
+
+
 admin.site.register(OrderItem)
 admin.site.register(CustomerOrder)
 admin.site.register(CustomerWishList)

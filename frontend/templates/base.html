@@ -474,11 +474,11 @@
                                 </div>
                                 <div class="widget-body">
                                     <ul>
-                                        <li><a href="#">computer</a></li>
-                                        <li><a href="#">camera</a></li>
-                                        <li><a href="#">smart phone</a></li>
-                                        <li><a href="#">watch</a></li>
-                                        <li><a href="#">tablet</a></li>
+                                        
+                                        {% for tag in base_tags %}
+                                         <li><a href="#">{{ tag.name }}</a></li>
+                                        {% endfor %}
+                                            
                                     </ul>
                                 </div>
                             </div> <!-- single widget end -->
