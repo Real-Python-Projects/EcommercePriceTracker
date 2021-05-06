@@ -34,4 +34,5 @@ def BlogDetailView(request, slug, pk,*args, **kwargs):
 
 
 def BlogCreateView(request, *args, **kwargs):
+    
     return render(request, 'blog-create.html', {})
