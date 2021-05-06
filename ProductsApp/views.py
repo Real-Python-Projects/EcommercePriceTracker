@@ -4,7 +4,7 @@ from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
-                     Category, CompaireItems, Tags)
+                     Category, CompaireItems, Tags, ProductMedia)
 from User.models import AdminUser, MerchantUser, StaffUser, Profile
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
@@ -21,7 +21,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+#from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 
 # Create your views here.
@@ -135,9 +135,11 @@ def ProductDetailView(request, slug, *args, **kwargs):
     product.save()
     
     content = {
+        "featured_products":Products.objects.filter(is_approved=True)[:20],
         "product":product,
+        "product_media": ProductMedia.objects.filter(product_id=product),
         "brands": PopularBrand.objects.all(),
-        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'product-details.html',content)
 

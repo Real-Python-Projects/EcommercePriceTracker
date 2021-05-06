@@ -105,6 +105,9 @@ class Products(models.Model):
     def get_absolute_url(self):
         return reverse("products:product-detail", kwargs={"slug": self.slug})
     
+    def add_to_wishlist(self):
+        return reverse("products:add-to-wishlist", kwargs={"slug":self.slug})
+    
     def __str__(self):
         return self.product_name
     
@@ -121,9 +124,12 @@ class ProductDetails(models.CharField):
     
 class ProductMedia(models.Model):
     product_id=models.ForeignKey(Products,on_delete=models.CASCADE)
-    media_type_choice=((1,"Image"),(2,"Video"))
-    media_type=models.CharField(max_length=255)
-    media_content=models.FileField(upload_to="product_media")
+    brief_describtion = models.CharField(max_length=70)
+    media_content=models.ImageField(upload_to="images/products/product_media")
+    media_thumbnail = ImageSpecField(source='media_content',
+                                     processors=[ResizeToFill(655,800)],
+                                     format='webp',
+                                     options = {'quality':100})
     created_at=models.DateTimeField(auto_now_add=True)
     is_active = models.BooleanField(default=True)
 
