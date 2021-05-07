@@ -211,10 +211,9 @@
                                                 <span>hot</span>
                                             </div>
                                             <div class="product-action-link">
-                                                <a href="#" data-toggle="modal" data-target="#quick_view"> <span data-toggle="tooltip" data-placement="left" title="Quick view"><i class="fa fa-search"></i></span> </a>
-                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
+                                                <a href="{{ product.add-to-wishlist }}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                                <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
+                                                <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                             </div>
                                         </div>
                                         <div class="product-content">
@@ -238,7 +237,7 @@
                                     <!-- product single list item start -->
                                     <div class="product-list-item mb-30">
                                         <div class="product-thumb">
-                                            <a href="product-details.html">
+                                            <a href="{{ product.get_absolute_url }}">
                                                 <img src="{{ product.image_thumbnail.url }}" class="img-pri" alt="">
                                                
                                             </a>
@@ -247,7 +246,7 @@
                                             </div>
                                         </div>
                                         <div class="product-list-content">
-                                            <h3><a href="product-details.html">{{ product.product_name }}</a></h3>
+                                            <h3><a href="{{ product.get_absolute_url }}">{{ product.product_name }}</a></h3>
                                             <div class="ratings">
                                                 <span class="good"><i class="fa fa-star"></i></span>
                                                 <span class="good"><i class="fa fa-star"></i></span>

@@ -47,12 +47,12 @@
                                         
                                         {% for product in compare_items %}
                                         <td class="product-image-title">
-                                            <a href="single-product.html" class="image">
+                                            <a href="{{ product.get_absolute_url }}" class="image">
                                                 <img class="img-fluid" src="{{ product.image_thumbnail.url }}" alt="Compare Product">
                                             </a>
                                             <a href="#" class="category">{{ product.product_name }}</a>
-                                            <a href="single-product-sale.html" class="title">{{ product.category.title }}</a>
-                                            <a href="single-product-sale.html" class="title">{{ product.added_by_merchant.shop.shop_name }}</a>
+                                            <a href="{% url 'products:category-objects' product.category.slug %}" class="title">{{ product.category.title }}</a>
+                                            <a href="{% url 'products:shop-products' product.added_by_merchant.shop.slug %}" class="title">{{ product.added_by_merchant.shop.shop_name }}</a>
                                         </td>
                                         {% endfor %}
                                             
@@ -65,7 +65,7 @@
                                         
                                         {% for product in compare_items %}
                                         <td class="pro-desc">
-                                            <p>{{ product.product_description }}</p>
+                                            <p>{{ product.product_description|safe }}</p>
                                         </td>
                                         {% endfor %}
                                             
