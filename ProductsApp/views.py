@@ -18,7 +18,7 @@ from django.db.models import Q
 import json
 import requests
 from requests.auth import HTTPBasicAuth
-
+from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
@@ -185,9 +185,13 @@ def ShopProducts(request,slug, *args, **kwargs):
     shop = get_object_or_404(Shop, slug=slug)
     products = shop.shop_products()
     
+    paginator = Paginator(products, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
     context = {
         'shop':shop,
-        'products':products,
+        'products':page_obj,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
@@ -465,6 +469,7 @@ def TagView(request, slug, *args, **kwargs):
     
     context = {
         'query':tag,
-        'products':products
+        'products':products,
+        "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
     return render(request, 'search-results.html', context)

@@ -287,11 +287,20 @@
                             <div class="row">
                                 <div class="col-12">
                                     <ul class="pagination-box">
-                                        <li><a class="Previous" href="#">Previous</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a class="Next" href="#"> Next </a></li>
+                                        
+                                        {% if products.has_previous %}
+                                            <li><a class="Previous" href="?page={{ products.previous_page_number }}">Previous</a></li>
+                                        {% endif %}
+                                            
+                                        <li class="active"><a href="#">{{products.number}}</a></li>
+                                        
+                                        
+                                        {% if products.has_next %}
+                                            <li><a href="?page={{products.next_page_number}}">{{products.next_page_number}}</a></li>
+                                            <li><a href="?page={{ products.paginator.num_pages }}">{{ products.paginator.num_pages }}</a></li>
+                                            <li><a class="Next" href="?page={{products.next_page_number}}"> Next </a></li> 
+                                        {% endif %}
+                                            
                                     </ul>
                                 </div>
                             </div>
