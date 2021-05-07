@@ -142,6 +142,7 @@ def ProductDetailView(request, slug, *args, **kwargs):
         "product_media": ProductMedia.objects.filter(product_id=product),
         "related_products":related_products,
         "popular_brands": PopularBrand.objects.all(),
+        'tags': Tags.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'product-details.html',content)

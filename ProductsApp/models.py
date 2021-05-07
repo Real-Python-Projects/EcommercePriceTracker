@@ -73,6 +73,9 @@ class Tags(models.Model):
         if not self.slug:
             self.slug = slugify(self.name)
         return super(Tags, self).save(*args, **kwargs)
+    
+    def get_tag_products(self):
+        return Products.objects.filter(tags=self)
 
     def __str__(self):
         return self.name   

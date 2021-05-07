@@ -290,10 +290,8 @@
                                         
                                         {% if products.has_previous %}
                                             <li><a class="Previous" href="?page={{ products.previous_page_number }}">Previous</a></li>
-                                        {% endif %}
-                                            
-                                        <li class="active"><a href="#">{{products.number}}</a></li>
-                                        
+                                        {% endif %}   
+                                        <li class="active"><a href="#">{{products.number}}</a></li>    
                                         
                                         {% if products.has_next %}
                                             <li><a href="?page={{products.next_page_number}}">{{products.next_page_number}}</a></li>
