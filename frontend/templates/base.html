@@ -199,7 +199,13 @@
                                     <div class="header-mini-cart">
                                         <div class="mini-cart-btn">
                                             <i class="fa fa-shopping-cart"></i>
-                                            <span class="cart-notification">{{request.user|cart_item_count}}</span>
+                                            
+                                            {% if request.user.is_authenticated %}
+                                                <span class="cart-notification">{{request.user|cart_item_count}}</span>
+                                            {% else %}
+                                              <span class="cart-notification">0</span>
+                                            {% endif %}
+                                                
                                         </div>
                                         <div class="cart-total-price">
                                             <span>total</span>
@@ -233,7 +239,19 @@
                                             </li>
                                             
                                             {% endfor %}
-                                            
+                                        {% else %}
+                                        <li>
+                                            <div class="cart-img">
+                                                <a href="#"><img src="" alt=""></a>
+                                            </div>
+                                            <div class="cart-info">
+                                                <h4><a href="#">Log In to View</a></h4>
+                                                <span>Ksh. 0</span>
+                                            </div>
+                                            <div class="del-icon">
+                                                <i class="fa fa-times"></i>
+                                            </div>
+                                        </li> 
                                         {% endif %}
                                                 
                                                 

@@ -10,8 +10,7 @@ def category_context_preprocessor(request):
     }
     return context
 
-@login_required
-def user_cart_items(request, *args, **kwargs):
+def user_cart_items(request):
     if request.user.is_authenticated:
         user_order = CustomerOrder.objects.filter(user=request.user, is_ordered=False)
         if user_order.exists():
@@ -19,7 +18,10 @@ def user_cart_items(request, *args, **kwargs):
             return {
                 'prep_cart_items':user_order_items
             }
-        return 0
+    user_order_items = False
+    return {
+            'prep_cart_items':user_order_items
+        }
     
 def SubscribeEmail(request, *args, **kwargs):
     if request.method == 'POST':
