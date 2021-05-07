@@ -133,12 +133,15 @@ def ProductDetailView(request, slug, *args, **kwargs):
     #code for implementing most viewed
     product.view_count = int(product.view_count)+1
     product.save()
+
+    related_products = Products.objects.filter(category=product.category)
     
     content = {
         "featured_products":Products.objects.filter(is_approved=True)[:20],
         "product":product,
         "product_media": ProductMedia.objects.filter(product_id=product),
-        "brands": PopularBrand.objects.all(),
+        "related_products":related_products,
+        "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
     return render(request, 'product-details.html',content)
