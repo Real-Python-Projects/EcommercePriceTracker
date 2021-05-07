@@ -187,7 +187,7 @@ def ShopList(request, *args, **kwargs):
 
 def ShopProducts(request,slug, *args, **kwargs):
     shop = get_object_or_404(Shop, slug=slug)
-    products = shop.shop_products()
+    products = shop.shop_products().order_by('view_count')
     
     paginator = Paginator(products, 20)
     page_number = request.GET.get('page')
@@ -454,13 +454,18 @@ def MyAccountView(request, *args, **kwargs):
  
 def MainSearch(request, *args, **kwargs):    
     query = request.GET.get('product_search', None)
-        
+      
     if query is not None:
         products = Products.objects.filter(Q(product_name__icontains=query)|
-                                        Q(slug__icontains=query))
+                                        Q(slug__icontains=query)).order_by('view_count')
+        
+        paginator = Paginator(products, 20)
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)  
+        
         context = {
             'query':query,
-            'products':products,
+            'products':page_obj,
             "popular_brands": PopularBrand.objects.all(),
             "base_tags": Tags.objects.filter(show_on_index=True)[:5],
         }

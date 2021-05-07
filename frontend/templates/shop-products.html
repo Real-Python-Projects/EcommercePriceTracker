@@ -211,7 +211,7 @@
                                                 <span>hot</span>
                                             </div>
                                             <div class="product-action-link">
-                                                <a href="{{ product.add-to-wishlist }}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
+                                                <a href="{{ product.add_to_wishlist }}" data-toggle="tooltip" data-placement="left" title="Wishlist"><i class="fa fa-heart-o"></i></a>
                                                 <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="left" title="Compare"><i class="fa fa-refresh"></i></a>
                                                 <a href="{% url 'products:add-to-cart' product.slug %}" data-toggle="tooltip" data-placement="left" title="Add to cart"><i class="fa fa-shopping-cart"></i></a>
                                             </div>
