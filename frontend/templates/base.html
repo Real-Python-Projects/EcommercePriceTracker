@@ -476,7 +476,7 @@
                                     <ul>
                                         
                                         {% for tag in base_tags %}
-                                         <li><a href="#">{{ tag.name }}</a></li>
+                                         <li><a href="{% url 'products:tag-view' tag.slug %}">{{ tag.name }}</a></li>
                                         {% endfor %}
                                             
                                     </ul>

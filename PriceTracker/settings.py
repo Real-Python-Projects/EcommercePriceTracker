@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     
     'ckeditor',
     'mptt',
-    'tinymce',
 ]
 
 MIDDLEWARE = [

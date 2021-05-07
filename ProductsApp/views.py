@@ -21,7 +21,7 @@ from requests.auth import HTTPBasicAuth
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
-#from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
+from .mpesa_credentials import LipaNaMpesaPassword, MpesaAccessToken, MpesaC2BCredential
 
 
 # Create your views here.
@@ -354,6 +354,7 @@ def validation(request):
 def confirmation(request):   
     mpesa_body = request.body.decode('utf-8')
     mpesa_payment = json.loads(mpesa_body)
+    order = CustomerOrder.objects.get(user=request.user)
     
     payment = MpesaPayment (
         first_name=mpesa_payment['FirstName'],
@@ -367,6 +368,9 @@ def confirmation(request):
         type=mpesa_payment['TransactionType']
     )
     payment.save()
+    order.is_ordered=True
+    order.save()
+    
     context = {
         "ResultCode":0,
         "ResultDesc":"Accepted"
@@ -453,3 +457,14 @@ def MainSearch(request, *args, **kwargs):
             "base_tags": Tags.objects.filter(show_on_index=True)[:5],
         }
         return render(request,'search-results.html', context)
+    
+def TagView(request, slug, *args, **kwargs):
+    tag = get_object_or_404(Tags, slug=slug)
+    
+    products = Products.objects.filter(tags=tag)
+    
+    context = {
+        'query':tag,
+        'products':products
+    }
+    return render(request, 'search-results.html', context)

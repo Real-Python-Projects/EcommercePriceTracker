@@ -63,7 +63,19 @@ class Shop(models.Model):
     def __str__(self):
         return f"{self.shop_name} - {self.merchant.user}"
     
+class Tags(models.Model):
+    name = models.CharField(max_length=15)
+    slug = models.SlugField(blank=True)
+    date_added = models.DateTimeField(auto_now_add=True)
+    show_on_index = models.BooleanField(default=False)
     
+    def save(self,*args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        return super(Tags, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.name   
 
 class Products(models.Model):
     slug=models.SlugField(blank=True)
@@ -81,7 +93,7 @@ class Products(models.Model):
     product_description=RichTextField(blank=True, null=True)
     product_long_description=RichTextField(blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField('Tags', blank=True)
+    tags = models.ManyToManyField(Tags, blank=True)
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_approved = models.BooleanField(default=False)
@@ -152,20 +164,6 @@ class ProductAbout(models.CharField):
     title=models.CharField(max_length=255)
     created_at=models.DateTimeField(auto_now_add=True)
     is_active=models.IntegerField(default=1)
-
-class Tags(models.Model):
-    name = models.CharField(max_length=15)
-    slug = models.SlugField(blank=True)
-    date_added = models.DateTimeField(auto_now_add=True)
-    show_on_index = models.BooleanField(default=False)
-    
-    def save(self,*args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.name)
-        return super(Tags, self).save(*args, **kwargs)
-
-    def __str__(self):
-        return self.name
     
 
 class ProductQuestions(models.Model):
