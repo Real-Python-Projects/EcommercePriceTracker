@@ -25,9 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '--a+4+*wg(pbq7za+x=1m*m6ac_d+%e(6w)_f8dn6^okq0=l2f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['rmarkettracker.herokuapp.com','127.0.0.1']
 
 
 # Application definition
