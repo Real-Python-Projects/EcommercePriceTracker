@@ -20,3 +20,4 @@ schema==0.7.4
 six==1.16.0
 sqlparse==0.4.1
 urllib3==1.26.4
+whitenoise==5.2.0
