@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Register
+    | Register
 {% endblock title %}
     
 
@@ -18,8 +18,8 @@
                         <div class="breadcrumb-wrap">
                             <nav aria-label="breadcrumb">
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">login-register</li>
+                                    <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">register</li>
                                 </ul>
                             </nav>
                         </div>
@@ -93,8 +93,10 @@
                                     <div class="single-input-item">
                                         <button class="sqr-btn">Register</button>
                                     </div>
-                                </form>
-                            </div>
+                                </form><br>
+                                <a href="{% url 'user:login' %}" class="forget-pwd">Log in instead</a>
+                            </div><br>
+                            
                         </div>
                         <!-- Register Content End -->
                     </div>
@@ -102,7 +104,5 @@
             </div>
         </div>
         <!-- login register wrapper end -->
-
-        {% include 'partials/brand.html' %}
 
 {% endblock body %}
