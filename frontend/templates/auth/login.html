@@ -17,7 +17,7 @@
                     <nav aria-label="breadcrumb">
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{% url 'products:index' %}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">login-register</li>
+                            <li class="breadcrumb-item active" aria-current="page">login</li>
                         </ul>
                     </nav>
                 </div>
@@ -58,7 +58,8 @@
                             <div class="single-input-item">
                                 <button class="sqr-btn">Login</button>
                             </div>
-                        </form>
+                        </form><br>
+                        <a href="{% url 'user:register' %}" class="forget-pwd">Don't have an account yet? Register</a>
                     </div>
                 </div>
                 <!-- Login Content End -->
@@ -69,9 +70,6 @@
 </div>
 <!-- login register wrapper end -->
 
-<!-- brand area start -->
-{% include 'partials/brand.html' %}
-<!-- brand area end -->
  
 {% endblock body %}
     

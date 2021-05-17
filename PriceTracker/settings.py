@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '--a+4+*wg(pbq7za+x=1m*m6ac_d+%e(6w)_f8dn6^okq0=l2f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['rmarkettracker.herokuapp.com','127.0.0.1']
 
@@ -131,11 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 
-STATIC_ROOT = os.path.join(BASE_DIR,'static_root')
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'frontend/static')
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 MEDIA_URL = '/media/'
@@ -152,7 +154,7 @@ EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_TLS = True #This is for encription    
 EMAIL_PORT = 587
 
-LOGIN_REDIRECT_URL = 'user:login'
+LOGIN_URL = 'user:login'
 
 MESSAGE_TAGS = {
     messages.ERROR:'danger',

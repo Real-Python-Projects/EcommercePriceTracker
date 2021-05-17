@@ -2,8 +2,12 @@
 
 {% load static %}
 {% block title %}
-    Checkout
+    | Checkout
 {% endblock title %}
+
+{% block message %}
+    {% include 'partials/messages.html' %}
+{% endblock message %}
 
 
 {% block body %}
