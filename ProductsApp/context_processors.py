@@ -1,8 +1,9 @@
 from .models import Category, CustomerOrder
 from User.models import EmailSubscibers
-from django.shortcuts import redirect
+from django.shortcuts import redirect, reverse
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 
 def category_context_preprocessor(request):
     context = {
@@ -23,21 +24,20 @@ def user_cart_items(request):
             'prep_cart_items':user_order_items
         }
     
-def SubscribeEmail(request, *args, **kwargs):
+def EmailSub(request, *args, **kwargs):
     if request.method == 'POST':
-        sub_email = request.POST.get('sub_email')
+        sub_email = request.POST['sub_email']
         
         email_qs = EmailSubscibers.objects.filter(email=sub_email)
         
         if email_qs.exists():
             messages.error(request, 'Email already exists')
-            return redirect(request.META['HTTP_REFERER'])   
+            return HttpResponseRedirect(reverse('products:index'))
         
         subscribers = EmailSubscibers(
             email = sub_email
         )
         subscribers.save()
-        messages.success(request, "Thanyou for subscribin")
-    
-    context = {}
-    return context
+        messages.success(request, "Thanyou for subscribing")
+
+    return HttpResponseRedirect(reverse('products:index'))

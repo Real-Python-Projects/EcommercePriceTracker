@@ -60,6 +60,9 @@ class Blog(models.Model):
             self.slug = slugify(self.title+self.author.username)
         return super().save(*args, **kwargs)
     
+    def no_of_comments(self):
+        return Comments.objects.filter(post=self).count()
+    
     def get_absolute_url(self):
         return reverse("blog:blog-detail", kwargs={"slug":self.slug, 'pk':self.pk})
     
