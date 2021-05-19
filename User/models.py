@@ -121,3 +121,15 @@ class EmailSubscibers(models.Model):
     def no_of_subscribers(self):
         return self.objects.all().count()
     
+    
+class BestCustomerReviews(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    content = models.TextField()
+    
+    class Meta:
+        verbose_name = "Best Customer Review"
+        verbose_name_plural = "Best Customer Reviews"
+        
+    def __str__(self):
+        return user.username
+    
