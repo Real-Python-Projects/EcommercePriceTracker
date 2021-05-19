@@ -200,25 +200,14 @@
                                     <div class="blog-comment-wrapper mb-sm-6">
                                         <h3>leave a reply</h3>
                                         <p>Your email address will not be published. Required fields are marked *</p>
-                                        <form action="#">
+                                        <form action="" method='POST'>{% csrf_token %}
                                             <div class="comment-post-box">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <label>comment</label>
-                                                        <textarea name="commnet" placeholder="Write a comment"></textarea>
+                                                        <textarea name="content" placeholder="Write a comment"></textarea>
                                                     </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-sm-20">
-                                                        <label>Name</label>
-                                                        <input type="text" class="coment-field" placeholder="Name">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-sm-20">
-                                                        <label>Email</label>
-                                                        <input type="text" class="coment-field" placeholder="Email">
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-4 col-sm-4 mb-sm-20">
-                                                        <label>Website</label>
-                                                        <input type="text" class="coment-field" placeholder="Website">
-                                                    </div>
+                                                    
                                                     <div class="col-12">
                                                         <div class="coment-btn mt-20">
                                                             <input class="sqr-btn" type="submit" name="submit" value="post comment">
