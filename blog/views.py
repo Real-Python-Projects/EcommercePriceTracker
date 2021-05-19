@@ -45,14 +45,14 @@ def BlogCreateView(request, *args, **kwargs):
 
 
 @login_required
-def add_comment(request, slug, *args, **kwargs):
+def add_comment(request, slug, pk, *args, **kwargs):
     post = get_object_or_404(Blog, slug=slug)
     if request.method == 'POST':
         content = request.POST['content']
         
         if content == "":
             messages.error(request, "Field can not be left blank")
-            return HttpResponseRedirect(reverse('blog:blog-detail'), kwargs={'slug':post.slug, 'pk':post.pk})
+            return HttpResponseRedirect(reverse('blog:blog-detail', kwargs={'slug':post.slug, 'pk':post.pk}))
         
         comment_model = Comments(
             post=post,
@@ -60,4 +60,4 @@ def add_comment(request, slug, *args, **kwargs):
             content=content,
         )
         comment_model.save()
-        return HttpResponseRedirect(reverse('blog:blog-detail'), kwargs={'slug':self.slug, 'pk':self.pk})
+        return HttpResponseRedirect(reverse('blog:blog-detail', kwargs={'slug':post.slug, 'pk':post.pk}))

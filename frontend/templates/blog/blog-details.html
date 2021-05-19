@@ -200,7 +200,7 @@
                                     <div class="blog-comment-wrapper mb-sm-6">
                                         <h3>leave a reply</h3>
                                         <p>Your email address will not be published. Required fields are marked *</p>
-                                        <form action="" method='POST'>{% csrf_token %}
+                                        <form action="{% url 'blog:add-comment' post.slug post.pk %}" method='POST'>{% csrf_token %}
                                             <div class="comment-post-box">
                                                 <div class="row">
                                                     <div class="col-12">
