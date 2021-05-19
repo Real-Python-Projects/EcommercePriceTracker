@@ -3,10 +3,14 @@
 
 
 {% block title %}
-    | Blog Detail
+    | {{ post.title }}
 {% endblock title %}
 
 
+{% block message %}
+    {% include 'partials/messages.html' %}
+{% endblock message %}
+    
 {% block body %}
     
 
@@ -128,7 +132,7 @@
                                                 <h3 class="blog-heading">{{ post.title }}</h3>
                                                 <div class="blog-meta">
                                                     <a class="author" href="#"><i class="icon-people"></i> {{ post.author }}</a>
-                                                    <a class="comment" href="#"><i class="icon-bubbles"></i> 3 comment</a>
+                                                    <a class="comment" href="#"><i class="icon-bubbles"></i> {{ post.no_of_comments }} comment</a>
                                                     <a class="post-time" href="#"><i class="icon-calendar"></i> {{ post.pub_date|date:"d M Y" }}</a>
                                                 </div>
                                                 <p>Donec vitae hendrerit arcu, sit amet faucibus nisl. Cras pretium arcu ex. Aenean posuere libero eu augue condimentum rhoncus. Cras pretium arcu ex. Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorum laborum in labore rerum</p>
@@ -151,55 +155,37 @@
                                             <a href="#"><i class="fa fa-google-plus"></i></a>
                                         </div>
                                     </div>
+                                        
+                                    <!-- Comment Section -->
+
                                     <div class="comment-section">
-                                        <h3>03 comment</h3>
+                                        <h3>{{ post.no_of_comments }} comment</h3>
                                         <ul>
+                                            
+                                            {% for comment in comments %}
                                             <li>
                                                 <div class="author-avatar">
-                                                    <img src="{% static 'assets/img/blog/comment-icon.png' %}" alt="">
+                                                    <img src="{{ comment.user.profile.profile_pic_thumbnail.url }}" alt="">
                                                 </div>
                                                 <div class="comment-body">
                                                         <span class="reply-btn"><a href="#">reply</a></span>
-                                                    <h5 class="comment-author">admin</h5>
+                                                    <h5 class="comment-author">{{ comment.user.username }}</h5>
                                                     <div class="comment-post-date">
-                                                        20 nov, 2018 at 9:30pm
+                                                        {{comment.timestamp|timesince}} ago
                                                     </div>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
+                                                    <p>{{ comment.content }}</p>
                                                 </div>
                                             </li>
-                                            <li class="comment-children">
-                                                <div class="author-avatar">
-                                                    <img src="{% static 'assets/img/blog/comment-icon.png' %}" alt="">
-                                                </div>
-                                                <div class="comment-body">
-                                                        <span class="reply-btn"><a href="#">reply</a></span>
-                                                    <h5 class="comment-author">admin</h5>
-                                                    <div class="comment-post-date">
-                                                        20 nov, 2018 at 9:30pm
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="author-avatar">
-                                                    <img src="{% static 'assets/img/blog/comment-icon.png' %}" alt="">
-                                                </div>
-                                                <div class="comment-body">
-                                                    <span class="reply-btn"><a href="#">reply</a></span>
-                                                    <h5 class="comment-author">admin</h5>
-                                                    <div class="comment-post-date">
-                                                        20 nov, 2018 at 9:30pm
-                                                    </div>
-                                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim maiores adipisci optio ex, laboriosam facilis non pariatur itaque illo sunt?</p>
-                                                </div>
-                                            </li>
+                                            {% endfor %}
+                                                
+                                            
                                         </ul>
                                     </div>
                                     <!-- comment area start -->
                                     <!-- start blog comment box -->
                                     <div class="blog-comment-wrapper mb-sm-6">
                                         <h3>leave a reply</h3>
-                                        <p>Your email address will not be published. Required fields are marked *</p>
+                                        <p>Please leave a comment, We appreciate your feedback</p>
                                         <form action="{% url 'blog:add-comment' post.slug post.pk %}" method='POST'>{% csrf_token %}
                                             <div class="comment-post-box">
                                                 <div class="row">

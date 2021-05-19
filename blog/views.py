@@ -36,6 +36,7 @@ def BlogDetailView(request, slug, pk,*args, **kwargs):
         'blog_media':blog_media,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
+        "comments":comments,
     }
     return render(request, 'blog/blog-details.html', context)
 
@@ -60,4 +61,5 @@ def add_comment(request, slug, pk, *args, **kwargs):
             content=content,
         )
         comment_model.save()
+        mesages.success(request,"Comment added")
         return HttpResponseRedirect(reverse('blog:blog-detail', kwargs={'slug':post.slug, 'pk':post.pk}))
