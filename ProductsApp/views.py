@@ -1,5 +1,5 @@
 
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse, HttpResponseRedirect
 from django.utils import timezone
 from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
@@ -58,16 +58,16 @@ def add_to_cart(request, slug, *args, **kwargs):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "Item quantity has been updated")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             order.products.add(order_item)
             messages.info(request, "product has been added to the cart")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     else:
         order = CustomerOrder.objects.create(user=request.user)
         order.products.add(order_item)
         messages.info(request, "Item has been added")
-        return redirect("products:product-detail", slug=slug)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 @login_required
 def remove_from_cart(request, slug, *args, **kwargs):
@@ -81,11 +81,11 @@ def remove_from_cart(request, slug, *args, **kwargs):
                                                   is_ordered=False)[0]
             order.products.remove(order_item)
             messages.info(request, "Item  has been removed")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         messages.info(request, "Product not in the cart")
-        return redirect("products:product-detail", slug=slug)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     messages.info(request, "You do not have an active order")
-    return redirect("products:product-detail", slug=slug)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
@@ -98,17 +98,17 @@ def add_to_wishlist(request, slug, *args, **kwargs):
         wishlist = wishlist_qs[0]
         if wishlist.products.filter(product__slug=product.slug).exists():
             messages.info(request, "Item is already on the wishlist")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         else:
             wishlist.products.add(wishlist_item)
             messages.info(request, "Item has been added to the wishlist")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         
     else:
         wishlist = CustomerWishList.objects.create(user=request.user)
         wishlist.products.add(wishlist_item)
         messages.info(request, "Item added to the cart")
-        return redirect("products:product-detail", slug=slug)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 @login_required
 def remove_from_wishlist(request, slug, *args, **kwargs):
@@ -121,11 +121,11 @@ def remove_from_wishlist(request, slug, *args, **kwargs):
                                                   product=product)[0]
             wishlist.products.remove(wishlist_item)
             messages.info(request, "Item  has been removed")
-            return redirect("products:product-detail", slug=slug)
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         messages.info(request, "Product not in the wishlist")
-        return redirect("products:product-detail", slug=slug)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     messages.info(request, "Product not in the wishlist")
-    return redirect("products:product-detail", slug=slug)
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     
 def ProductDetailView(request, slug, *args, **kwargs):
     product = get_object_or_404(Products, slug=slug)

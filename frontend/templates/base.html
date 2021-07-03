@@ -526,7 +526,14 @@
     </div>
     <!-- Scroll to Top End -->
 
+    <!-- script for auto hiding messages -->
+    <script>
+        var message_card = document.getElementById('message-card');
 
+        setTimeout(function(){
+            message_card.style.display="none";
+        }, 4000);
+    </script>
     <!--All jQuery, Third Party Plugins & Activation (main.js) Files-->
     <script src="{% static 'assets/js/vendor/modernizr-3.6.0.min.js' %}"></script>
     <!-- Jquery Min Js -->
