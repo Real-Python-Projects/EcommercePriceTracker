@@ -32,7 +32,7 @@ def IndexView(request, *args, **kwargs):
     categories = Category.objects.all()
     cus_reviews = BestCustomerReviews.objects.all()
     
-    content = {
+    content = { 
         'categories':categories,
         "featured":featured_products,
         "new_arrivals":new_arrivals,
@@ -149,6 +149,26 @@ def ProductDetailView(request, slug, *args, **kwargs):
     }
     return render(request, 'product-details.html',content)
 
+def ProductUpdateView(request, slug, pk):
+    product = get_object_or_404(Products, id=pk, slug=slug)
+
+    form = ProductForm(request.POST, request.FILES, instance=product)
+
+    if request.method == 'POST' and product.added_by_merchant.user == request.user:
+        if form.is_valid:
+            form.save()
+            form.save_m2m()
+            messages.success(request, "Product was updated successfully")
+            return HttpResponseRedirect('products:product-detail', product.slug)
+        messages.error(request, "Form is invalid")
+        return HttpResponseRedirect('products:product-detail', product.slug)
+    
+    context = {
+        'form':form
+        }
+
+    return render(request, 'product-update.html',context)
+        
 @login_required
 def ProductCreateView(request, *args, **kwargs):
     form = ProductForm
