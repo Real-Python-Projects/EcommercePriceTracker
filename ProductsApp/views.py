@@ -5,7 +5,7 @@ from .models import (Products, PopularBrand, ContactMessage,
                      WishListItem, OrderItem, CustomerOrder,
                      CustomerWishList, Shop, Category, MpesaPayment,
                      Category, CompaireItems, Tags, ProductMedia)
-from User.models import AdminUser, MerchantUser, StaffUser, Profile
+from User.models import AdminUser, MerchantUser, StaffUser, Profile, BestCustomerReviews
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.utils import  timezone
 from .forms import ProductForm
@@ -388,8 +388,11 @@ def confirmation(request):
 
 def AboutUsView(request, *args, **kwargs):
     staffs = StaffUser.objects.filter(list_on_about=True)
+    cus_reviews = BestCustomerReviews.objects.all()
+    
     context = {
         "staffs":staffs,
+        'cus_reviews':cus_reviews,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }

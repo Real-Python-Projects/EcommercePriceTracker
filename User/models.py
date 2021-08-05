@@ -124,12 +124,6 @@ class EmailSubscibers(models.Model):
     
 class BestCustomerReviews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    pic = ImageSpecField(source='user.profile_pic')
-    pic_thumbnail = ImageSpecField(source='pic',
-                                    processors=[ResizeToFill(100,100)],
-                                    format='JPEG',
-                                    options={'quality':100}
-                                )
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
     
