@@ -88,7 +88,7 @@ class CustomerUser(models.Model):
     
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_pic=models.ImageField(upload_to="images/profile/customer")
+    profile_pic=models.ImageField(upload_to="images/profile/customer", default="images/profile/default-profile.jpg")
     profile_pic_thumbnail = ImageSpecField(source='profile_pic',
                                            processors=[ResizeToFill(100,100)],
                                            format='JPEG',
@@ -124,7 +124,9 @@ class EmailSubscibers(models.Model):
     
 class BestCustomerReviews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+    pic_thumbnail = ImageSpecField(source='user.profile_pic_thumbnail')
     content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
     
     class Meta:
         verbose_name = "Best Customer Review"
