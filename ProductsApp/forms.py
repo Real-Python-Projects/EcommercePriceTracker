@@ -1,5 +1,6 @@
 from django import forms
 from .models import Products
+from taggit.forms import TagWidget
 
 class ProductForm(forms.ModelForm):
     class Meta:
@@ -23,13 +24,13 @@ class ProductForm(forms.ModelForm):
                 'class':'form-control col-lg-9'
             }),
             'product_description': forms.TextInput(attrs={
-                'class':'form-control'
+                'class':'form-control col-lg-9'
             }),
             'product_long_description': forms.TextInput(attrs={
-                'class':'form-control'
+                'class':'form-control col-lg-9'
             }),
-            'tags': forms.SelectMultiple(attrs={
-                'class':'form-control'
+            'tags': TagWidget(attrs={
+                'class':'form-control col-lg-9'
             }),
             'in_stock_total': forms.NumberInput(attrs={
                 'class':'form-control col-lg-9'

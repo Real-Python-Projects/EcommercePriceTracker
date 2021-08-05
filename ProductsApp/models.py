@@ -7,6 +7,7 @@ from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.conf import settings
 from ckeditor.fields import RichTextField
+from taggit.managers import TaggableManager
 User = settings.AUTH_USER_MODEL
 
 #implementing categories
@@ -96,7 +97,7 @@ class Products(models.Model):
     product_description=RichTextField(blank=True, null=True)
     product_long_description=RichTextField(blank=True, null=True)
     created_at=models.DateTimeField(auto_now_add=True)
-    tags = models.ManyToManyField(Tags, blank=True)
+    tags = TaggableManager()
     added_by_merchant=models.ForeignKey(MerchantUser,on_delete=models.CASCADE)
     in_stock_total=models.IntegerField(default=1)
     is_approved = models.BooleanField(default=False)
