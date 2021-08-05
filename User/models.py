@@ -131,5 +131,5 @@ class BestCustomerReviews(models.Model):
         verbose_name_plural = "Best Customer Reviews"
         
     def __str__(self):
-        return user.username
+        return self.user.username
     

@@ -441,7 +441,8 @@ def add_to_compaire(request, slug, *args, **kwargs):
     compare.products.add(compare_item)
     messages.success(request, "item was added to compaire")
     redirect('products:compare', user=request.user)
-    
+
+@login_required
 def MyAccountView(request, *args, **kwargs):
     
     context = {
