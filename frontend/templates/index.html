@@ -255,39 +255,21 @@
                                     <h3>Clients Say</h3>
                                 </div> <!-- section title end -->
                                 <div class="testimonial-carousel-active slick-dot-style">
+                                    
+                                    
+                                    {% for review in cus_reviews %}
                                     <div class="testimonial-item text-center">
                                         <div class="testimonial-thumb">
-                                            <img src="{% static 'assets/img/testimonial/team_member1.jpg' %}" alt="">
+                                            <img src="{{ review.user.profile.profile_pic_thumbnail.url }}" alt="">
                                         </div>
                                         <div class="testimonial-content">
-                                            <h3><a href="#">Elizabeth Taylor</a></h3>
-                                            <p>Etiam rhoncus congue arcu sed interdum. Cras dolor diam, accumsan eu
-                                                aliquam eu, luctus vehicula velit. Nam eget tortor ut felis fermentum
-                                                sodales ac eu lacus</p>
+                                            <h3><a href="#">{{ review.user.username }}</a></h3>
+                                            <p>{{ review.content }}</p>
                                         </div>
-                                    </div> <!-- end single testimonial item -->
-                                    <div class="testimonial-item text-center">
-                                        <div class="testimonial-thumb">
-                                            <img src="{% static 'assets/img/testimonial/team_member2.jpg' %}" alt="">
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <h3><a href="#">Elizabeth Taylor</a></h3>
-                                            <p>Etiam rhoncus congue arcu sed interdum. Cras dolor diam, accumsan eu
-                                                aliquam eu, luctus vehicula velit. Nam eget tortor ut felis fermentum
-                                                sodales ac eu lacus</p>
-                                        </div>
-                                    </div> <!-- end single testimonial item -->
-                                    <div class="testimonial-item text-center">
-                                        <div class="testimonial-thumb">
-                                            <img src="{% static 'assets/img/testimonial/team_member3.jpg' %}" alt="">
-                                        </div>
-                                        <div class="testimonial-content">
-                                            <h3><a href="#">Elizabeth Taylor</a></h3>
-                                            <p>Etiam rhoncus congue arcu sed interdum. Cras dolor diam, accumsan eu
-                                                aliquam eu, luctus vehicula velit. Nam eget tortor ut felis fermentum
-                                                sodales ac eu lacus</p>
-                                        </div>
-                                    </div> <!-- end single testimonial item -->
+                                    </div> <!-- end single testimonial item --> 
+                                    {% endfor %}
+                                        
+                                    
                                 </div>
                             </div>
                             <!-- testimonial area end -->

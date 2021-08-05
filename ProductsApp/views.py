@@ -30,6 +30,7 @@ def IndexView(request, *args, **kwargs):
     featured_products = Products.objects.filter(is_approved=True)
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
     categories = Category.objects.all()
+    cus_reviews = BestCustomerReviews.objects.all()
     
     content = {
         'categories':categories,
@@ -38,6 +39,7 @@ def IndexView(request, *args, **kwargs):
         "most_viewed":Products.objects.filter(is_approved=True).order_by('-view_count'),
         "hot_sale":Products.objects.filter(is_approved=True).order_by('-created_at'),
         "best_seller":Products.objects.filter(is_approved=True).order_by('-created_at'),
+        'cus_reviews':cus_reviews,
         "popular_brands": PopularBrand.objects.all(),
         "latest_blog": Blog.objects.filter(is_published=True).order_by("-pub_date")[:5],
         "base_tags": Tags.objects.filter(show_on_index=True)[:5]
@@ -389,7 +391,7 @@ def confirmation(request):
 def AboutUsView(request, *args, **kwargs):
     staffs = StaffUser.objects.filter(list_on_about=True)
     cus_reviews = BestCustomerReviews.objects.all()
-    
+
     context = {
         "staffs":staffs,
         'cus_reviews':cus_reviews,
