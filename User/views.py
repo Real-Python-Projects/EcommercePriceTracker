@@ -46,6 +46,8 @@ class EmailThread(threading.Thread):
         self.mail.send_mail()
         
 def LogInView(request, *args, **kwargs):
+    next_page = request.GET.get('next')
+    print(next_page)
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -60,18 +62,8 @@ def LogInView(request, *args, **kwargs):
         if user is not None:
             login(request, user)
             messages.info(request, "You have successfully logged in")
-            
-            # user_phone = PhoneNumber.objects.get(user = request.user)
-            
-            # #phone verification 
-            # if user_phone.is_verified == False:
-            #     phone_no = user_phone.phone
-            #     sms = sms_provider
-            #     sender_id = "DjangoAuth"
-            #     sms_content = f"{user_phone.otp} is your verification code"
-            #     recipients = [str(user_phone.phone)]
-            #     response = sms.send(sms_content, recipients)
-            #     return HttpResponseRedirect(reverse())
+            if next_page is not None:
+                return HttpResponseRedirect(next_page)
             return redirect('products:index')
         else:
             messages.error(request,"Ivalid Login")
