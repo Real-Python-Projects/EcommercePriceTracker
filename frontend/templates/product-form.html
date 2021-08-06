@@ -45,6 +45,7 @@
                             {% csrf_token %}
                             {{  form.media }}
                             {{ form.as_p }}
+                           <input type="file" multiple name="product-media" id="product-images" accept="image/*">
                            <br> <button class="btn btn-primary" type="submit">Post</button>
                         </form>
                     </div>

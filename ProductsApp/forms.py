@@ -5,6 +5,7 @@ from taggit.forms import TagWidget
 class ProductForm(forms.ModelForm):
     class Meta:
         model = Products
+        images = forms.ImageField(label='Image', required=False)
         exclude = ["slug","image_thumbnail","created_at", "is_approved","added_by_merchant","view_count"]
         
         widgets = {
@@ -34,5 +35,7 @@ class ProductForm(forms.ModelForm):
             }),
             'in_stock_total': forms.NumberInput(attrs={
                 'class':'form-control col-lg-9'
-            })
+            }),
+            'images': forms.FileInput(attrs={
+                'class':''})
         }
