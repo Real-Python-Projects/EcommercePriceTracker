@@ -167,7 +167,7 @@ def ProductUpdateView(request, slug, pk):
         'form':form
         }
 
-    return render(request, 'product-update.html',context)
+    return render(request, 'product-form.html',context)
         
 @login_required
 def ProductCreateView(request, *args, **kwargs):
