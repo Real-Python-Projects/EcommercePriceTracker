@@ -176,26 +176,40 @@ def ProductCreateView(request, *args, **kwargs):
     
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
+
+        product_images = request.FILES.getlist('product-images')
         
         if form.is_valid():
             form.instance.added_by_merchant = request.user.merchantuser
             form.save()
+
+            for product_image in product_images:
+                ProductMedia.objects.create(product=form.instance,
+                                            media_content=product_image)
             messages.success(request, "Item has been added")
             redirect("products:shop")
-    context = {
+        content = {
+            "form":form,
+            "categories":categories,
+            "popular_brands": PopularBrand.objects.all(),
+            "base_tags": Tags.objects.filter(show_on_index=True)[:5],
+        }
+        messages.error(request, "form is invalid")
+        return render(request, 'product-form.html', content)
+    content = {
         "form":form,
         "categories":categories,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'product-form.html', context)
+    return render(request, 'product-form.html', content)
 
 
 def ShopList(request, *args, **kwargs):
     shops = Shop.objects.all()
     new_arrivals = Products.objects.filter(is_approved=True).order_by('-created_at')
 
-    context = {
+    content = {
         'shops':shops,
         "new_arrivals":new_arrivals,
         "most_viewed":Products.objects.filter(is_approved=True).order_by('-created_at'),
@@ -204,7 +218,7 @@ def ShopList(request, *args, **kwargs):
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'shop-list.html', context)
+    return render(request, 'shop-list.html', content)
 
 
 def ShopProducts(request,slug, *args, **kwargs):
@@ -215,13 +229,13 @@ def ShopProducts(request,slug, *args, **kwargs):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     
-    context = {
+    content = {
         'shop':shop,
         'products':page_obj,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'shop-products.html', context)
+    return render(request, 'shop-products.html', content)
     
 
 
@@ -245,33 +259,33 @@ def ContactView(request, *args, **kwargs):
         form_db.save()               
         return HttpResponseRedirect(reverse('products:contact'))
     
-    context = {
+    content = {
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'contact-us.html', context)
+    return render(request, 'contact-us.html', content)
 
 def CartView(request, *args, **kwargs):
     cart_items = CustomerOrder.objects.get(user=request.user, is_ordered=False)
     
-    context = {
+    content = {
         "cart_items": cart_items,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'cart.html', context)
+    return render(request, 'cart.html', content)
 
 @login_required
 def WishListView(request, *args, **kwargs):
     wishlist_items = get_object_or_404(CustomerWishList, user=request.user)
     
-    context = {
+    content = {
         'wishlist_items':wishlist_items,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5]
         
     }
-    return render(request, 'wishlist.html', context)
+    return render(request, 'wishlist.html', content)
 
 def getAccessToken(request):
     consumer_key = config('consumer_key')
@@ -323,12 +337,12 @@ def CheckoutView(request, *args, **kwargs):
             response = requests.post(api_url, json=request, headers=headers)
             return HttpResponse('success')
         
-    context = {
+    content = {
         "cart_items": cart_items,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'checkout.html', context)
+    return render(request, 'checkout.html', content)
 
 
 #register confirmation and validation url with safaricom
@@ -374,11 +388,11 @@ def validation(request):
     file.write(json.dumps(data))
     file.close()
     
-    context = {
+    content = {
         "ResultCode":0,
         "ResultDesc":"Accepted"
     }
-    return JsonResponse(dict(context))
+    return JsonResponse(dict(content))
 
 @csrf_exempt
 def confirmation(request):   
@@ -401,48 +415,48 @@ def confirmation(request):
     order.is_ordered=True
     order.save()
     
-    context = {
+    content = {
         "ResultCode":0,
         "ResultDesc":"Accepted"
     }
     
-    return JsonResponse(dict(context))
+    return JsonResponse(dict(content))
 
 def AboutUsView(request, *args, **kwargs):
     staffs = StaffUser.objects.filter(list_on_about=True)
     cus_reviews = BestCustomerReviews.objects.all()
 
-    context = {
+    content = {
         "staffs":staffs,
         'cus_reviews':cus_reviews,
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'about-us.html', context)
+    return render(request, 'about-us.html', content)
 
 def CategoryListView(request, slug, *args, **kwargs):
     category = get_object_or_404(Category, slug=slug)
     categories = Category.objects.all()
     
-    context = {
+    content = {
         'category':category,    
         'categories':categories,
         'products':category.category_objects(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
-    return render(request, 'category-objects.html', context)
+    return render(request, 'category-objects.html', content)
 
 
 @login_required
 def CompaireView(request, *args, **kwargs):
     compaire_items = CompaireItems.objects.get(user=request.user)    
     
-    context = {
+    content = {
         'compare_items':compaire_items.products.all(),
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5],
     }
-    return render(request, 'compare.html', context)
+    return render(request, 'compare.html', content)
     
 
 @login_required
@@ -470,12 +484,12 @@ def add_to_compaire(request, slug, *args, **kwargs):
 @login_required
 def MyAccountView(request, *args, **kwargs):
     
-    context = {
+    content = {
         "profile":get_object_or_404(Profile, user=request.user),
         "popular_brands": PopularBrand.objects.all(),
         "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
-    return render(request, 'my-account.html', context)
+    return render(request, 'my-account.html', content)
     
  
 def MainSearch(request, *args, **kwargs):    
@@ -489,22 +503,22 @@ def MainSearch(request, *args, **kwargs):
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)  
         
-        context = {
+        content = {
             'query':query,
             'products':page_obj,
             "popular_brands": PopularBrand.objects.all(),
             "base_tags": Tags.objects.filter(show_on_index=True)[:5],
         }
-        return render(request,'search-results.html', context)
+        return render(request,'search-results.html', content)
     
 def TagView(request, slug, *args, **kwargs):
     tag = get_object_or_404(Tags, slug=slug)
     
     products = Products.objects.filter(tags=tag)
     
-    context = {
+    content = {
         'query':tag,
         'products':products,
         "base_tags": Tags.objects.filter(show_on_index=True)[:5]
     }
-    return render(request, 'search-results.html', context)
+    return render(request, 'search-results.html', content)
