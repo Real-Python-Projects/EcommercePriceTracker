@@ -100,6 +100,7 @@
                                         <div class="useful-links mt-20">
                                             <a href="{% url 'products:add-to-compare' request.user product.slug %}" data-toggle="tooltip" data-placement="top" title="Compare"><i class="fa fa-refresh"></i>compare</a>
                                             <a href="{{ product.add_to_wishlist }}" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="fa fa-heart-o"></i>wishlist</a>
+                                            <a href="{% url 'products:product-update' product.slug product.pk %}" data-toggle="tooltip" data-placement="top" title="Wishlist"><i class="fa fa-edit"></i>Update</a>
                                         </div>
                                         <div class="share-icon mt-20">
                                             <a class="facebook" href="#"><i class="fa fa-facebook"></i>like</a>

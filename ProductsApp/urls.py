@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import (IndexView, ContactView, MyAccountView,
-                    CheckoutView, CartView, ProductDetailView, ShopList, ShopProducts,
+                    CheckoutView, CartView, ProductDetailView, ProductUpdateView, ShopList, ShopProducts,
                     add_to_wishlist,remove_from_wishlist, remove_from_cart,
                     add_to_cart, ProductCreateView, WishListView,
                     AboutUsView, CompaireView, CategoryListView,
@@ -18,6 +18,7 @@ urlpatterns = [
     path('compare-specs/<user>/', CompaireView, name="compare"),
     path("cart/", CartView, name="cart"),
     path('product/<slug>/', ProductDetailView, name="product-detail"),
+    path('product/<slug>/<int:pk>/', ProductUpdateView, name="product-update"),
     path('add-to-cart/<slug>/', add_to_cart, name="add-to-cart"),
     path('wishlist/<user>/', WishListView, name='wishlist'),
     path('remove-from-cart/<slug>/', remove_from_cart, name="remove-from-cart"),
